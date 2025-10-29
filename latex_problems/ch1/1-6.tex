@@ -1,7 +1,10 @@
-\subsection{Problem 1.6}
+\subsection*{Problem 1.6}
 	\begin{proof}
-		fooling set of $\log n$ intervals, which cover all of $n$. Which blocks are in
-		$X \cup Y$ determines median, and there are $2^{\frac{n}{\log n}}$ arrangement
-		of blocks, so requres at least $\frac{n}{\log n}$ to determine which
-		arrangement and therefore which median is correct.
+		We take the set $[n]$, and divide it into $\log n$
+		non-overlapping continuous intervals. We know then that the
+		combination of intervals which fall into $X \cup Y$ will then
+		determine the median of the set. Since there are
+		$2^{\frac{n}{\log n}}$ possible intervals, it will take
+		$\omega(\log 2^{\frac{n}{\log n}}) = \Omega(\frac{n}{\log
+		{n}})$
 	\end{proof}
