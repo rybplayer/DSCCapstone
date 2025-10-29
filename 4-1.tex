@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\begin{document}
+
+\begin{proof}
+Let $X_1, X_2, \dots, X_k \in \{0,1\}$ be independent and uniformly random bits. 
+In the number-on-forehead model, the $i$-th player sees all bits except $X_i$ 
+and must guess that value.
+
+We use the protocol below to guess the value of $X_i$:
+\[
+g_i = \sum_{j \ne i}^{k}X_j \mod 2,
+\]
+
+The condition for our guess to be correct is then,
+\[
+X_i = \sum_{j \ne i}^{k}X_j \mod 2
+\]
+
+We can determine whether or not the sum of all bits is zero by the following equation:
+\[
+X_i + \sum_{j \ne i}^{k}X_j \mod 2 = 0
+\]
+
+Which is the same as:
+\[
+X_i = \sum_{j \ne i}^{k}X_j \mod 2
+\]
+
+Therfore, we know that $X_i$ = $g_i$ only if the sum of all bits is even.
+
+Given that $X_1, X_2, \dots, X_k \in \{0,1\}$ are independent and uniformly random bits
+there are $2^k$ unique bytes, assuming $k \ge 1$, we know that $2^{k-1}$ of the unique bytes
+sum to an even number.
+
+Resulting in:
+\[
+P(Correct) = \frac{\textbf{number of bytes with even sums}}{\textbf{total number of bytes}} = \frac{2^{k-1}}{2^k} = \frac{1}{2}
+\]
+
+
+\end{proof}
+
+\end{document}
