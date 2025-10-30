@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage{ryblatex}
+
+\setlength{\parskip}{0em}
+
+\makeindex[
+    name=terms,
+    title={Term Index},
+    columns=3,
+    intoc=true
+]
+
+\makeindex[
+    name=examples,
+    title={Example Index},
+    columns=2,
+    intoc=true
+]
+
+\AddToHook{cmd/subsection*/after}{\addcontentsline{toc}{subsection}{#1}}
+
+\usepackage{versions}
+
+\title{DSC 180A: Exercise Solutions}
+\author{Ciro, Darren, Ivy, Ryan}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Chapter 1 Exercises}
+\input{"latex_problems/1-6.tex"}
+
+\section{Chapter 2 Exercises}
+\input{"latex_problems/2-1.tex"}
+\input{"latex_problems/2-6.tex"}
+
+\section{Chapter 3 Exercises}
+\input{"latex_problems/3-2.tex"}
+
+\section{Chapter 4 Exercises}
+\input{"latex_problems/4-1.tex"}
+
+\newpage
+\printindex[terms]
+
+\newpage
+\printindex[examples]
+
+\end{document}

@@ -1,0 +1,24 @@
+\begin{exercise}[2.6]
+For any symmetric matrix $M \in \{0,1\}^{n \times n}$, with ones in diagonal entries, show that $2^c \geq n^2 / |M|$ where $|M|$ is the number of ones in $M$ and $c$ is the deterministic communication complexity of $M$.
+\end{exercise}
+
+\begin{proof}
+The protocol partitions the matrix into at most $R \leq 2^c$ monochromatic rectangles. Consider only the $1$-rectangles, labelling them $R_1$ to $R_t$ where $t \leq R$. \medbreak
+
+For each $1$-rectangle $R_r$, let its row set be $A_r$ and its column set $B_r$. The diagonal entries are all 1, so they are exactly the $d_r := | A_r \cap B_r |$. There are $n$ diagonals so
+\begin{align*}
+    \sum_{r=1}^t k_r = n.
+\end{align*}
+If $i,j \in A_r \cap B_r$, then $(i,j)$ is in $R_r$ and evaluates to 1. There must be at least $k_r^2$ of these entries. Hence $|M|$ must be at least the sum of all these:
+\begin{align*}
+    \sum_{r=1}^t k_r^2 \leq |M|.
+\end{align*} 
+We can apply Cauchy-Schwarz, $(\sum k_r)^2 \leq t \sum k_r^2$, to get
+\begin{align*}
+    n^2 
+    = \left( \sum_{r=1}^t k_r \right)^2 
+    \leq t \sum_{r=1}^t k_r^2
+    \leq r|M|.
+\end{align*}
+Since $t \leq R \leq 2^c$ we have $2^c \geq n^2 / |M|$ as desired.
+\end{proof}

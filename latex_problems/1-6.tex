@@ -1,7 +1,7 @@
-\subsection{Problem 1.6}
-	\begin{proof}
-		fooling set of $\log n$ intervals, which cover all of $n$. Which blocks are in
-		$X \cup Y$ determines median, and there are $2^{\frac{n}{\log n}}$ arrangement
-		of blocks, so requres at least $\frac{n}{\log n}$ to determine which
-		arrangement and therefore which median is correct.
-	\end{proof}
+\begin{exercise}[1.6]
+Recall the protocol for the median of two lists discussed in the introduction. Consider the following varaint of the median problem. Alice is given a set $X \subseteq [n]$, Bob is given a set $Y \subseteq [n]$, and their goal is to compute the median of the set $X \cup Y$. The difference here is that we take the union as sets, so there are no repetitions. Show that the communication complexity of this problem is at least $\Omega(n / \log n)$. \emph{Hint: Compute the median of the union of sets, as well as the union of sets.}
+\end{exercise}
+
+\begin{proof}
+This is a fooling set of $\log n$ intervals, which cover all of $n$. Which blocks are in $X \cup Y$ determines median, and there are $2^{\frac{n}{\log n}}$ arrangements of blocks, so requires at least $\frac{n}{\log n}$ to determine which arrangement and therefore which median is correct.
+\end{proof}
