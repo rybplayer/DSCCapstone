@@ -1,0 +1,242 @@
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry} 
+
+%% /Users/ryanbatubara/Library/texmf/tex/latex/ryblatex.sty
+%% \AddToHook{cmd/section/before}{\clearpage}
+
+%% IMPORTS %%
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{nicefrac}
+\usepackage{fancyhdr}
+\usepackage{subcaption}
+\usepackage{imakeidx}
+\usepackage{tikz}
+\usepackage{esdiff}
+\usepackage{listings}
+\usepackage[many]{tcolorbox}
+\usepackage{stmaryrd}
+\usepackage{mdframed}
+\usepackage{complexity}
+\usepackage{booktabs}
+\usepackage{csquotes,tabularx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{nicefrac}
+\usetikzlibrary{cd}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.markings}
+\usepackage{bold-extra}
+\usepackage{esint}
+\usepackage{extarrows}
+\usepackage{quiver}
+\usepackage{mathtools}
+\usepackage{xifthen}
+\usepackage{faktor}
+\usepackage{cancel}
+\usepackage{ytableau}
+% \usepackage{parskip}
+
+% LaTeX Control Packages
+\usepackage{pgffor}
+
+% Move hyperref and bookmark to the end
+\usepackage{bookmark}
+\usepackage{hyperref}
+
+%% DOCUMENT CONTROLS
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-3em}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{0em}
+
+% Term and Example commands for indexing
+\newcommand{\term}[1]{{\color{purple}\textbf{#1}}\index[terms]{#1}}
+\newcommand{\ex}[1]{{\color{blue}\textbf{#1}}\index[examples]{#1}}
+
+% Section Notators
+\newtheoremstyle{mytheoremstyle}
+{}
+{}
+{}
+{}
+{\scshape}
+{}
+{.5em}
+{\thmname{#1} \thmnumber{#2} \thmnote{(\textsc{#3})}}
+
+\theoremstyle{mytheoremstyle}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{remark*}{Remark}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem*{claim}{Claim}
+\newtheorem{ques}{Question}
+\newtheorem{problem}{Problem}
+\newtheorem{exercise}{Exercise}
+
+% Auto-labeling for theorem-like environments
+\usepackage{etoolbox}
+\makeatletter
+\newcommand{\autolabel@hook}{%
+  \addtocounter{theorem}{1}%
+  \label{\arabic{section}.\arabic{theorem}}%
+  \addtocounter{theorem}{-1}%
+}
+
+% Apply the label at the beginning of the environment before counter increments
+\preto\theorem{\autolabel@hook}
+\preto\definition{\autolabel@hook}
+\preto\example{\autolabel@hook}
+\preto\proposition{\autolabel@hook}
+\preto\lemma{\autolabel@hook}
+% \preto\corollary{\autolabel@hook}
+\preto\remark{\autolabel@hook}
+\preto\conjecture{\autolabel@hook}
+\preto\notation{\autolabel@hook}
+\preto\axiom{\autolabel@hook}
+\makeatother
+
+% LETTER COMMANDS
+
+% Mathbb Commands
+\foreach \x in {A,...,Z}{%
+    \expandafter\xdef\csname \x\endcsname{%
+    \noexpand\ensuremath{\noexpand\mathbb{\x}}}%
+}
+% Mathcal Commands
+\foreach \x in {A,...,Z}{%
+    \expandafter\xdef\csname c\x\endcsname{%
+    \noexpand\ensuremath{\noexpand\mathcal{\x}}}%
+}
+% Mathfrak Commands
+\foreach \x in {A,...,Z}{%
+    \expandafter\xdef\csname f\x\endcsname{%
+    \noexpand\ensuremath{\noexpand\mathfrak{\x}}}%
+}
+
+% In-set Mathbb Commands
+\foreach \x in {A,...,Z}{%
+    \expandafter\xdef\csname in\x\endcsname{%
+    \noexpand\ensuremath{\noexpand\in\noexpand\csname\x\endcsname}}%
+}
+% In-set Mathcal Commands
+\foreach \x in {A,...,Z}{%
+    \expandafter\xdef\csname inc\x\endcsname{%
+    \noexpand\ensuremath{\noexpand\in\noexpand\csname c\x\endcsname}}%
+}
+% In-set Mathfrak Commands
+\foreach \x in {A,...,Z}{%
+    \expandafter\xdef\csname inf\x\endcsname{%
+    \noexpand\ensuremath{\noexpand\in\noexpand\csname f\x\endcsname}}%
+}
+
+% Format commands
+\newcommand*{\newfaktor}[2]{% \newfaktor{#1}{#2} -> #1\#2
+  \raisebox{-0.5\height}{#1}% Numerator
+  \diagdown\mkern-5mu% Slash /
+  \raisebox{0.5\height}{#2}% Denominator
+}
+
+% MATH ESSENTIALS
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\renewcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+\newcommand{\divides}{\vert}
+\newcommand{\notdivides}{\nmid}
+\newcommand{\sline}{\\[0.5\baselineskip]}
+\renewcommand{\u}[1]{\underline{#1}}
+\renewcommand{\o}[1]{\overline{#1}}
+\newcommand{\smatrix}[4]{\left(\begin{smallmatrix}#1&#2 \\ #3&#4\end{smallmatrix}\right)}
+\newcommand{\svect}[2]{\left(\begin{smallmatrix}#1\\#2\end{smallmatrix}\right)}
+\newcommand{\mat}[4]{\begin{pmatrix}#1&#2\\#3&#4\end{pmatrix}}
+\newcommand{\vect}[2]{\begin{pmatrix}#1\\#2\end{pmatrix}}
+\newcommand{\Choose}[2]{{}^{#1}C_{#2}}
+\newcommand{\Perm}[2]{{}^{#1}P_{#2}}
+\newcommand{\Id}{\text{Id}}
+\renewcommand{\Im}{\text{Im}\:}
+\newcommand{\Dom}{\operatorname{Dom}}
+\renewcommand\co{
+  \mathchoice
+    {{\scriptstyle\mathcal{O}}}% \displaystyle
+    {{\scriptstyle\mathcal{O}}}% \textstyle
+    {{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+    {\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+  }
+\newcommand{\sign}{\operatorname{sign}}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ALGEBRA
+\newcommand{\GL}{\text{GL}}
+\newcommand{\Ker}{\text{Ker}\:}
+\newcommand{\Coker}{\text{Coker}\:}
+\newcommand{\tensor}[1]{\:\displaystyle{\underset{\text{$#1$}}{\otimes}}\:}
+\newcommand{\End}{\text{End}}
+\newcommand{\Hom}{\text{Hom}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\Tor}{\operatorname{Tor}}
+\newcommand\isomto{\stackrel{\sim}{\smash{\longrightarrow}\rule{0pt}{0.4ex}}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\Irr}{\operatorname{Irr}}
+\newcommand{\Red}{\operatorname{Red}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\Class}{\operatorname{Cl}}
+
+% PROBABILITY
+\newcommand{\Exp}{\operatorname{Exp}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Unif}{\operatorname{Unif}}
+\newcommand{\CC}{\operatorname{CC}}
+
+% TOPOLOGY
+\newcommand{\Int}{\operatorname{Int}}
+\newcommand{\Cl}{\operatorname{Cl}}
+\newcommand{\Bd}{\operatorname{Bd}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\Char}{\operatorname{char}}
+
+% ENVIRONMENTS
+
+% General Purpose Environments
+\newenvironment{note}{\begingroup\fontsize{8pt}{12pt}\selectfont}{\endgroup}
+\newenvironment{prove}{\emph{Proof. }}{\hfill\qedsymbol}
+\newenvironment{sprove}{\emph{Proof. }\sline}{\hfill\qedsymbol}
+
+% Homework Notators
+\newcommand{\Problem}{\bigskip\textbf{Problem. }}
+\newcommand{\Response}{\bigskip\textbf{Response. }}
+\newcommand{\Runtime}{\bigskip\emph{Runtime. }}
+\newcommand{\Correctness}{\bigskip\emph{Correctness. }}
+
+\hypersetup{
+    % hidelinks,
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    linktoc=all
+}
+\newcommand{\labelref}[1]{\hyperref[#1]{#1}}
+
+% Document Control
+\pagestyle{fancy}
+\lhead{\thetitle}
+\rhead{\theauthor}
+\let\oldsection\section
+
+% Lecture inclusion
+\newcommand{\includeLectures}[2][Lectures]{%
+  \foreach \i in {1,...,#2} {%
+    \input{#1/lec\i}%
+  }%
+}
