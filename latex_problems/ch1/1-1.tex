@@ -1,0 +1,6 @@
+\subsection*{Problem 1.6}
+	\begin{proof}
+  
+Partition the first $mk$ elements of $[n]$ into $m=\lfloor n/k\rfloor$ disjoint blocks $S_1,\dots,S_m$, each of size $k$. For each $i$, take the input pair $(A_i,B_i)=(S_i,S_i)$. Then $f(A_i,B_i)=1$ (they intersect), while for $i\ne j$, $f(S_i,S_j)=0$ since the blocks are disjoint. Thus $\{(S_i,S_i):i\in[m]\}$ is a 1-fooling set of size $m$, so any deterministic protocol needs at least $\log m=\log\!\lfloor n/k\rfloor$ bits.
+
+	\end{proof}
