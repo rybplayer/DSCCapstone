@@ -1,0 +1,25 @@
+\subsection*{Exercise 1.3}
+Alice and Bob each get a subset of size \(k\) of
+\([n] = \{1,2,\dots,n\}\). They want to know whether their sets intersect.
+Show that any deterministic protocol needs at least
+\(\log \bigl(\lfloor n/k \rfloor\bigr)\) bits of communication.
+
+\begin{proof}
+Let $m = \lfloor n/k \rfloor$ and split the first $mk$ elements into $m$ disjoint blocks\\
+
+\[
+S_1, S_2, \dots, S_m
+\]
+
+each of size $k$.\\
+
+Now only look at inputs where Alice gets exactly one of these blocks and Bob also gets exactly one block. Then:\\
+\[
+f(S_i, S_i)=1 \quad\text{(same block, so they intersect)}
+\]
+\[
+f(S_i, S_j)=0 \text{ for } i\neq j \quad\text{(different blocks, disjoint)}
+\]\\
+
+So we have $m$ different $1$-inputs that all have to lead to different transcripts. That forces at least $\log m = \log \lfloor n/k \rfloor$ bits.
+\end{proof}
