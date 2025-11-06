@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\author{Ciro, Darren, Ivy, Ryan}
+\title{DSC180A FA25 Notes}
+\date{\today}
+
+\begin{document}
+\tableofcontents
+
+\section{Randomized Protocals}
+\subsection{Types of Randomness}
+A \emph{Randomized} Protocal is a protocal which has access to some form of
+randomness. There are three veriaties of randomness that can occur:
+
+\begin{description}
+\item[Public Coin]
+A Protocal whos randomness is derived from a string, known as a \emph{coin},
+which is visible to all parties.
+\item[Provate coin]
+Much like public coin, only in this case each party has a uniqe coin to produce
+their own randomness
+\item[Randomized Input]
+In this case, we considter that the input is randomly sampled from a
+distribution, which has the effect of producing a non determanistic protocal
+\end{description}
+
+For any random protocal, we can convert it easily into a determanistic
+protocal, simply by fixing a coin or input, and then consiter how it behaves.
+Further, Public and Private coin protocals can be cycled between. When
+converting from a private to a public protocal, we mearely need to had both
+parties agree to share thier private coins. For public to private, it can be
+shown that this conversion can be done with only an additional
+$\log(\frac{n}{\epsilon^2}) + \Omicron(1)$ bits.
+\subsection{Error}
+The overall error rate of a Randomized protocal, $\epsilon$, is thought of as
+the worst case error. That is, for all inputs $(x, y)$, the error rate of the
+protocal is never more that $\epsilon$. Furthermore, as we assume this error is
+less than $\frac{1}{2}$, it can always be reduced by rerunning the protocal. To
+reduce the error to any given value, $\delta$, the protocal can be repeated
+$\Omicron(\log(\frac{1}{\delta})$ times.
+
+\subsection{Yaos minimax Principle}
+Yao's Minimax principle is a very helpful principle for proving lowerbounds on
+randomized protocals. Formaly, it is an extention of the general minimax
+principle, $\min_{x\inA} \max_{y \in b} xMy = \max_{y \in B} \min_{x \in A}$,
+to expectations over random variables. Informally, it states that the optimal
+performance of any random protocal is equal to that of any determanistic
+protocal who's input is sampled from a worst case distribution, chosen to be as
+hard as possible for the algorithm to solve. Thus, for many random protocals,
+the process of finding a lower bound becomes that of finding such a worste case
+input, and then proving the lower bound for that input.
+\end{document}
