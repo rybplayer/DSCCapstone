@@ -1,33 +1,22 @@
-\documentclass[12pt]{article}
-\usepackage{amsmath, amssymb, amsthm, geometry}
-\usepackage{setspace}
-\usepackage{hyperref}
+\section{Rank}
 
-\geometry{margin=1in}
-\setstretch{1.2}
+\subsection{What is Rank?}
 
-\title{DSC180A Notes: Rank, Non-Negative Rank, and Communication Complexity}
-\author{}
-\date{}
-
-\begin{document}
-\maketitle
-
-\section{What is Rank?}
-
-\textbf{Definition.}  
-The rank of a matrix is the number of linearly independent variables (or columns/rows) in that matrix. Essentially, rank measures the number of variables not accounted for by other variables.
-
+\begin{definition}  
+The \term{rank} of a matrix is the number of linearly independent variables (or columns/rows) in that matrix. Essentially, rank measures the number of variables not accounted for by other variables. \medbreak
 This idea connects closely to communication complexity: the communication complexity represents the number of independent pieces of data that must be sent. Dependent variables need not be transmitted—only the independent ones. Hence, rank correlates with communication complexity.
+\end{definition}
 
-\section{Properties of Rank}
+\subsection{Properties of Rank}
 
+\begin{lemma}
 Given matrices $A$ and $B$:
 \begin{align*}
 \text{If } A \subseteq B, &\quad \mathrm{rank}(A) \le \mathrm{rank}(B), \\
 \mathrm{rank}\begin{pmatrix} A & C \\ 0 & B \end{pmatrix} &\ge \mathrm{rank}(A) + \mathrm{rank}(B), \\
 |\mathrm{rank}(A) - \mathrm{rank}(B)| &\le \mathrm{rank}(A + B) \le \mathrm{rank}(A) + \mathrm{rank}(B).
 \end{align*}
+\end{lemma}
 
 \begin{itemize}
   \item Constants used in a function $g(i, j)$ do not change the rank.
@@ -36,9 +25,11 @@ Given matrices $A$ and $B$:
   \item $\mathrm{rank}(M) \le$ (number of rank-1 matrices).
 \end{itemize}
 
-\section{Tensors}
+\subsection{Tensors}
 
-The tensor product of two matrices is the projection of one matrix onto another, resulting in an $n \times n'$-dimensional space.
+\begin{definition}
+The \term{tensor product} of two matrices is the projection of one matrix onto another, resulting in an $n \times n'$-dimensional space.
+\end{definition}
 
 The tensor product multiplies ranks:
 \[
@@ -47,67 +38,70 @@ The tensor product multiplies ranks:
 
 This makes intuitive sense—projecting onto additional dimensions increases rank multiplicatively.
 
-\section{Lower Bounds Using Rank}
+\subsection{Lower Bounds Using Rank}
 
+\begin{lemma}
 The logarithm of the rank gives a lower bound on communication complexity:
 \[
 2^c \ge \mathrm{rank}(M) \quad \Rightarrow \quad c \ge \log_2 \mathrm{rank}(M).
 \]
+\end{lemma}
 
 Since $2^c$ represents the maximum number of monochromatic rectangles that $c$ bits can encode, $\log_2(\mathrm{rank}(M))$ is a fundamental lower bound.
 
-\section{Non-Negative Rank}
+\subsection{Non-Negative Rank}
 
-\textbf{Definition.}  
+\begin{definition}  
 For a non-negative matrix $M$, the following are equivalent:
+\end{definition}
 
 \begin{enumerate}
-  \item The smallest number of non-negative rank-1 matrices that sum to $M$.
+  \item The smallest number of \term{non-negative rank-1 matrices} that sum to $M$.
   \item The smallest integer $r$ such that $M = UV$ where $U$ and $V$ are non-negative matrices of sizes $m \times r$ and $r \times n$, respectively.
   \item The smallest number $r$ such that every column of $M$ is a non-negative linear combination of $r$ non-negative vectors of size $m$.
 \end{enumerate}
 
-\textbf{Example.}  
-The matrix $\begin{pmatrix}1 & 1 & 0 & 0\\ 1 & 0 & 1 & 0\\ 0 & 1 & 0 & 1 \\ 0 & 0 & 1 & 1\end{pmatrix}$ has $\mathrm{rank}(M) = 3$ but $\mathrm{rank}_+(M) = 4$.
+\begin{example}
+The matrix 
+\begin{align*}
+M = \begin{pmatrix}1 & 1 & 0 & 0\\ 1 & 0 & 1 & 0\\ 0 & 1 & 0 & 1 \\ 0 & 0 & 1 & 1\end{pmatrix}
+\end{align*}
+has $\mathrm{rank}(M) = 3$ but $\mathrm{rank}_+(M) = 4$.
+\end{example}
 
-\textbf{Lemma.}  
+\begin{lemma}
 If a matrix is $3 \times 3$ or smaller, $\mathrm{rank}_+(M) = \mathrm{rank}(M)$.
-
-\textbf{Lemma (Fact 2.12).}  
-$min\{m,n\} \ge \mathrm{rank}_+(M) \ge \mathrm{rank}(M)$.
-
-\textbf{Remark.}  
-Non-negative rank equals regular rank when $\mathrm{rank}(M) \le 2$, but may diverge for larger matrices.
-
-\textbf{Conjecture.}  
-Determining $\mathrm{rank}(M)$ is polynomial-time solvable, being ($O(n^3)$) (e.g., via SVD or Gaussian elimination), while determining $\mathrm{rank}_+(M)$ or checking whether $\mathrm{rank}_+(M) = \mathrm{rank}(M)$ is NP-hard.
-
-\section{Non-Negative Rank Bounds}
-
-\textbf{Remark.}  
-Despite computational difficulty, non-negative rank often yields tighter lower or upper bounds on communication complexity.
-
-\begin{theorem}[2.13]
-If $M$ is not the all-ones matrix, the communication complexity of $M$ is at least $\log_2 \mathrm{rank}_+(M)$. (Follows from Theorem 2.2.)
-\end{theorem}
-
-\begin{lemma}[2.15]
-If a Boolean matrix $M$ has a 1-cover of size $r$, then the communication complexity of $M$ is at most $\log_2 r$.
 \end{lemma}
 
-\textbf{Remark.}  
-These bounds can differ exponentially.
+\begin{lemma}
+(Fact 2.12.)  
+$min\{m,n\} \ge \mathrm{rank}_+(M) \ge \mathrm{rank}(M)$.
+\end{lemma}
 
-\section{Log-Rank Conjecture}
+\begin{remark}
+Non-negative rank equals regular rank when $\mathrm{rank}(M) \le 2$, but may diverge for larger matrices.
+\end{remark}
 
-\begin{conjecture}[2.16]
+\begin{conjecture}  
+Determining $\mathrm{rank}(M)$ is polynomial-time solvable, being ($O(n^3)$) (e.g., via SVD or Gaussian elimination), while determining $\mathrm{rank}_+(M)$ or checking whether $\mathrm{rank}_+(M) = \mathrm{rank}(M)$ is NP-hard.
+\end{conjecture}
+
+\subsection{Non-Negative Rank Bounds}
+
+\begin{remark}  
+Despite computational difficulty, non-negative rank often yields tighter lower or upper bounds on communication complexity.
+\end{remark}
+
+\subsection{Log-Rank Conjecture}
+
+\begin{conjecture}
 There exists a constant $c$ such that for every non-constant matrix $M$,
 \[
 \text{CC}(M) \le (\log \mathrm{rank}(M))^c.
 \]
 \end{conjecture}
 
-\section{Upper Bounds and Proof Sketches}
+\subsection{Upper Bounds and Proof Sketches}
 
 \begin{theorem}[2.14]
 The communication complexity of a Boolean matrix $M$ is at most $O(\mathrm{rank}(M) \log^2 \mathrm{rank}^+(M))$.
@@ -127,7 +121,7 @@ If $\mathrm{rank}(M) = r$, then $\text{CC}(M) = O(\sqrt{r}\log^2(r)))$.
 \textbf{Proof.}  
 Follows from iterative binary partitioning, reducing the matrix size by a constant factor at each step. A tighter bound of $O(\sqrt{\mathrm{rank}(M)} \log \mathrm{rank}(M))$ was proven by Lovett (2014).
 
-\section{Properties of Boolean Matrices}
+\subsection{Properties of Boolean Matrices}
 
 \begin{claim}[2.19]
 If at least half of the entries in $M$ are 0s, then there is a submatrix T of size at least $mn * 2^{-O(\sqrt{r}log(r))}$ such that the fraction of 1s in T is at most $\frac{1}{r^3}$.
@@ -145,7 +139,6 @@ Any Boolean matrix $M$ of rank $r$ can be expressed as $M = UV$, where $U$ is an
 Let $K \subseteq R^T$ be a symmetric convex body such that the unit ball is the largest-volume ellipsoid contained in $K$. Then every element of $K$ has Euclidean length at most $\sqrt{r}$.
 \end{theorem}
 
-\textbf{Proof Sketch.}  
+\begin{proof}  
 Since scaling preserves convexity, we can assume $K$ forms a convex polytope. By Theorem 2.21, all rows of $U$ have norm $\le \sqrt{r}$. Because $M$ is Boolean, for each pair $(u_i, v_j)$, the dot product satisfies $u_i^\top v_j \in \{0,1\}$. Since $|row(A)|_2 \le 1$ with equality achieved when r = 1, we get the triangle inequality that $|col(B)|_2 \le 1$, as desired.
-
-\end{document}
+\end{proof}

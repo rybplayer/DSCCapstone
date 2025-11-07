@@ -1,0 +1,113 @@
+\section{Number on Foreheads}
+
+\subsection{Multi-Party Communication}
+
+\begin{definition}
+In \term{nunber on forehead} problems, we have $k$ parties where each party can see the input of all other parties but not themselves.
+\end{definition}
+
+\begin{remark}
+Why study this weird setup? Normally we consider number in hand setups, where each party only knows their own number. The reason is that many of these tools are used to prove lower bounds. (Opposed to algorithms which focus more on lower bounds). Because number of foreheads is a much more powerful model than number in hand, we can show lower bounds for many more problems that do not even look like communciation. \medbreak
+
+In particular, this model is applicable even when we allow shared information, but number in hand would not.
+\end{remark}
+
+\begin{example}
+Consider the \ex{pointer chasing problem}. There are three players. The first player holds a pointer in $\log n$ bits to $n$ nodes. The second holds a permutation of the $n$ nodes. The third has labels for for the $n$ permuted nodes. If we have the number in hand model, this would take $2 \log n$ bits. However, with number for forehead, a trivial protocol takes $O(n)$ bits and a non-trivial one takes $O(n / \log n)$ bits.
+\end{example}
+
+\begin{example}
+Consider \ex{equality with $k$ players}. Then you only need $k-1$ bits of communication. Consider the case with 3 players. Alice can see if Bob's number if equal to Charlie and send a $1$ if so. Bob can then do the same with Alice and Charlie.
+\end{example}
+
+\begin{example}
+Consider the \ex{intersection with $k$ parties problem}, and each party has a set $X_i \subseteq [n]$ as input on their forehead. The goal is to compute
+\begin{align*}
+    |X_1 \cap X_2 \cap \cdots \cap X_k|
+\end{align*}
+We can map this as a matrix problem: Consisder a $k \times n$ matrix where entry $(i,j)$ means player $i$ has number $j$. Thus we want to count the number of columns with all $1$s, such as the middle column of the following matrix $k \times n$ matrix:
+\begin{align*}
+    \begin{bmatrix}
+        1 & \cdots & 1 & \cdots & 0 \\ 
+        \vdots & \ddots & 1 & \ddots & \vdots \\
+        \vdots & \ddots & 1 & \ddots & \vdots \\
+        \vdots & \ddots & 1 & \ddots & \vdots \\
+        0 & \cdots & 1 & \cdots & 1
+    \end{bmatrix}
+    \in \F_2^{k \times n}.
+\end{align*}
+A simple $O(n)$ algorithm would have one player count all the other parties' numbers, then have another party verify it out. A more clever algorithm is below. \medbreak
+
+For each party $i$, count $C_{i0}$, $C_{i1}$, and so on, where $C_{ij}$ is the number of columns containing exatcly $j$ ones visible to the $i$th party. The parties announce $C_{i,j}$ for all $i,j$. Thus the communciation complexity is at most $O(k^2 \log n)$.
+\end{example}
+
+The above example only works if given all $C_{ij}$ for all $i,j$, there is a unique possible count for the number of all $1$s columns. We show that now.
+
+\begin{proof}
+Let $Z_r$ denote the number of column with $r$ ones. We show there is a unique tuple $Z = (Z_0, \ldots, Z_k)$ consistent with the $C_{ij}$s. 
+
+\begin{lemma}
+Suppose $Z = A$, $Z = B$ are two solutions that are both consistent with all $C_{ij}$s. Then 
+\begin{align*}
+    |A_r - B_r| = \binom{k}{r} |A_0 - B_0|
+\end{align*}
+for each $r \in \{0,1,\ldots,k\}$.
+\end{lemma}
+\end{proof}
+
+\begin{example}
+Consider exactly 3 parties. Each party has a number from $[n]$ on their forehead, and they want to know if these sum to $n$. The trivial protocol takes $O(\log n)$ by announcing one number and having the party whose number was announced compute the sum. \medbreak
+
+There is another protocol that takes $O(\sqrt{\log n})$. Take $\Delta = A + B + C - n$. One does $-A + 2(n - A - C)$. Another does $(n - B - C) + 2B$. \medbreak
+
+\begin{theorem}
+\term{Berhend's Coloring}: One can color the set $[m]$ with $2^{O(\sqrt{\log m})}$ colors with no monochromatic 3-term arithmetic progression. Namely, for each $a,b \in [m]$, if all three numbers $a, a+b, a+2b$ are in $[m]$, they do not have the same color.
+\end{theorem}
+
+Just by comparing the colors, they will know whether $\Delta = 0$ which is equivalent to knowing if the sum is equal to $n$.
+\end{example}
+
+\begin{remark}
+Recent results have allowed us to show we need $2^{(\log m)^c}$ where $0 \leq c \leq 1$ is a small constant. The paper is very technical.
+\end{remark}
+
+\subsection{Cylinders}
+
+\begin{definition}
+Any set $S \subseteq X_1 \times \cdots \times X_k$ can be described by its \term{characteristic function}
+\begin{align*}
+    F_S(x_1, \ldots, x_k) = \begin{cases}
+        1 & (x_1, \ldots, x_k) \in S \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{align*}
+\end{definition}
+
+\begin{definition}
+A \term{cylinder} is a set constant in a dimension $X_s$.
+\end{definition}
+
+\begin{remark}
+Let us take a step back. In the 2 player case, the inputs where the output is $1$ form $2^c$ rectangles. Cylinders are the greater than 2 dimension counterpart. Consider a decision tree with three players:
+\end{remark}
+
+\[\begin{tikzcd}
+	&& {f(B,C)} \\
+	& {g(A,C)} && \cdots \\
+	\ldots && {f(B,C)} \\
+	& {h(A,B)} && \ldots \\
+	& {\text{Result}}
+	\arrow["0"', from=1-3, to=2-2]
+	\arrow["1", from=1-3, to=2-4]
+	\arrow["0"', from=2-2, to=3-1]
+	\arrow["1", from=2-2, to=3-3]
+	\arrow[from=3-3, to=4-2]
+	\arrow[from=3-3, to=4-4]
+	\arrow[from=4-2, to=5-2]
+\end{tikzcd}\]
+
+Then the intersection forms at most $2^c$ cylinder intersections where the output is $1$.
+
+\begin{remark}
+TODO: Ramsey theory
+\end{remark}

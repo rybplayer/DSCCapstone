@@ -1,0 +1,209 @@
+\section{Randomized Protocols}
+
+\subsection{Defining Randomness}
+
+\begin{definition}
+To talk about randomness in communication protocols, we begin by giving a careful definition of it. A protocol uses \term{public randomness} or \term{public coins} when all parties have access to a common shared random string. We denote this string by $R$. \medbreak
+
+A protocol uses \term{private randomness} or \term{private coins} if each party privately samples an independent random string. In the case of Alice and Bob, we call these strings $R_a$ and $R_b$ respectively. \medbreak
+
+We require $R$, $R_a$, $R_b$, and the input $(X,Y)$ as independent uniform and the only source of randomness in the protocol. Thus, a random protocol is simply a distribution over deterministic protocols.
+\end{definition}
+
+\begin{lemma}
+Every private coin protocol can be simulated by a public coin protocol.
+\end{lemma}
+
+\begin{proof}
+Simply use the public coin as the private coin.
+\end{proof}
+
+\begin{lemma}
+Every public coin protocol can be simulated by a private coin protocol, albeit with a small increase in the length of the protocol.
+\end{lemma}
+
+\begin{proof}
+Deferred.
+\end{proof}
+
+\begin{definition}
+By introducting randomness, we also allow \term{error} into our functions. There are two ways to measure the probability that a random protocol makes an error: \medbreak
+
+A random protocol has error $\epsilon$ in the \term{worst-case error} if for every input, the probability that the protocol makes an error is at most $\epsilon$. That is, $\forall x,y$,
+\begin{align*}
+    \mathop{Pr}_{R,R_a,R_b} [\pi_{R,R_a,R_b}(x,y) \text{ is wrong}] \leq \epsilon,
+\end{align*}
+where $\pi_{R,R_a,R_b}$ is the deterministic protocol obtained by fixing said variables. \medbreak 
+
+Given a distribution on inputs $\mu$, we say that a protocol has error $\epsilon$ with respect to $\mu$ if the probability that the protocol makes an error is at most $\epsilon$ when the inputs are sampled from $\mu$. That is,
+\begin{align*}
+    \mathop{Pr}_{R,R_a,R_b,(X,Y)} [\pi_{R,R_a,R_b}(X,Y) \text{ is wrong}] \leq \epsilon.
+\end{align*}
+The \term{length} of a protocol is defined to be the maximum depth of all the deterministic protocol tress the random protocol may generate.
+\end{definition}
+
+\begin{lemma}
+If a randomized protocol never errors, then we can fix the randomness to obtain a deterministic protocol that is always correct.
+\end{lemma}
+
+\begin{corollary}
+If a randomized protocol has less length than its deterministic counterparts, then it must introduce some form of error to the output of the protocol.
+\end{corollary}
+
+For any random protocal, we can convert it easily into a determanistic
+protocal, simply by fixing a coin or input, and then consiter how it behaves.
+Further, Public and Private coin protocals can be cycled between. When
+converting from a private to a public protocal, we mearely need to had both
+parties agree to share thier private coins. For public to private, it can be
+shown that this conversion can be done with only an additional
+$\log(\frac{n}{\epsilon^2}) + \mathcal{O}(1)$ bits.
+
+\subsection{Yaos minimax Principle}
+
+\begin{theorem}
+Yao's Minimax principle is a very helpful principle for proving lowerbounds on
+randomized protocals. Formaly, it is an extention of the general minimax
+principle, $\min_{x\inA} \max_{y \in b} xMy = \max_{y \in B} \min_{x \in A}$,
+to expectations over random variables. Informally, it states that the optimal
+performance of any random protocal is equal to that of any determanistic
+protocal who's input is sampled from a worst case distribution, chosen to be as
+hard as possible for the algorithm to solve. Thus, for many random protocals,the process of finding a lower bound becomes that of finding such a worste case
+input, and then proving the lower bound for that input.
+\end{theorem}
+
+\subsection{Equality}
+
+In equality, Alice and Bob are given $n$ bit strings $x,y$ and wish to know if these strings are the same or not. We know its determinstic communciation complexity is $n+1$.
+
+\begin{example}
+\ex{Simple Random Equality Protocol:} Let Alice and Bob have a shared random coin of length $k2^n$. This allows Alice and Bob to recover a random function
+\begin{align*}
+    h : \{0,1\}^n \to \{0,1\}^k
+\end{align*}
+which we can treat as a hashmap. Then Alice can send $h(x)$ to Bob and Bob responds with a bit indicating if $h(x) = h(y)$. \medbreak
+
+Here $k+1$ bits are communicated and the probability of making an error is at most $2^{-k}$; the probability $h(x) = h(y)$ yet $x \neq y$ is $2^{-k}$, the probability $k$ bits of $x,y$ are the same (when hashed).
+\end{example}
+
+\begin{remark}
+Though the protocol is efficient it requires a large number of shared random bits. We can try to reduce the number of bits, introducing a new dimension to optimize in our protocols.
+\end{remark}
+
+\begin{example}
+\ex{Error-correcting Equality Protocol} An (example of an) \term{error correcting code} is a function
+\begin{align*}
+    C : \{0,1\}^n \to [2k]^m
+\end{align*}
+such that if $x \neq y$, then $C(x)$ and $C(y)$ differ in all but $m/2^{-\Omega(k)}$ coordinates. (When $m = 10n$, for any $k$ most functions $C$ will be error-correcting codes.) \medbreak
+
+Given a code, Alice can pick a random coordinate of $C(x)$ and send it to Bob, and Bob can check whether $C(x) = C(y)$. Alice takes $\log_2 m$ bits to send the index and $\log_2 2^k = k$ bits to send the value. Thus the protocol takes $O(\log n + k)$ bits of communication. \medbreak 
+
+The probability of making an error is at most $2^{-\Omega(k)}$, by the definition of the error-correcting code.
+\end{example}
+
+\begin{example}
+\ex{Greater-than Random Protocol} Deterministic protocols take $\log n$ bits. A randomized protocol taking $O(\log \log n)$ bits exists. \medbreak
+A simpler random protocol in $O(\log \log n \cdot \log \log \log n)$ can be done by using the above equality protocol to check if the first $n/2$ most significant bits of $x,y$ are the same. This allows us to perform a binary search on which bit differs first.
+\end{example}
+
+\subsection{Disjointness}
+
+\begin{example}
+\ex{$k$-Disjoint Random Protocol} Suppose Alice and Bob are given sets $X,Y \subseteq [n]$, each of size at most $k$. They wish to check for intersection. By the rank method, at least $\log \binom{n}{k}$ bits are required. \medbreak
+
+When $k \ll n$, the deterministic protocol of length $O(k)$ is more efficient than any deterministic protocol. Here is how it goes: \medbreak
+
+Shared randomness is used to generate $R_1, R_2, \ldots \subseteq [n]$. Alice announces the smallest index $i$ with $X \subseteq R_i$ and Bob does the symmetry with $j$. This takes $2(\log i + \log j + 2)$ bits. Alice replaces her set with $X \cap R_j$ and Bob with $Y \cap R_i$. Notice that if $X \cap Y = \emptyset$ this remains true, and same if $X \cap Y \neq \emptyset$. \medbreak
+
+Repeat the above until $O(k)$ bits are communicated. If either set becomes empty, $X,Y$ are disjoint. If both sets are non-empty, they conclude $X,Y$ intersect.
+\end{example}
+
+\begin{theorem}
+In the above, Alice and Bob arrive at the correct conclusion with probability at least $2/3$.
+\end{theorem}
+
+\begin{lemma}
+The expected length of the first step is at most $2(|X| + |Y| + 2)$.
+\end{lemma}
+
+\begin{proof}
+The probability $R_1$ contains $|X|$ is $2^{-|X|}$. If it does not, then
+\begin{align*}
+    \E[i] = 2^{-|X|} \cdot 1 + (1 - 2^{-|X|}) (\E[i] + 1)
+    \implies \E[i] = 2^{|X|}.
+\end{align*}
+Same for $Y$. Then
+\begin{align*}
+    \E[2 \log i + 2 \log j + 4] 
+    \leq 2(\log\E[i] + \log\E[j] + 2)
+    = 2(|X| + |Y| + 2).
+    \tag*\qedhere
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+In the second round, the expectation is that the sets are half as large. Formally, for $i \in [n]$ let $X_{i,s}$ be the indicator variable for if $i \in X$ before step $s$ on the above process. Define $Y_{i,s}$ similarly. If $X,Y$ are disjoint,
+\begin{align*}
+    \E \left[ \sum_{i \in [n]} \sum_{s=1}^\infty X_{i,s} + Y_{i,s} \right] \leq 4k.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+Notice
+\begin{align*}
+    \E \left[ \sum_{i \in [n]} \sum_{s=1}^\infty X_{i,s} + Y_{i,s} \right]
+    = \sum_{i \in [n]} \sum_{s=1}^\infty \E[X_{i,s}] + \E[Y_{i,s}]. 
+\end{align*}
+If $X_{i,1} = 0$, then $X_{i,s} = 0$ for all $s$. If $X_{i,1} = 1$, the probability $X_{i,s} = 1$ is $2^{-s+1}$ so 
+\begin{align*}
+    \sum_{i \in X} \sum_{s=1}^\infty \E[X_{i,s}]
+    = \sum_{i \in X} \sum_{s=1}^\infty 2^{-s + 1}
+    \leq 2k.
+\end{align*}
+Applying the same to $Y_{i,s}$ gives $\leq 4k$.
+\end{proof}
+
+\begin{theorem}[Markov's Inequality]
+For any random variable $X \geq 0$,
+\begin{align*}
+    \P(X \geq a) \leq \frac{\E[X]}{a}.
+\end{align*}
+\end{theorem}
+
+\begin{lemma}
+The previous lemma implies that the parties communicate at most $16k$ bits. By the Markov inequality, the probability the protocol communicates more than $3 \cdot 16k = 48k$ bits is at most $1/3$.
+\end{lemma}
+
+\subsection{Hamming Distance}
+
+\begin{definition}
+If Alice and Bob are given two strings $x,y \in \{\pm1\}^n$, define the \term{Hamming distance} as
+\begin{align*}
+    H(x,y) = \Delta(x,y) = |{i \in [n] \mid x_i \neq y_i}| 
+    = \frac{n - \langle x,y \rangle}{2}.
+\end{align*}
+\end{definition}
+
+\begin{definition}
+Say that a protocol $\pi$ approximates $\Delta$ up to $m$ if
+\begin{align*}
+    |\pi(x,y) - \Delta(x,y)| \leq m
+\end{align*}
+for all inputs $x,y$. For $alpha < 1/2$, approximating $\Delta$ up to $\alpha n$ requires deterministic CC $\Omega(n)$.
+\end{definition}
+
+\begin{theorem}
+\ex{Hamming Distance Random Protocol} Suppose Alice and Bob wish to estimate $\Delta$ up to $m$. Both use shared randomness to sample $i_1, \ldots, i_k \in [n]$ independently and uniformly. They communicate $2k$ bits the \term{empirical distance}
+\begin{align*}
+    \gamma = (1/k) \cdot |{j \in [k] \mid x_{i_j} \neq y_{i_j}}|
+\end{align*}
+and output $\gamma n$. 
+\end{theorem}
+
+\begin{lemma}
+The probability of making an error is at most $1/e$. 
+\end{lemma}
+
+\begin{proof}
+Deferred.
+\end{proof}
