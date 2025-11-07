@@ -1,10 +1,15 @@
-\subsection*{Problem 1.6}
-	\begin{proof}
-		We take the set $[n]$, and divide it into $\log n$
-		non-overlapping continuous intervals. We know then that the
-		combination of intervals which fall into $X \cup Y$ will then
-		determine the median of the set. Since there are
-		$2^{\frac{n}{\log n}}$ possible intervals, it will take
-		$\omega(\log 2^{\frac{n}{\log n}}) = \Omega(\frac{n}{\log
-		{n}})$
-	\end{proof}
+\section*{Exercise 1.6}
+
+\begin{exercise}[1.6]
+Recall the protocol for the median of two lists discussed in the introduction. Consider the following varaint of the median problem. Alice is given a set $X \subseteq [n]$, Bob is given a set $Y \subseteq [n]$, and their goal is to compute the median of the set $X \cup Y$. The difference here is that we take the union as sets, so there are no repetitions. Show that the communication complexity of this problem is at least $\Omega(n / \log n)$. \emph{Hint: Compute the median of the union of sets, as well as the union of sets.}
+\end{exercise}
+
+\begin{proof}
+    We take the set $[n]$, and divide it into $\log n$
+    non-overlapping continuous intervals. We know then that the
+    combination of intervals which fall into $X \cup Y$ will then
+    determine the median of the set. Since there are
+    $2^{\frac{n}{\log n}}$ possible intervals, it will take
+    $\omega(\log 2^{\frac{n}{\log n}}) = \Omega(\frac{n}{\log
+    {n}})$
+\end{proof}

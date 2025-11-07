@@ -1,16 +1,16 @@
 \subsection*{Exercise 1.1}
+
+\begin{exercise}
 Let $f : X \times Y \to \{0,1\}$ have a $1$-fooling set of size $m$, i.e.\ there are pairs $(x_i,y_i)$ for $i \in [m]$ such that
 \begin{itemize}
     \item $f(x_i,y_i) = 1$ for all $i$, and
     \item for all $i \neq j$, at least one of $f(x_i,y_j)$ or $f(x_j,y_i)$ equals $0$.
 \end{itemize}
-Show that any deterministic communication protocol for $f$ must use at least $\log m$ bits.\\
+Show that any deterministic communication protocol for $f$ must use at least $\log m$ bits.
+\end{exercise}
 
 \begin{proof} 
-Partition the first $m$ elements of $[n]$ into $m=\lfloor n/k\rfloor$ disjoint blocks $S_1,\dots,S_m$, each of size $k$. \\ 
-For each $i$, take the input pair $(A_i,B_i)=(S_i,S_i)$, $f(A_i,B_i)=1$ since they intersect\\ 
-While for $i\ne j$, $f(S_i,S_j)=0$ since the blocks are disjoint.\\ 
+Partition the first $m$ elements of $[n]$ into $m=\lfloor n/k\rfloor$ disjoint blocks $S_1,\dots,S_m$, each of size $k$. For each $i$, take the input pair $(A_i,B_i)=(S_i,S_i)$, $f(A_i,B_i)=1$ since they intersect.  While for $i\ne j$, $f(S_i,S_j)=0$ since the blocks are disjoint. \medbreak
 
-Thus $\{(S_i,S_i):i\in[m]\}$ is a 1-fooling set of size $m$, so any deterministic protocol needs at least $\log m=\log\!\lfloor n/k\rfloor$ bits. \end{proof}
-
+Thus $\{(S_i,S_i):i\in[m]\}$ is a 1-fooling set of size $m$, so any deterministic protocol needs at least $\log m=\log\!\lfloor n/k\rfloor$ bits.
 \end{proof}
