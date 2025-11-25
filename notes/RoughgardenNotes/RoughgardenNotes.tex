@@ -1,0 +1,44 @@
+\documentclass[12pt]{article}
+\usepackage{ryblatex}
+
+\setlength{\parskip}{0em}
+
+\makeindex[
+    name=terms,
+    title={Term Index},
+    columns=3,
+    intoc=true
+]
+
+\makeindex[
+    name=examples,
+    title={Example Index},
+    columns=2,
+    intoc=true
+]
+
+\AddToHook{cmd/subsection*/after}{\addcontentsline{toc}{subsection}{#1}}
+
+\usepackage{versions}
+% \excludeversion{proof}
+
+\title{DSC180A FA25: Roughgarden Notes}
+\author{Ciro, Darren, Ivy, Ryan}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\input{chapters/ch2.tex}
+\input{chapters/ch6.tex}
+
+\newpage
+\printindex[terms]
+
+\newpage
+\printindex[examples]
+
+\end{document}

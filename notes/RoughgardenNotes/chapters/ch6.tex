@@ -1,0 +1,158 @@
+\section{}
+
+\begin{remark}
+There are lots of ways to use CC to prove lower bounds for data structures. Here we limit ourselves to the approximate nearest neighbor problem with static (unmodifiable and only queriable) data structures.
+\end{remark}
+
+\subsection{Introducing Nearest Neighbors (NN)}
+
+\begin{definition}
+The \term{nearest neighbor problem} takes in a set $S$ of $n$ points in a metric space $(X,\ell)$. Most commonly this is $\R^d$ with the $\ell_2$ norm. Here we use the \term{hamming cube} $X = \{0,1\}^d$ and $\ell$ is the Hamming distance. Let $d$ be large, say $d = \sqrt{n}$. \medbreak
+
+The goal is to build a data structure $D$ (as a function of $S \subseteq X$) that prepares for all possible nearest neighbor queries. A query is a poiny $q \in X$, and the end goal is to return $p^* \in X$ that minimizes $\ell(p,q)$ over all $p \in S$.
+\end{definition}
+
+\begin{remark}
+We use the Hamming cube because it is easier to map into communication complexity, though the key high-level ideas are the same for analyzing Euclidean and other metric spaces.
+\end{remark}
+
+\begin{lemma}
+If computing $\ell(p,q)$ take $O(d)$ time, then the brute force algorithm takes $O(dn)$ time. Alternatively, precomputing the answer to all possible queries takes $\Theta(d2^d)$ space. The exact NN problem thus suffers from an exponential-size data structure in terms of $d$. This is known as the \term{curse of dimensionality}.
+\end{lemma}
+
+\subsection{Approximate Nearest Neighbors (ANN)}
+
+\begin{definition}
+The $(1+\epsilon)$-approximate NN, where we only need to return $p$ where $\ell(p,q) \leq (1 + \epsilon)\ell(p^*, q)$, we can do much better. Let $\epsilon = 1$ or $2$, so it is not too small but still practically relevant.
+\end{definition}
+
+The high-level idea is to hash nearby points into the same bucket, then precompute the answer for each bucket. Therefore the key challenge is to make sure nearby points hash to the same bucket.
+
+\subsubsection{Decision ANN}
+
+\begin{definition}
+Consider the \term{decision ANN} version, where given $L \in \{0,1,\ldots,f\}$, we wish to distinguish between
+\begin{enumerate}
+    \item There exists a point $p \in S$ with $\ell(p,q) \leq L$.
+    \item $\ell(p,q) \geq (1 + \epsilon)L$ for every $p \in S$.
+\end{enumerate}
+If neither applies, both answers are correct.
+\end{definition}
+
+Note that if $|S| = 1$, this is oddly similar to equality: Equality is the same as deciding between hamming distance 0 or not. The public coin protocol where Alice takes the inner product mod 2 of $x$ with $r_1$ and $r_2$ (2 bits) and sends it to Bob always accepts $x = y$ and accepts $x \neq y$ with probability 1/4.
+
+It is also similar to gap-hamming, which we showed was hard in Chapter 2 using a reduction from index.
+
+\begin{definition}
+Consider the CC problem where Alice and Bob want to decide if $\ell_H(x,y)$ between inputs $x,y \in \{0,1\}^d$ is at most $L$ or at least $(1 + \epsilon)L$. Call this \term{$\epsilon$-Gap Hamming}. Define the following protocol:
+
+\begin{enumerate}
+    \item Alice and Bob create $s = \Theta(\epsilon^{-2}\log (?))$ random strings $R = \{r_1, \ldots, r_s\} \in \{0,1\}^d$ where $d = \theta(\epsilon^{-2})$ from public coins. Each entry is independent but not uniform: there is a $1/2L$ probability of each entry in $r_i$ being equal to $1$.
+    \item Alice sends $s$ inner products of $r_i$ with $x$. This is the "hash value" $h_R(x) \in \{0,1\}^s$. 
+    \item Bob accepts if any only if the Hamming distance between $h_R(y)$ and $h_R(x)$ differs by some small number of bits.
+\end{enumerate}
+
+We defer the analysis of the small number of bits to the book. The key idea is as follows:
+\begin{enumerate}
+    \item When selecting a string $r_i$, we are choosing a coordinate to be relevant (be a 1, and thus contribute to the inner product later) with probabiliy $1/L$. Consider it irrelevant otherwise. Think of this as selecting relevant coordinates for this $r_i$ hash.
+    \item The second stage, the inner product, is a modified equality with these coordinates only. We see that
+\end{enumerate}
+\begin{align*}
+    \Pr_{j}[\langle r_j,x \rangle \not\equiv \langle r_j, y \rangle \mod 2]
+    = \frac{1}{2} \left( \left( 1 - \left(1 - \frac{1}{L} \right)^{l_H(x,y)} \right) \right).
+\end{align*}
+This results in CC $\Theta(\epsilon^{-2})$.
+\end{definition}
+
+\subsubsection{Data Structure Decision ANN}
+
+\begin{definition}
+We now convert the above algorithm into a data strcuture for the $(1 + \epsilon)$ decision ANN problem.
+\begin{enumerate}
+    \item Given a point set $P$ of $n$ points in $\{0,1\}^d$, choose a set of $R$ of $s = \Theta(\epsilon^{-2} \log n)$ as above.
+    \item Define $h_R: \{0,1\}^d \to \{0,1\}^s$ by setting the $j$th coordinate to $\langle r_j, x \rangle$ mod 2. 
+    \item Make a table with $2^s = n^{\Theta(\epsilon^{-2})}$ buckets, indexed by $s$-bit strings.
+    \item For all $p \in P$, insert $p$ into every bucket $b$ which $\ell(h_R(p),b) \leq (t + \nicefrac{1}{2}h(\epsilon))s$ where $h(\epsilon) = \frac{1}{2\epsilon^2}(1-  \epsilon^{-\epsilon})$.
+\end{enumerate}
+This data structure has probability at least $1 - \frac{1}{n}$ to give the correct answer in $n^{O(\epsilon^{-2})}$ space.
+\end{definition}
+
+\begin{remark}
+We will show later that with this level of accuracy this space is optimal. Note that it is possible to do better by inreasing the query time.    
+\end{remark}
+
+Note that in the real problem we do not have this value $L$. We would want it to be the actual NN distance of a query point $q$ (since $L$ counts the number of differences / coordinates checked), but this can change from one $q$ to another. Furthermore, the data strcuture may be wrong on as many as $2^d/n$ queries. Knowing the coin flips allow an adversary to exhibit queries that will be wrong.
+
+\begin{lemma}
+Fix 1: Make $d$ copies of the data structure for each value of $L^2$. Answering takes $O(\log d)$ lookups. Space blows up by $\Theta(d \log d)$. Query time blows up by $\Theta(\log\log d)$.
+\end{lemma}
+
+\begin{lemma}
+Fix 2: Make $\Theta(d)$ copies and take the majority vote. This is wrong in at most inverse exponential of $d$. Here not even an adversary who knows the coin flips knows whether a particular query will be incorrect ahead of time. This blows up space and query time by $\Theta(d)$.
+\end{lemma}
+
+\begin{lemma}
+Fix 3: Make $\Theta(d)$ copies and choose uniformly randomly one of the copies to answer. The space blows up by $\Theta(d)$ but query time is unaffected. The probability of a correct answer is at least $1 - \Theta(\frac{1}{n})$.
+\end{lemma}
+
+Combining the three lemmas:
+\begin{itemize}
+    \item Space: $O(d^2 \log d) \cdot n^{\Theta(\epsilon^{-2})}$
+    \item Query time: $O(\epsilon^{-2} d \log n \log \log d)$.
+\end{itemize}
+That is, polynomial space for logarithmic query time.
+
+\section{The Cell Probe Model}
+
+We start by motivating the cell probe model. The goal is to create a database $D$ to answer $Q$ queries, known beforehand. The encoding scheme must work for all possible databases: In ANN, $P$ is the database (unknown beforehand) and $Q$ are elements of $\{0,1\}^d$ (known). Another example is set membership.
+
+A parameter of the cell probe model is \term{word size} $w$. The design space if the number of ways to encode $D$ as $s$ cells of $w$ bits each. We say $s$ is the space used in the encoding. It must correctly answer all $q \in Q$; it does this by reading cells one at a time, giving $w$ bits each. The query time of this algorithm is the max, over all $D$ and all $q \in Q$, number of accesses to answer the queries.
+
+\begin{remark}
+$w$ is typically large so a single element of the database can be stored in a cell, and not much larger than this. 
+\end{remark}
+
+For ANN, take $w$ to be polynomial in $\max\{d, \log_2(n)\}$. The previous construction solves ANN cell probe with space $n^{\Theta(\epsilon^{-2})}$ and query time 1. We now show a matching lower bound in the cell-prove model; thus constant query time can only be achieved by encodings that us $n^{\Omega(\epsilon^{-2})}$ space.
+
+\subsubsection{Query Database}
+
+We start with a contrived problem and build connections later.
+
+\begin{definition}
+Consider the \term{query database} problem. Alice has a query $q$ and Bob gets database $D$. We wish to compute the answer to $q$ on the database $D$.
+\end{definition}
+
+\begin{lemma}
+Let there be a cell-probe encoding of query database with word size $w$, space $s$, and query time $t$. Then there is a CC protocol with CC at most 
+\begin{align*}
+    \underbrace{t \log_2(s)}_{Alice}  + \underbrace{tw}_{Bob}
+\end{align*}
+Alice simulates the query-answering algorithm, sending $\log_2(s)$ to Bob for every cell requested. Bob sends back $w$ bits to describe the contents of the selected cell. They need to go back and forth only $t$ times (since the query time is also the number of $\Theta(1)$ queries, i.e. $t$ queries).
+\end{lemma}
+
+\begin{lemma}[\term{Richness Lemma}]
+Let $f: X \times Y \to \{0,1\}$ be a Boolean function with corresponding $X \times Y$ boolean matrix $M(f)$. Assume that
+\begin{enumerate}
+    \item $M(f)$ has at least $v$ columns that each have at least $u$ $1$-inputs.
+    \item There is a deterministic protocol that computes $f$ in which Alice and Bob send $a$ and $b$ bits respectively.
+\end{enumerate}
+Then $M(f)$ has a $1$-rectangle $A \times B$ with $|A| \geq \nicefrac{u}{2^a}$ and $|B| \geq \nicefrac{u}{2^{a+b}}$.
+\end{lemma}
+
+\begin{theorem}
+For every $\epsilon, \delta > 0$ and sufficiently large $n$, in every CC protocol that solves $(\frac{1}{\epsilon^2},n)$-disjointness with a universe of size $2n$, either
+\begin{enumerate}
+    \item Alice sends at least $\delta / \epsilon^2 \log_2 n$ bits, or
+    \item Bob sends at least $n^{1 - 2\delta}$ bits.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+$(\frac{1}{\epsilon^2},n)$-disjointness reduces to the query database problem for the decision problem of ANN with $(1 + \epsilon)$.
+\end{theorem}
+
+\begin{theorem}
+Every data structure for the decision version of $(1 + \epsilon)$-ANN with query time $t = \Theta(1)$ and word size $w = O(n^{1 - \delta})$ for $\delta > 0$ uses space $s = n^{\Omega(\epsilon^{-2})}$.
+\end{theorem}
+
+The proof is quite involved and is deferred for later.

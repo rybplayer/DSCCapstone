@@ -1,0 +1,69 @@
+\section{Lower Bounds for One-Way Communication: Disjointness, Index, and Gap-Hamming}
+
+\begin{remark}
+Recall that the one-way communication complexity for disjointness is $\Omega(n)$, even for randomized protocols.
+\end{remark}
+
+\begin{remark}
+Recall that all constant error probabilities yield the same communication complexity, up to a constant factor. This is because the sucess of a protocol can be boosted though amplification via repeated trials.
+\end{remark}
+
+\begin{lemma}
+Let $D$ be a distribution over the space of inputs $(x,y)$ to a protocol and $\epsilon \in (0,0.5)$ be its error. Suppose every deterministic one-way protocol $P$ with
+\begin{align*}
+    \Pr_D[P \text{ wrong on }(x,y)] \leq \epsilon
+\end{align*}
+has CC at least $k$. Then every randomized one-way protocol $R$ with two sided error at most $\epsilon$ on every input has communication cost at least $k$.
+\end{lemma}
+
+\begin{proof}
+The idea is that we transfer randomness from the input into the protocol itself. Write $P$ as a distribution of deterministic protocols $P_1, \ldots, P_s$. Then on average the protocol is wrong at least epsilon times, completing the proof.
+\end{proof}
+
+\subsection{Index}
+
+\begin{definition}
+The index problem is where Alice has a list of $n$ bits and Bob has a $\log_2(n)$ bit index $i$ and they wish to compute the $i$th bit of Alice's input.
+\end{definition}
+
+\begin{theorem}
+The randomized one-way communication complexity of index is $\Omega(n)$.
+\end{theorem}
+
+\begin{proof}
+Let $D$ be the uniform distribution of inputs. We show every deterministic one-way protocol that uses $cn$ bits has error at least $1/8$, where $c$ is some small constant. By Lemma 2.3, this implies that every randomized protocol has error at least 1/8 on some input. \medbreak
+
+Fix a deterministic protocol $P$ that uses $cn$ bits. There are $2^{cn}$ distinct messages that Alice sends. We show that
+\begin{align*}
+    \Pr[P \text{ is incorrect}] = \frac{d_H(x,a(z))}{n}
+\end{align*}
+where $d_H$ is the Hamming distance and $a(z)$ is Bob's guess; an \term{answer vector}. Think of each $a(z)$ as a ball of radius $n/4$ in the Hamming cube. Since there are only $2^{cn}$ balls of small radii, the union of all the balls is less than half of the Hamming cube. That is, there are at least $2^{n-1}$ bad inputs. \medbreak 
+
+Fix some answer vector $a$. The number of inputs $x$ with hamming distance at most $n/4$ from $a$ is 
+\begin{align*}
+    1 + \binom{n}{1} + \binom{n}{2} + \binom{n}{n/4}
+\end{align*}
+where we choose how many bits to change from 0 (a itself) to $n/4$. Recall that
+\begin{align*}
+    \binom{n}{k} \leq \left(\frac{en}{k}\right)^k
+\end{align*}
+so the above is bounded by $2^{.861n} \leq 2^{n-1}$ for sufficiently large $n$.
+\end{proof}
+
+\subsection{Gap-Hamming}
+
+\begin{remark}
+Our current goal is to prove that every streaming algorithm that computes a $(1 \pm \epsilon)$ approximation of $F_0$ or $F_2$ needs $\Omega(\epsilon^{-2})$ space. We do this using reductions.
+\end{remark}
+
+\begin{definition}
+Let $x,y$ be inputs interpreted as streams, i.e. vectors of numbers. Then the hamming distance $d_H(x,y) = 2F_0 - |x| - |y|$. So a one-way protocol that computer $F_0$ with CC $c$ yields a communiction protocol that computes $d_H$ with CC $c + \log_2 n$. Thus a $(1 \pm \nicefrac{1}{\sqrt{n}})$ approximation of $F_0$ yields a protocol that estimates $d_H$ up to $2 \sqrt{n}$ additive error with $\log_2 n$ extra communication.
+\end{definition}
+
+\begin{theorem}
+The randomized one-way communication complexity of gap-hamming is $\Omega(n)$.
+\end{theorem}
+
+\begin{proof}
+Consider an input to index, where Alice has $n$ bits and Bob $\log_2 n$ bits an index $i$. Suppose $n$ is odd and large. Alice and Bob can generate wihtout communicating, an input $(x',y')$ to gap-hamming using public randomness. 
+\end{proof}

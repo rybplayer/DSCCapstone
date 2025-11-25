@@ -1,13 +1,12 @@
-% !TEX TS-program = xelatex
-% !BIB TS-program = bibtex
+% !TEX program = xelatex
 \documentclass[12pt,letterpaper]{article}
-\usepackage{style/dsc180reportstyle} % import dsc180reportstyle.sty
+\usepackage{../resources/style/dsc180reportstyle}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Title and Authors
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{DSC Capstone LaTeX Template}
+\title{DSC Capstone LaTeX Templat}
 
 \author{First Author \\
   {\tt email@ucsd.edu} \\\And
@@ -27,9 +26,9 @@
 %%%% Abstract and Links
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-{\color{blue} Welcome to the Capstone LaTeX template! To use this template:
+{\color{blue} Welcome to the LaTeX template! To use this template:
 \begin{itemize}
-    \item Create an Overleaf account (it's free).
+    \item Create Overleaf account (it's free).
     \item Click the ``Menu" button in the top left, then click ``Copy Project."
     \item To share the project with your group members, click ``Share" in the top menu bar, turn on link sharing, and send the edit link to your group members.
 \end{itemize}
@@ -120,7 +119,7 @@ Figure \ref{fig:somefig1} presents a scatter plot.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.65\linewidth]{figure/somefig1.pdf}
+% \includegraphics[width=.65\linewidth]{figure/somefig1.pdf}
 \caption{Yes, put a few words or sentences here explaining what is in the figure.}
 \label{fig:somefig1}
 \end{figure}
@@ -132,11 +131,11 @@ The right panel of Figure \ref{fig:someotherfigs} presents some other things.
 \begin{figure}[htbp]
 \begin{minipage}{0.53\linewidth}
   \centering
-  \includegraphics[width=\linewidth]{figure/somefig2.png}
+%   \includegraphics[width=\linewidth]{figure/somefig2.png}
 \end{minipage}
 \begin{minipage}{0.42\linewidth}
   \centering
-  \includegraphics[width=\linewidth]{figure/somefig3.png}
+%   \includegraphics[width=\linewidth]{figure/somefig3.png}
 \end{minipage}
 \caption{You can put figures side-by-side as well.}
 \label{fig:someotherfigs}
