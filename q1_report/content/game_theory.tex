@@ -1,9 +1,9 @@
-\section{Background}
+\subsection{Background}
 The field of game theory studies the mathematical models of interactions between rational decision makers. Game theory initially addressed the interactions between two parties in a zero sum game but has grown into an umbrella term on rational decision making.
 
-\section{Foundational Problems}
+\subsection{Foundational Problems}
 
-\subsection{Algorithmic Mechanism Design}
+\subsubsection{Algorithmic Mechanism Design}
 Algorithmic mechanism design (AMD) focuses on designing a mechanism where (a) each party behave in a certain way and (b) is computationally efficient. AMD differs from regular mechanism design in that mechanism design assumes infinite compute power. AMD seeks to find a mechanism that performs with certain constraints such as polynomial time.
 
 \subsubsection{Vickrey Auction}
@@ -21,7 +21,7 @@ In this scenario, Bob wins and pays \$70.
 Bob cannot improve his results by changing his bid, if he raises it the price he pays does not change, and if he lowers it he risks not winning the bid. Hence in this game, there is a dominant strategy to bid truthfully.
 
 
-\subsection{Nash Equilibrium}
+\subsubsection{Nash Equilibrium}
 Nash Equilibrium are a foundational problem within game theory that involve finding a state within a scenario where no player can improve their outcome by unilaterally changing their own strategy.
 
 \subsubsection{The Prisoner's Dilemma}
@@ -54,16 +54,16 @@ The payoff matrix (with payoffs in the form $(\text{A's payoff}, \text{B's payof
 
 \noindent Even though mutual cooperation leads to a better outcome than mutual defection, the dominant strategy for each prisoner is to defect, making $(D,D)$ the unique Nash equilibrium.
 
-\section{Case Study: Pure Nash Equilibrium}
+\subsection{Case Study: Pure Nash Equilibrium}
 We will be looking to see what the communication complexity of reaching equilibrium is. More specifically, the communication model in which players initially only know their own utility functions. We want to analyze how much information must be transferred between them to jointly compute the equilibrium point. We also assume that each player follows a predetermine protocol, abstracting any other incentives of each player. We will be focusing on the communication complexity of \emph{pure} Nash Equilibrium. A pure Nash Equilibrium being a situation where there is guaranteed to be a unique best input for a all given parties.
 
-\subsection{Setting for Pure Action Games}
+\subsubsection{Setting for Pure Action Games}
 There are $n\ge2$ players, $i=1,2,...,n$. Each player $i$ has a finite set of actions $A_i$ with $|A_i|\ge2$. For the analysis of pure action games, we only consider binary action games, that is, for each $i$, $A_i=\{0,1\}$. Let the joint action space $A=\prod_{i=1}^nA_i$. Each player has a private utility function $u_i:A\xrightarrow{}\{0,1\}^n$ which we are assuming are finitely represented for simplicity.
 
 
 For a joint action $a=(a_1,...,a_n)\in A$ (for binary action games, a joint action is an n bit binary string), let $a^{-1}$ denote the joint action of all players except player $i$. A joint action $a$ is a \textbf{Pure Nash Equilibrium} if $u_i(a) \ge u_i(b_i, a^{-1})$ for every player $i$ and any action $b_i\in A_i$. That is to say that for all players choosing the alternative option would result in an equal or worse outcome for them.
 
-\subsection{Communication Complexity of Pure Nash Equilibrium}
+\subsubsection{Communication Complexity of Pure Nash Equilibrium}
 
 \textbf{Theorem} \textit{Any pure Nash equilibrium procedure has communication complexity $\Omega(2^n)$}
 
@@ -146,6 +146,6 @@ exists in $G$ if and only if $S_1 \cap S_2 \neq \emptyset$.
 
 Since we have proven the claim, we know that the communication complexity of any pure Nash Equilibrium is $CC(DISJ_s)=|S|$. Remember that $S=\{0,1\}^n$ so therefore $|S|=2^n$ proving the theorem.
 
-\section{Broad Applications}
+\subsection{Broad Applications}
 
 The communication complexity of Game Theory has many varied applications and is prevalent in any situation that involves optimizing the output in any multiparty game. Game Theory draws naturally has parallels to other fields such as multi-agent and distributed systems.
