@@ -23,6 +23,7 @@ The area we will be focusing on is TBD.
 
 # 📁 Repo Structure
 
+```
 ├── README.md
 ├── books
 │   ├── # contains relevant books and references
@@ -42,3 +43,4 @@ The area we will be focusing on is TBD.
 │
 ├── checkpoint_template.tex
 └── ryblatex.sty
+```
