@@ -25,7 +25,7 @@ Thus, information can be compared in a function of some kind without the
 Senders ability to see what information it was, despite being in possession of
 it.
 
-\subsubsectoin{The Millionaire's Problem}
+\subsubsection{The Millionaire's Problem}
 The Millionaire's Problem, originally proposed by Andrew Yao, is a problem for
 efficiently communicating under a public key cryptographic system. Suppose two
 Millionaire's, Alice and Bob, wish to know who has more money, but do not wish to
@@ -37,7 +37,7 @@ the circuit, encrypt the system such that it can only be decrypted with the
 possession of two inputs, allowing bob to complete the circuit using only the
 portion of the truth tables which work for his input.
 
-This solution has $\Omicron(n \cdot k)$ communication complexity cost, where $n$
+This solution has $\mathcal{O}(n \cdot k)$ communication complexity cost, where $n$
 is the size of the input, and $k$ is the security parameter, which in many
 modern applications varies from 100 to 128. 
 
@@ -47,7 +47,7 @@ protocol, and here we will analyze it's application to the Millionaire's
 Problem. 
 
 \subsubsection{Circuit Garbling}
-In the problem start, Alice and Bob each have an input  $x, y \in \R^n$. Alice
+In the problem start, Alice and Bob each have an input  $x, y \in \mathbb{R}^n$. Alice
 will create a circuit which computes the function (in this case, Greater Than),
 which will take $2 \cdot n$ inputs and produce a Binary output. Alice will then
 assign two random strings of length $k$ to each wire in the circuit, where each
@@ -75,8 +75,8 @@ corresponding to his chosen input, thereby obtaining only the portion of the
 truth table which allows him to compute his input with Alice's.
 
 Given that the communication complexity of the greater than function is
-$\omaga(n)$, where each decision step in the protocol can be modeled with a
-gate or simple circuit, we find that there are then $\omaga(n \cdot k)$ total
+$\omega(n)$, where each decision step in the protocol can be modeled with a
+gate or simple circuit, we find that there are then $\omega(n \cdot k)$ total
 bits required for this protocol.
 
 \subsection{Modern Applications}

@@ -1,4 +1,4 @@
-\section{Communication Complexity in Multi-Agent Reinforcement Learning}
+\subsection{Communication Complexity in Multi-Agent Reinforcement Learning}
 
 Multi-agent reinforcement learning (MARL) studies environments where several learning agents act simultaneously.  
 Each agent $i$ receives a private observation $o_i$, takes an action $a_i$, receives a reward, and updates its own policy:
@@ -7,7 +7,7 @@ a_i \sim \pi_i(o_i).
 \]
 Policies are typically represented as neural networks.
 
-\subsection{Motivation}
+\subsubsection{Motivation}
 
 In many real-world systems, such as fleets of autonomous cars, distributed robots, or cooperative drones, agents cannot observe the full global state. Limited sensing creates uncertainty, and achieving coordinated behavior requires exchanging information.\\
 
@@ -24,7 +24,7 @@ Thus, communication is not free. We must understand:
 
 Communication complexity offers a rigorous framework for proving \emph{lower bounds} on required communication.
 
-\subsection{Example Environment}
+\subsubsection{Example Environment}
 
 Agents explore a grid. Their objective is to collectively visit all squares.
 
@@ -39,7 +39,7 @@ Rewards:
 
 Because each agent only observes nearby cells, communication is needed to avoid redundancy (e.g., multiple agents going to the same place).
 
-\subsection{Cooperative MARL: Learning with Shared Parameters}
+\subsubsection{Cooperative MARL: Learning with Shared Parameters}
 
 We consider $M$ agents solving the same task and sharing a global model.  
 At each episode:
@@ -48,7 +48,7 @@ At each episode:
     \item Updates to the shared model occur only if the new estimate is significantly different.
 \end{enumerate}
 
-\subsection{Communication Complexity Result}
+\subsubsection{Communication Complexity Result}
 
 Let:
 \[
@@ -70,7 +70,7 @@ O(dM).
 
 These bounds show that as the number of agents increases, communication cost scales linearly unless compression or sparsification is introduced.
 \newpage
-\section{Communication Complexity of Learning from Distributed Datasets}
+\subsection{Communication Complexity of Learning from Distributed Datasets}
 
 We now turn to a different setting: \emph{distributed supervised learning}.  
 Two parties hold different datasets:
@@ -84,7 +84,7 @@ Their goal: Find a classifier  H consistent with both  SA and SB, while communic
 
 This models distributed systems, federated learning, and privacy-preserving ML.
 
-\subsection{The Realizability Question}
+\subsubsection{The Realizability Question}
 
 First question: Does a consistent classifier exist at all?\\
 
@@ -95,7 +95,7 @@ O(d)
 bits.  
 This is the \emph{minimum} information needed to ensure that no contradiction exists between $S_A$ and $S_B$.
 
-\subsection{Learning the Classifier}
+\subsubsection{Learning the Classifier}
 
 Once realizability is established, the next step is to learn a classifier.  
 A typical protocol:
@@ -119,7 +119,7 @@ O\left(d \log\!\left(\frac{1}{\epsilon}\right)\right),
 \]
 where $\epsilon$ is the target classification error.
 
-\subsection{Interpretation}
+\subsubsection{Interpretation}
 
 This provides a fundamental lower bound:
 
@@ -137,7 +137,7 @@ This contrasts with MARL, where communication lower bounds depend on:
     \item precision required for coordinated behavior
 \end{itemize}
 
-\section{Summary}
+\subsection{Summary}
 
 We studied two applications of communication complexity in machine learning:
 
