@@ -12,7 +12,7 @@ of a secret key.
 A Public key encryption scheme is a system which makes use of trapdoor
 functions, functions which can be easily computed but their inversion is
 enormously difficult without one key piece of information, such as multiplying
-two primes. With one, a public key, or a method to compute the function, can be
+two primes. The public key, or a method to compute the function, can be
 shared widely, and any party can pass information through it to generate an
 encrypted message. The reverse, however, can only be done (in efficient time)
 by the party which created the function, and the message can then only be read
@@ -25,16 +25,16 @@ Thus, information can be compared in a function of some kind without the
 Senders ability to see what information it was, despite being in possession of
 it.
 
-\subsubsection{The Millionaire's Problem}
+\subsubsection{The Millionaires Problem}
 The Millionaire's Problem, originally proposed by Andrew Yao, is a problem for
 efficiently communicating under a public key cryptographic system. Suppose two
-Millionaire's, Alice and Bob, wish to know who has more money, but do not wish to
+Millionaires, Alice and Bob, wish to know who has more money, but do not wish to
 share the exact values. Yao's original solution to this problem involves the
 use of a garbled circuit model, in which Alice can generate a circuit which will
 compute the solution to the problem, and then encrypt the circuit by decomposing
 and anonymizing each step in the process. Alice will compute her portion of
 the circuit, encrypt the system such that it can only be decrypted with the
-possession of two inputs, allowing bob to complete the circuit using only the
+possession of two inputs, allowing Bob to complete the circuit using only the
 portion of the truth tables which work for his input.
 
 This solution has $\mathcal{O}(n \cdot k)$ communication complexity cost, where $n$
@@ -51,33 +51,33 @@ In the problem start, Alice and Bob each have an input  $x, y \in \mathbb{R}^n$.
 will create a circuit which computes the function (in this case, Greater Than),
 which will take $2 \cdot n$ inputs and produce a Binary output. Alice will then
 assign two random strings of length $k$ to each wire in the circuit, where each
-string matches to a value 0 or 1 for that wire. Then, using the inputs to each
-wire in the circuit, can encrypt the output values for every truth tables. Each
-component in the circuit now has a truth table which can only be decrypted with
-knowledge of two wire states, and Alice can safely send the random strings
-which correspond to her inputs to Bob, who cannot decode what her inputs were
-merely from these strings. However, Bob must now acquire the strings which
-correspond to his input from Alice, without Alice knowing which inputs she has
-sent to Bob.
+string matches to a value 0 or 1 for that wire. Then, using the strings which
+represent inputs to each wire in the circuit, can encrypt the output values for
+every truth tables. Each component in the circuit now has a truth table which
+can only be decrypted with knowledge of two wire state strings for that gate,
+and Alice can safely send the random strings which correspond to her inputs to
+Bob, who cannot decode what her inputs were merely from these strings. However,
+Bob must now acquire the strings which correspond to his input from Alice,
+without Alice knowing which inputs she has sent to Bob.
 
 \subsubsection{Oblivious Transfer Protocol}
 Alice will now generate a Public-Private key pair, $t_{pub}$ and $t_{priv}$, as
 well as two random messages, $m_0$ and $m_1$, and send both $m_1$ and $m_2$ as
 well as $t_{pub}$ to Bob. Bob will chose either $m_1$ or $m_0$, depending on
-his input, and generate a random string $k$, and use this to then encrypt $m_b
+his input, generate a random string $k$, and use this to then encrypt $m_b
 + k$, where $b$ is the input string Bob wishes to obtain. Bob can now send this
 encrypted message to Alice, who then attempts to decrypt by subtracting both
-$m_1$ and $m_2$ from the message bob sent, obtaining two possible options for
-$k$, $k_0$ or $k_1$. one of these values will be the original $k$, but Alice
+$m_1$ and $m_2$ from the message Bob sent, obtaining two possible options for
+$k$; $k_0$ or $k_1$. One of these values will be the original $k$, but Alice
 does not know which. She can then use these values to encrypt the random wire
 stings and send to Bob, who, knowing the real $k$, can decrypt only the one
 corresponding to his chosen input, thereby obtaining only the portion of the
 truth table which allows him to compute his input with Alice's.
 
-Given that the communication complexity of the greater than function is
-$\Omega(n)$, where each decision step in the protocol can be modeled with a
-gate or simple circuit, we find that there are then $\Omega(n \cdot k)$ total
-bits required for this protocol.
+Given that the circuit of the greater than function is
+$\Omega(n)$, and each gate will require at \Omega(k)$ bits, (for the encryption
+string length), the total cost for Alice to communicate the system to Bob is
+$\Omega(b \cdot k)$ bits.
 
 \subsection{Modern Applications}
 The garbled circuit is not only a useful model for computing two anonymous
@@ -88,5 +88,5 @@ this system can be modeled equivalently to any deterministic two party
 communication protocol, it can compute such a protocol anonymously for any
 valid function that two parties may wish to compute. This is mainly useful in
 transactional contexts, such as with blockchain, where multiple parties are not
-behaving with malicious intent, but are nonetheless attempting to violate the
-privacy of the other party.
+behaving with malicious intent, but nonethless wish to gain intformation some
+parties do not wish to disclose.
