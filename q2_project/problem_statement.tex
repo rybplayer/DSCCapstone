@@ -54,19 +54,15 @@ We start with the following claim:
 	in which case one player (which one can be agreed upon in advance)
 	simply holds for a turn, while the other player moves, thus
 	guaranteeing that they will not intersect at the same time. If
-	non-equidistant points exist, both players can use their shared
-	randomness to pick a point of intersection, and follow one of the paths
+	non-equidistant points exist, both players can use a shared
+	protocol to pick a point of intersection, and follow one of the paths
 	which intersects at that point. Since the point is not equidistant, one
 	player will reach it before the other, thus guaranteeing they do not
 	visit it at the same time.
 \end{proof}
 
-\susubsection{Lower bound without shared randomness}
-
-\begin{claim}
-	Both players can reach their endpoints with % Some amount
-	of communication complexity, without using public randomness
-\end{claim}
-
-\begin{proof}
-
+The above model and assumption set is clearly capable of modeling communication
+over this graph, and these assumptions can be modified to prove more general
+bounds. For instance, if the graph is not known in advance, it is not
+necessarily possible to create a deterministic protocol which will allow both
+players to identify an intersection point
