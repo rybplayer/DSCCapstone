@@ -1,1 +1,67 @@
+\section{Motivation}
+
+\subsection{Multi-Agent Reinforcement Learning and the Role of Communication}
+
+Multi-agent reinforcement learning (MARL) studies how multiple autonomous
+agents learn to act within a shared environment. Each agent receives
+observations, selects actions, and updates its policy based on its local
+experience. Unlike the single-agent setting, however, overall system
+performance frequently depends on the agents' ability to coordinate their
+actions. For navigation problems in particular, agents must avoid collisions,
+resolve conflicts over shared space, and make decisions that depend not only on
+their own goals but also on the trajectories of others.
+
+To facilitate coordination, many MARL models introduce an explicit
+communication channel through which agents may exchange messages containing
+local observations, planned intentions, or compressed representations of future
+behavior. When communication is unrestricted, agents can often coordinate
+perfectly by sharing all relevant information. Yet in most practical
+applications—robotics, autonomous vehicles, drone swarms, and distributed
+sensor networks—communication is fundamentally limited. Bandwidth, latency, and
+energy constraints mean that agents cannot transmit arbitrarily large messages
+at arbitrarily high frequencies.
+
+Despite these real-world constraints, a large portion of the MARL literature
+either assumes that communication is entirely free or discourages excessive
+communication using heuristic penalty terms. These approaches are convenient
+for simulation but fail to provide any principled understanding of the
+\emph{minimum} communication necessary for successful coordination.
+
+\subsection{Why Communication Complexity Is Important}
+
+This mismatch between theoretical assumptions and practical constraints
+motivates the need for a more rigorous framework for studying communication in
+multi-agent settings. Communication complexity offers precisely such a
+framework. In classical communication complexity, one seeks to determine the
+minimum number of bits that distributed parties must exchange in order to
+jointly compute a function. By translating multi-agent coordination tasks into
+appropriate communication problems, we can analyze the \emph{information
+requirements} inherent in collaborative decision-making.
+
+This perspective provides several key advantages:
+
+\begin{itemize}
+    \item It allows us to distinguish between communication that is merely
+    helpful and communication that is \emph{fundamentally unavoidable}.
+    \item It provides provable lower bounds that any MARL algorithm—regardless
+    of learning method, reward shaping, or policy class—must obey.
+    \item It reveals situations in which heuristic penalty-based methods may
+    either overshoot (forcing too little communication) or undershoot (allowing
+    unrealistic communication levels).
+    \item It provides a baseline for evaluating the efficiency of practical
+    MARL communication protocols.
+\end{itemize}
+
+In simple environments such as grid navigation, communication complexity allows
+us to quantify how much information the agents must exchange to avoid
+collisions and reach their destinations. These foundational results serve both
+as a theoretical guide and as a diagnostic tool: they clarify the inherent
+difficulty of coordination and highlight the divergence between real-world
+requirements and common algorithmic assumptions.
+
+Ultimately, the motivation for this work is to bridge the gap between idealized
+multi-agent learning models and the physical constraints of deployed systems.
+By grounding MARL coordination in rigorous lower bounds, we obtain a clearer
+understanding of the informational structure of multi-agent navigation and a
+principled foundation for designing communication-efficient algorithms.
 
