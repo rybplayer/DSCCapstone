@@ -1,0 +1,27 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  This bbl file is created by econ.bst ver.2.1
+%  The latest econ.bst is available at
+%  <http://shirotakeda.org/home/tex/econ-bst.html>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{xxx}
+
+\harvarditem[Even, Goldreich and Lempel]{Even, Goldreich and Lempel}{1985}{10.1145/3812.3818}
+\textbf{Even, Shimon, Oded Goldreich, and Abraham Lempel.} 1985. ``A randomized protocol for signing contracts.'' {\it Commun. ACM} 28\hspace{0.2ex}(6), p. 637–647. \href{http://dx.doi.org/10.1145/3812.3818}{[Link]}
+
+\harvarditem[Hart and Mansour]{Hart and Mansour}{2010}{HART2010107}
+\textbf{Hart, Sergiu, and Yishay Mansour.} 2010. ``How long to equilibrium? The communication complexity of uncoupled equilibrium procedures.'' {\it Games and Economic Behavior} 69\hspace{0.2ex}(1):  107--126. \href{http://dx.doi.org/https://doi.org/10.1016/j.geb.2007.12.002}{[Link]}
+
+\harvarditem[Kohl]{Kohl}{[2019]}{1186828}
+\textbf{Kohl, Lisa~Maria.} [2019].  {\it On improving Communication complexity in cryptography /}. Karlsruhe, \href{http://dx.doi.org/10.5445/IR/1000100363}{[Link]}
+
+\harvarditem[Rao and Yehudayoff]{Rao and Yehudayoff}{2015}{RaoYehudayoffCC}
+\textbf{Rao, Anup, and Amir Yehudayoff.} 2015.  {\it Communication Complexity}. 11\hspace{0.2ex} of Foundations and Trends in Theoretical Computer Science Now Publishers. \href{http://dx.doi.org/10.1561/0400000068}{[Link]}
+
+\harvarditem[Roughgarden]{Roughgarden}{2015}{RoughgardenW15}
+\textbf{Roughgarden, Tim.} 2015. ``CS261: Optimization and Algorithmic Complexity --- Lecture Notes.'' \href{https://theory.stanford.edu/~tim/w15/l/w15.pdf}{[Link]}
+
+\harvarditem[Yao]{Yao}{1986}{4568207}
+\textbf{Yao, Andrew Chi-Chih.} 1986. ``How to generate and exchange secrets.'' In  {\it 27th Annual Symposium on Foundations of Computer Science (sfcs 1986)}. \href{http://dx.doi.org/10.1109/SFCS.1986.25}{[Link]}
+
+\end{thebibliography}
