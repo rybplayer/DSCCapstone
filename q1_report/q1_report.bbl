@@ -15,6 +15,9 @@
 \harvarditem[Kohl]{Kohl}{[2019]}{1186828}
 \textbf{Kohl, Lisa~Maria.} [2019].  {\it On improving Communication complexity in cryptography /}. Karlsruhe, \href{http://dx.doi.org/10.5445/IR/1000100363}{[Link]}
 
+\harvarditem[Kushilevitz and Nisan]{Kushilevitz and Nisan}{1997}{KushilevitzNisan1997}
+\textbf{Kushilevitz, Eyal, and Noam Nisan.} 1997.  {\it Communication Complexity}. Cambridge University Press
+
 \harvarditem[Rao and Yehudayoff]{Rao and Yehudayoff}{2015}{RaoYehudayoffCC}
 \textbf{Rao, Anup, and Amir Yehudayoff.} 2015.  {\it Communication Complexity}. 11\hspace{0.2ex} of Foundations and Trends in Theoretical Computer Science Now Publishers. \href{http://dx.doi.org/10.1561/0400000068}{[Link]}
 
