@@ -1,4 +1,4 @@
-\subsection{Communication Complexity in Multi-Agent Reinforcement Learning}
+\subsection{Background: Multi-Agent Reinforcement Learning}
 
 Multi-agent reinforcement learning (MARL) studies environments where several learning agents act simultaneously.  
 Each agent $i$ receives a private observation $o_i$, takes an action $a_i$, receives a reward, and updates its own policy:
@@ -9,7 +9,7 @@ Policies are typically represented as neural networks.
 
 \subsubsection{Motivation}
 
-In many real-world systems, such as fleets of autonomous cars, distributed robots, or cooperative drones, agents cannot observe the full global state. Limited sensing creates uncertainty, and achieving coordinated behavior requires exchanging information.\\
+In many real-world systems, such as fleets of autonomous cars, distributed robots, or cooperative drones, agents cannot observe the full global state. Limited sensing creates uncertainty, and achieving coordinated behavior requires exchanging information.
 
 However, communication is expensive:
 \begin{itemize}
@@ -50,16 +50,7 @@ At each episode:
 
 \subsubsection{Communication Complexity Result}
 
-Let:
-\[
-d = \text{dimension of model parameters},
-\qquad
-H = \text{episode horizon},
-\qquad
-M = \text{number of agents}.
-\]
-
-Then total communication per update can be bounded by:
+Let $d$ = \text{dimension of model parameters}, $H$ = \text{episode horizon}, and $M$ = \text{number of agents}. Then total communication per update can be bounded by:
 \[
 O(dHM),
 \]
@@ -70,7 +61,7 @@ O(dM).
 
 These bounds show that as the number of agents increases, communication cost scales linearly unless compression or sparsification is introduced.
 \newpage
-\subsection{Communication Complexity of Learning from Distributed Datasets}
+\subsection{Case Study: Learning from Distributed Datasets}
 
 We now turn to a different setting: \emph{distributed supervised learning}.  
 Two parties hold different datasets:
@@ -80,13 +71,11 @@ Two parties hold different datasets:
     \item - \text{Bob has } SB.
 \end{itemize}
 
-Their goal: Find a classifier  H consistent with both  SA and SB, while communicating as little as possible.\\
-
-This models distributed systems, federated learning, and privacy-preserving ML.
+Their goal: Find a classifier  H consistent with both  SA and SB, while communicating as little as possible. This models distributed systems, federated learning, and privacy-preserving ML.
 
 \subsubsection{The Realizability Question}
 
-First question: Does a consistent classifier exist at all?\\
+First question: Does a consistent classifier exist at all?
 
 In many hypothesis classes (e.g., linear separators in $\mathbb{R}^d$), determining realizability requires communicating on the order of:
 \[
@@ -97,8 +86,7 @@ This is the \emph{minimum} information needed to ensure that no contradiction ex
 
 \subsubsection{Learning the Classifier}
 
-Once realizability is established, the next step is to learn a classifier.  
-A typical protocol:
+Once realizability is established, the next step is to learn a classifier. A typical protocol could be:
 
 \begin{enumerate}
     \item Alice sends a \emph{weak hypothesis} $h$ (low-accuracy model trained on $S_A$).
@@ -111,9 +99,7 @@ A typical protocol:
     \item Iterate until both sides are satisfied.
 \end{enumerate}
 
-This resembles boosting, where each interaction reduces error.
-
-Total communication requirement:
+This resembles boosting, where each interaction reduces error. The total communication requirement is
 \[
 O\left(d \log\!\left(\frac{1}{\epsilon}\right)\right),
 \]
@@ -121,36 +107,12 @@ where $\epsilon$ is the target classification error.
 
 \subsubsection{Interpretation}
 
-This provides a fundamental lower bound:
+This provides a fundamental lower bound: No matter what distributed learning algorithm you design, at least $\Omega(d)$ bits must be exchanged to jointly learn a $d$-dimensional classifier.
 
-\begin{quote}
-\textbf{No matter what distributed learning algorithm you design, at least $\Omega(d)$ bits must be exchanged to jointly learn a $d$-dimensional classifier.}
-\end{quote}
-
-You cannot cheat this by clever optimization—communication is inherently tied to dimensionality.
-
-This contrasts with MARL, where communication lower bounds depend on:
+You cannot cheat this by clever optimization—communication is inherently tied to dimensionality. This contrasts with MARL, where communication lower bounds depend on:
 \begin{itemize}
     \item number of agents $M$
     \item episode horizon $H$
     \item parameter dimension $d$
     \item precision required for coordinated behavior
 \end{itemize}
-
-\subsection{Summary}
-
-We studied two applications of communication complexity in machine learning:
-
-\begin{enumerate}
-    \item \textbf{Multi-Agent RL:}  
-          How many bits must agents exchange to learn shared policies or coordinate actions?  
-          Results scale like $O(dHM)$ and reveal unavoidable costs in cooperation.
-    \item \textbf{Distributed Supervised Learning:}  
-          When data is split across parties, at least $O(d)$ communication is needed to check consistency, and $O(d\log(1/\epsilon))$ to learn a classifier.
-\end{enumerate}
-
-Despite being different problems, both highlight a central insight:
-
-\begin{center}
-\textit{Communication is a fundamental resource in learning.}
-\end{center}

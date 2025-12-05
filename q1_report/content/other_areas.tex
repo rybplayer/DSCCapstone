@@ -1,0 +1,15 @@
+In order to drive home the flexibility of communication complexity for studying algorithmic bounds, we list a few additional application fields for communication complexity below.
+
+\subsection{Circuit Design}
+
+Boolean circuits are a natural model for computation. Oftentimes, we may be interested in the number of gates, or depth of a circuit, as measures of its complexity. A \emph{formula} is a circuit whose underlying decision graph on inputs is a tree. That is, every circuit of depth $d$ can be turned into a formula of depth $d$.
+
+Communication complexity relates to the study of circuits via Krachmer-Wigderson games: In the game, players have a function $f: \{0,1\}^n \to \{0,1\}$ such that Alice gets $x \in f^{-1}(0)$ and Bob gets $y \in f^{-1}(1)$. The goal is to find $i \in [n]$ such that $x_i \neq y_i$. As it turns out, a ``circuit of depth $d$ computing $f$ yields a length $d$ deterministic protocol for the associated game. If the circuit is monotone, the protocol solves the monotone game'' (Rao and Yehudayoff, Lemma 9.2). In other words, circuit depth is equivalent to communication complexity, because both are measures for the depth of a protocol tree.
+
+Furthermore, if $f$ is solvable with $d$ bits of communication, then there is a circuit of depth $d$ computing $f$ (Rao and Yehudayoff, Lemma 9.3). Therefore, most surprisingly, the study of how a \emph{single} circuit can solve problems can be modeled by the communication of two parties, each with infinite compute power!
+
+\subsection{Data Structures}
+
+Communication complexity can also be used to show bounds for the analysis of data structures. For example, consider the problem of predecessor search. That is, maintaining a set of $S \subseteq [n]$ with deletion, addition, and predecessor all being fast. It is well known that binary search trees can do addition and deletion in $O(\log n)$ time, and queries in $O(\log \log n)$ time. 
+
+The van Emde Boas tree allows us to improve on this, with $O(\log \log n)$ updates. Using communication complexity, we can prove that this data structure is optimal. This can be done by framing the sorting and prefix sum problems as communication problems, and, similar to the proof of the turing machine reduced into disjoitness in the introduction, we can show van Emde Boas is tight optimal. See Rao and Yehudayoff, theorems 11.3 and 11.4 for more details.
