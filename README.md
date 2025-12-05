@@ -4,7 +4,7 @@ Files for UCSD DSC Capstone section A13: Communication Complexity.
 # 📝 General Information
 
 ## 💻 Lack of Code Disclaimer
-As we are studying the theoretical lower bounds for various protocals in the
+As we are studying the theoretical lower bounds for various protocols in the
 field of communication complexity, we have not written any code for this
 project. Our work consists instead of exercises and notes that we have
 done, meant to help develop the skills necessary to do both of our projects.
