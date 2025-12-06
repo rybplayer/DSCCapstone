@@ -1,0 +1,84 @@
+% !TEX program = lualatex
+\documentclass[12pt,letterpaper]{article}
+\usepackage[base]{babel}
+\usepackage{nicefrac}
+\usepackage{../resources/style/dsc180reportstyle}
+\usepackage{tabularx}
+\usepackage{amsthm}
+
+\newcommand{\term}{\emph}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Title and Authors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Communication Lower Bounds for \\
+Multi-Party Graph Traversal \medbreak
+\large Quarter 2 Project Proposal}
+
+\author{
+    Ryan Batubara \\ 
+    {\tt \small{rbatubara@ucsd.edu}} \\\And
+    Ivy Hawks \\
+    {\tt \small{mahawks@ucsd.edu}} \\\And
+    Darren Ho \\
+    {\tt \small{dah103@ucsd.edu}} \\\And
+    Ciro Zhang \\
+    {\tt \small{ciz001@ucsd.edu}} \\\And
+    Shachar Lovett \\
+    {\tt \small{slovett@ucsd.edu}} \\}
+\normalsize
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Abstract and Links
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+    \input{content/abstract.tex}
+\end{abstract}
+
+\begin{center}
+% Website: \url{https://abc.github.io/} \\
+Repository: \url{https://github.com/rybplayer/DSCCapstone}
+\end{center}
+
+\maketoc
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Main Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\input{content/context.tex}
+
+\section{Motivation}
+\input{content/motivation.tex}
+
+\section{Problem Statement}
+\input{content/problem_statement.tex}
+
+\section{Deliverables}
+\input{content/deliverables.tex}
+
+\section{Proposed Schedule}
+\input{content/schedule.tex}
+
+\makereference
+\bibliography{reference}
+\bibliographystyle{../resources/style/dsc180bibstyle}
+\nocite{*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \clearpage
+% \makeappendix
+
+% \subsection{Notes on Communication Complexity}
+
+\end{document}

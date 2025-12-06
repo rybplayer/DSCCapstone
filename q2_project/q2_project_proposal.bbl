@@ -1,0 +1,21 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  This bbl file is created by econ.bst ver.2.1
+%  The latest econ.bst is available at
+%  <http://shirotakeda.org/home/tex/econ-bst.html>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{xxx}
+
+\harvarditem[Arii and Iwama]{Arii and Iwama}{1992}{Three}
+\textbf{Arii, Hiroshi, and Kouichi Iwama.} 1992. ``On finding and updating shortest paths distributively.'' {\it Journal of Algorithms} 40\hspace{0.2ex}(3). \href{http://dx.doi.org/10.1016/0196-6774(92)90017-7}{[Link]}
+
+\harvarditem[Bourgain, {Freedman} and {Shapiro}]{Bourgain, {Freedman} and {Shapiro}}{2005}{One}
+\textbf{Bourgain, Jean, Daniel~W. {Freedman}, and Igor {Shapiro}.} 2005. ``On the Communication Complexity of Approximate Nearest Neighbor Search.'' {\it SIAM Journal on Computing} 35\hspace{0.2ex}(6):  1303--1324. \href{http://dx.doi.org/10.1137/0406029}{[Link]}
+
+\harvarditem[Klavins]{Klavins}{2004}{Four}
+\textbf{Klavins, Eric.} 2004. ``Communication Complexity of Multi-Robot Systems.'' {T}echnical {R}eport, Caltech. \href{https://www.seas.ucla.edu/coopcontrol/papers/mvcc.pdf}{[Link]}
+
+\harvarditem[Min, Chatziafratis and Jordan]{Min, Chatziafratis and Jordan}{2023}{Two}
+\textbf{Min, Shengjia, Vaggos Chatziafratis, and Michael~I. Jordan.} 2023. ``On the Value of Communication in Neural Network Training.'' In  {\it Proceedings of the 2023 Conference on Learning Theory (COLT 2023)}. \href{https://proceedings.mlr.press/v202/min23a.html}{[Link]}
+
+\end{thebibliography}

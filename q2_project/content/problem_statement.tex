@@ -1,0 +1,58 @@
+
+\subsection{Model Definition}
+
+We take a grid, upon which there are players which wish to traverse to their
+destination. We wish to use this model to find the minimum communication
+required for each player to arrive at it's destination. We make the following
+assumptions:
+
+\begin{enumerate}
+	\item Each player has a pre-defined endpoint
+	\item The players each wish to minimize the number of edges traversed to
+		reach their destination
+	\item The graph edges have no weights
+	\item There are no obstacles. In other words, each player can traverse
+		any edge freely
+	\item Each player has full knowledge of the grid
+	\item All player start and end points are unique
+	\item The players are traversing a grid
+	\item There exits a shared random string
+	\item All players move 1 edge at a time
+	\item There are 2 players
+	\item The map is known in advance of the algorithm's design
+	\item All players can communicate
+	\item No two players may occupy the same node at the same time
+	\item Both players take their turn at the same time
+\end{enumerate}
+
+Using this model and varying the assumptions we are able to prove some lower
+bounds on the communication complexity for this problem. We start by using all
+listed assumptions, and find a $\Omega(1)$ lower bound for this problem
+
+\subsection{Lower bound with all Assumptions}
+
+We start with the following claim: Both players can reach their endpoints without collisions using
+	$\Omega(1)$ bits of communication
+
+We propose a simple zero communication protocol for both players to
+traverse the grid. Since each player can see the start and endpoints of
+the other player, they can both identify all possible paths which
+minimize the distance traveled. Since the players are attempting to
+traverse only between two points, there will always be a pair of paths
+following the shortest distance which intersects a maximum of once.
+Player collision can then be determined entirety by the intersection
+point. 
+
+If there are shortest paths with no intersection point, than it
+is trivial for both players to simply follow those paths and not
+intersect. Otherwise, one of two cases emerges. In the first case, all
+possible points of intersection are equidistant from the player start,
+in which case one player (which one can be agreed upon in advance)
+simply holds for a turn, while the other player moves, thus
+guaranteeing that they will not intersect at the same time. 
+
+If non-equidistant points exist, both players can use a shared
+protocol to pick a point of intersection, and follow one of the paths
+which intersects at that point. Since the point is not equidistant, one
+player will reach it before the other, thus guaranteeing they do not
+visit it at the same time.
