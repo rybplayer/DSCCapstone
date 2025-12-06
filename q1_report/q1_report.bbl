@@ -9,6 +9,9 @@
 \harvarditem[Even, Goldreich and Lempel]{Even, Goldreich and Lempel}{1985}{10.1145/3812.3818}
 \textbf{Even, Shimon, Oded Goldreich, and Abraham Lempel.} 1985. ``A randomized protocol for signing contracts.'' {\it Commun. ACM} 28\hspace{0.2ex}(6), p. 637–647. \href{http://dx.doi.org/10.1145/3812.3818}{[Link]}
 
+\harvarditem[Foerster et~al.]{Foerster, Assael, de~Freitas and Whiteson}{2016}{Foerster2017Comm}
+\textbf{Foerster, Jakob, Ioannis~Alexandros Assael, Nando de~Freitas, and Shimon Whiteson.} 2016. ``Learning to Communicate with Deep Multi-Agent Reinforcement Learning.'' {\it Advances in Neural Information Processing Systems}. \href{https://arxiv.org/abs/1711.05893}{[Link]}
+
 \harvarditem[Hart and Mansour]{Hart and Mansour}{2010}{HART2010107}
 \textbf{Hart, Sergiu, and Yishay Mansour.} 2010. ``How long to equilibrium? The communication complexity of uncoupled equilibrium procedures.'' {\it Games and Economic Behavior} 69\hspace{0.2ex}(1):  107--126. \href{http://dx.doi.org/https://doi.org/10.1016/j.geb.2007.12.002}{[Link]}
 
@@ -18,6 +21,9 @@
 \harvarditem[Kushilevitz and Nisan]{Kushilevitz and Nisan}{1997}{KushilevitzNisan1997}
 \textbf{Kushilevitz, Eyal, and Noam Nisan.} 1997.  {\it Communication Complexity}. Cambridge University Press
 
+\harvarditem[Min et~al.]{Min, Song, Wang, Kolar, Yang and Wang}{2023}{Min2023}
+\textbf{Min, Michael, Daohan Song, Zhen Wang, Mladen Kolar, Zhuoran Yang, and Yuxin Wang.} 2023. ``Communication-Efficient Distributed Reinforcement Learning via Adaptive Compression.'' In  {\it Proceedings of the 40th International Conference on Machine Learning}. \href{https://proceedings.mlr.press/v202/min23a.html}{[Link]}
+
 \harvarditem[Rao and Yehudayoff]{Rao and Yehudayoff}{2015}{RaoYehudayoffCC}
 \textbf{Rao, Anup, and Amir Yehudayoff.} 2015.  {\it Communication Complexity}. 11\hspace{0.2ex} of Foundations and Trends in Theoretical Computer Science Now Publishers. \href{http://dx.doi.org/10.1561/0400000068}{[Link]}
 
@@ -26,5 +32,8 @@
 
 \harvarditem[Yao]{Yao}{1986}{4568207}
 \textbf{Yao, Andrew Chi-Chih.} 1986. ``How to generate and exchange secrets.'' In  {\it 27th Annual Symposium on Foundations of Computer Science (sfcs 1986)}. \href{http://dx.doi.org/10.1109/SFCS.1986.25}{[Link]}
+
+\harvarditem[Zhang, Li and Marden]{Zhang, Li and Marden}{2017}{ZhangLiMarden_MVCC}
+\textbf{Zhang, Keyou, Na~Li, and Jason~R. Marden.} 2017. ``Multi-Agent Coordination Control with Communication Complexity Considerations.'' In  {\it IEEE Conference on Decision and Control (CDC)}. \href{https://www.seas.ucla.edu/coopcontrol/papers/mvcc.pdf}{[Link]}
 
 \end{thebibliography}
