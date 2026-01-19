@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\author{
+    Ryan Batubara \\ 
+    {\tt \small{rbatubara@ucsd.edu}} \\\And
+    Ivy Hawks \\
+    {\tt \small{mahawks@ucsd.edu}} \\\And
+    Darren Ho \\
+    {\tt \small{dah103@ucsd.edu}} \\\And
+    Ciro Zhang \\
+    {\tt \small{ciz001@ucsd.edu}} \\\And
+    Shachar Lovett \\
+    {\tt \small{slovett@ucsd.edu}} \\}
+\normalsize
+
+\title{Problem Definition: Week 2}
+\begin{document}
+\section*{Problem}
+We consider a graph, $G$ with edges $E$ and vertices $V$, which is divided into
+subgraphs, $G_1, \dots, G_i, \dots, G_k \subset G$, where each subgraph is
+given to one of $k$ players. Each player knows only the whole graph and which
+set of vertices and edges are assigned to them. The goal is, given some
+starting vertex $v$, and some end vertex, $w$ to:
+\begin{enumerate}
+	\item \label{one} Identify if it is possible to construct a sequence of vertices
+		$v, v_1, \dots, v_i, w$ such that $\forall (m, n) \in i, m \neq
+		n: (v_m,v_n) \in \bigcup_{i=0}^{k} E_i$, where $E_i$ is the set
+		of edges belonging to $G_i$. In other words, find if there is
+		some sequence of vertices who's edges are entirely within at
+		least one of $G_1 \dots G_k$, which connects the vertices $v$
+		and $w$.
+	\item \label{two} If such a path exists, find the minimum number of edges needed to
+		get from $v$ to $w$, while using only edges belonging to
+		$\bigcup_{i=0}^{k} E_i$
+\end{enumerate}
+
+\section*{Lower bound sketches and ideas}
+For \cref{one}, this would require at minimum computing $\binom{k}{2}$ pairwise intersections in the worst case, to determine where the intersections of each $G_i$ are, at which point each player could on their own determine the possible paths between each of the subgraphs that intersect with their own. 
+\end{document}
