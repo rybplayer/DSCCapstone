@@ -44,5 +44,8 @@ $G_i$ are, at which point each player could on their own determine the possible
 paths between each of the subgraphs that intersect with their own. \\\\
 For \cref{two}, we would be required to compute $\binom{k}{2}$ pairwise
 intersections, since in order to minimize the path we would need to know all
-possible paths that could connect $v$ and $w$. 
+possible paths that could connect $v$ and $w$. To find the shortest path, each
+player works backwards and sends the distances through their internal vertices
+to the players they intersect with, and each player will attempt to identify if
+a longer path can be dropped whenever they receive this list.
 \end{document}
