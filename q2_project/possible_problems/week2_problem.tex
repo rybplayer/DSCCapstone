@@ -2,7 +2,9 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{cleveref}
 
+\title{Problem Definition: Week 2}
 \author{
     Ryan Batubara \\ 
     {\tt \small{rbatubara@ucsd.edu}} \\\And
@@ -16,27 +18,31 @@
     {\tt \small{slovett@ucsd.edu}} \\}
 \normalsize
 
-\title{Problem Definition: Week 2}
 \begin{document}
 \section*{Problem}
 We consider a graph, $G$ with edges $E$ and vertices $V$, which is divided into
 subgraphs, $G_1, \dots, G_i, \dots, G_k \subset G$, where each subgraph is
-given to one of $k$ players. Each player knows only the whole graph and which
-set of vertices and edges are assigned to them. The goal is, given some
-starting vertex $v$, and some end vertex, $w$ to:
+given to one of $k$ players. Each player knows only their own graph. The goal
+is, given some starting vertex $v$, and some end vertex, $w$ to:
 \begin{enumerate}
-	\item \label{one} Identify if it is possible to construct a sequence of vertices
+	\item  Identify if it is possible to construct a sequence of vertices
 		$v, v_1, \dots, v_i, w$ such that $\forall (m, n) \in i, m \neq
 		n: (v_m,v_n) \in \bigcup_{i=0}^{k} E_i$, where $E_i$ is the set
 		of edges belonging to $G_i$. In other words, find if there is
 		some sequence of vertices who's edges are entirely within at
 		least one of $G_1 \dots G_k$, which connects the vertices $v$
-		and $w$.
-	\item \label{two} If such a path exists, find the minimum number of edges needed to
+		and $w$. \label{one}
+	\item  If such a path exists, find the minimum number of edges needed to
 		get from $v$ to $w$, while using only edges belonging to
-		$\bigcup_{i=0}^{k} E_i$
+		$\bigcup_{i=0}^{k} E_i$ \label{two}
 \end{enumerate}
 
 \section*{Lower bound sketches and ideas}
-For \cref{one}, this would require at minimum computing $\binom{k}{2}$ pairwise intersections in the worst case, to determine where the intersections of each $G_i$ are, at which point each player could on their own determine the possible paths between each of the subgraphs that intersect with their own. 
+For \cref{one}, we think this would require computing $\binom{k}{2}$ pairwise
+set disjointnes in the worst case, to determine where the intersections of each
+$G_i$ are, at which point each player could on their own determine the possible
+paths between each of the subgraphs that intersect with their own. \\\\
+For \cref{two}, we would be required to compute $\binom{k}{2}$ pairwise
+intersections, since in order to minimize the path we would need to know all
+possible paths that could connect $v$ and $w$. 
 \end{document}
