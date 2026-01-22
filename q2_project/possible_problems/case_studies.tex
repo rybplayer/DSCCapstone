@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{Notes on Multi-Agent Traversal and Communication Case Studies}
+\author{}
+\date{}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\maketitle
+
+\section{Overview}
+We consider a communication complexity model in which players each own subsets of vertices (and possibly edges) of a known global graph. The task is to compute shortest-path distances between nodes using only vertices belonging to the union of players' subsets. Here are ten case studies where this problem models a real-world situation wherein communication is in some form a bottleneck.
+
+\subsection{Volcanic ash shutdown and airline re-routing (Europe, 2010)}
+
+\textbf{Case study.} The April--May 2010 Eyjafjallaj\"okull eruption triggered large-scale European airspace closures, disrupting on the order of $10^5$ flights and $10^7$ passenger journeys. This forced airlines and air-navigation authorities to continuously re-plan feasible routes as airspace sectors opened and closed. \cite{eurocontrol2010ash}
+
+\textbf{Model.} Let each air-navigation service provider or airspace-sector authority be a player owning vertices/edges corresponding to waypoints and sectors. Feasible shortest paths must lie entirely within currently open subsets.
+
+\subsection{Airport-wide power failure as localized vertex removal (Atlanta ATL, 2017)}
+\textbf{Case study.} In December 2017, Hartsfield--Jackson Atlanta International Airport suffered a major power outage that caused widespread cancellations and passenger stranding. Airlines re-routed passengers through alternative hubs as systems were gradually restored. \cite{cntraveler2017atl}
+
+\textbf{Model.} Airport operators own terminal, gate, and people-mover vertices, while airlines own flight-leg vertices. Shortest-path computation becomes layered (physical movement plus flight network) with partial vertex restoration over time.
+
+\subsection{Urban transit shutdown and phased restoration (NYC Hurricane Sandy, 2012)}
+\textbf{Case study.} Hurricane Sandy caused major disruptions to New York City's subway, commuter rail, and road tunnels, followed by staged service restoration over weeks and months. \cite{nyu2012sandytransport,dot2013sandy}
+
+\textbf{Model.} Different transit agencies act as players owning disjoint subsets of stations, tunnels, and tracks. Shortest paths are constrained to open infrastructure and evolve as vertices are gradually reintroduced.
+
+\subsection{Highway bridge collapse and rapid detour routing (I-95 Philadelphia, 2023)}
+\textbf{Case study.} A tanker fire on June 11, 2023 caused the collapse of an I-95 overpass in Philadelphia, forcing large-scale detours until phased reopening. \cite{axios2023i95,kodur2024i95}
+
+\textbf{Model.} State DOTs, city streets, and toll operators are distinct players owning roadway vertices and edges. The event motivates shortest-path computation after the removal of a critical cut vertex or edge. Perhaps we can make the graph weighted but only players know the weights, simulating traffic.
+
+\subsection{Global shipping chokepoint blockage (Suez Canal, 2021)}
+\textbf{Case study.} The grounding of the Ever Given in March 2021 blocked the Suez Canal for six days, forcing carriers to either wait or reroute around the Cape of Good Hope. \cite{pemp2021suez,tran2025suez}
+
+\textbf{Model.} Shipping lines and canal authorities own port calls and chokepoint edges. Shortest paths become time-dependent and depend on proprietary schedule and capacity information.
+
+\subsection{Port access loss and cargo diversion (Baltimore Key Bridge collapse, 2024)}
+\textbf{Case study.} The collapse of the Francis Scott Key Bridge blocked access to the Port of Baltimore, requiring cargo diversion to alternative ports until the channel was reopened in phases. \cite{ap2024baltimore,utk2024divert}
+
+\textbf{Model.} Port authorities, terminal operators, and carriers own different layers of a sea--port--land graph. This motivates multi-layer shortest-path problems under partial information and staged recovery.
+
+\subsection{Electric power grid load shedding (Texas ERCOT, 2021)}
+\textbf{Case study.} Extreme cold in February 2021 caused generation failures and load shedding across Texas, with cascading risks during restoration. \cite{nerc2021cold,busby2021texas}
+
+\textbf{Model.} Utilities and grid operators own substations, lines, and generators. The analogue of shortest paths is determining feasible low-cost delivery paths from supply to demand under connectivity constraints.
+
+\subsection{Fuel pipeline cyber disruption (Colonial Pipeline, 2021)}
+\textbf{Case study.} A ransomware attack in May 2021 shut down the Colonial Pipeline, disrupting fuel logistics across the U.S. East Coast. \cite{unece2023colonial,reedernhall2021colonial}
+
+\textbf{Model.} Pipeline operators and distributors own depots and transfer vertices. The case highlights adversarial vertex failures and asymmetric information about availability.
+
+\subsection{Backbone withdrawal and global reachability failure (Meta, 2021)}
+\textbf{Case study.} A configuration error in October 2021 withdrew Meta's backbone routes, making major services unreachable until recovery. \cite{meta2021outage,cloudflare2021fb}
+
+\textbf{Model.} Autonomous systems are players owning routing vertices and edges. Shortest-path feasibility corresponds to reachability under route withdrawals with limited policy disclosure.
+
+\subsection{Managed DNS attack and service unavailability (Dyn, 2016)}
+\textbf{Case study.} A large-scale DDoS attack on Dyn in October 2016 disrupted access to many major websites due to DNS resolution failures. \cite{wired2016dyn}
+
+\textbf{Model.} Infrastructure providers own critical dependency vertices. Shortest-path analogues arise in service-composition graphs constrained to available components.
+
+\begin{thebibliography}{99}
+
+    \bibitem{eurocontrol2010ash}
+    EUROCONTROL.
+    \newblock \emph{Ash-cloud of April and May 2010: Impact on Air Traffic}.
+    \newblock Technical report, European Organisation for the Safety of Air Navigation, June 2010.
+    \newblock \url{https://www.eurocontrol.int/sites/default/files/article/attachments/201004-ash-impact-on-traffic.pdf}
+    
+    \bibitem{cntraveler2017atl}
+    Cond\'e Nast Traveler.
+    \newblock \emph{Atlanta's Hartsfield--Jackson Airport Loses Power, Strands Thousands}.
+    \newblock December 18, 2017.
+    \newblock \url{https://www.cntraveler.com/story/atlanta-hartsfield-jackson-airport-power-outage}
+    
+    \bibitem{nyu2012sandytransport}
+    NYU Wagner Graduate School of Public Service.
+    \newblock \emph{Transportation During and After Hurricane Sandy}.
+    \newblock November 2012.
+    \newblock \url{https://wagner.nyu.edu/files/faculty/publications/sandytransportation.pdf}
+    
+    \bibitem{dot2013sandy}
+    U.S. Department of Transportation.
+    \newblock \emph{Hurricane Sandy: Rebuilding Transportation Infrastructure}.
+    \newblock Testimony before the U.S. Senate Committee on Commerce, Science, and Transportation, September 11, 2013.
+    \newblock \url{https://www.transportation.gov/testimony/hurricane-sandy}
+    
+    \bibitem{axios2023i95}
+    Axios.
+    \newblock \emph{I-95 Reopens Nearly Two Weeks After Deadly Collapse}.
+    \newblock June 23, 2023.
+    \newblock \url{https://www.axios.com/2023/06/23/i-95-reopens-collapse-philadelphia}
+    
+    \bibitem{kodur2024i95}
+    V.~K.~R. Kodur, J. Varma, and M. Dwaikat.
+    \newblock \emph{Fire-Induced Collapse of an I-95 Overpass in Philadelphia}.
+    \newblock \emph{Engineering Structures}, Vol. 304, 2024.
+    \newblock \url{https://doi.org/10.1016/j.engstruct.2024.117482}
+    
+    \bibitem{pemp2021suez}
+    Port Economics, Management \& Policy (PEMP).
+    \newblock \emph{Blockage of the Suez Canal, March 2021}.
+    \newblock March 23, 2021.
+    \newblock \url{https://porteconomicsmanagement.org/pemp/contents/part10/port-resilience/suez-canal-blockage-2021/}
+    
+    \bibitem{tran2025suez}
+    N.~K. Tran, A. Lohmann, and M. Notteboom.
+    \newblock \emph{The Costs of Maritime Supply Chain Disruptions: The Case of the 2021 Suez Canal Blockage}.
+    \newblock \emph{Transportation Research Part E: Logistics and Transportation Review}, 2025.
+    \newblock \url{https://doi.org/10.1016/j.tre.2024.103138}
+    
+    \bibitem{ap2024baltimore}
+    Associated Press.
+    \newblock \emph{Baltimore Shipping Channel Fully Reopens After Bridge Collapse}.
+    \newblock June 10, 2024.
+    \newblock \url{https://apnews.com/article/cf12f3b3e2914efa05a91dd399b0dd64}
+    
+    \bibitem{utk2024divert}
+    University of Tennessee, Haslam College of Business, Global Supply Chain Institute.
+    \newblock \emph{What Happens When Cargo Gets Diverted? Lessons from the Port of Baltimore}.
+    \newblock April 2, 2024.
+    \newblock \url{https://haslam.utk.edu/gsci/news/diverting-cargo-port-baltimore/}
+    
+    \bibitem{nerc2021cold}
+    North American Electric Reliability Corporation (NERC).
+    \newblock \emph{February 2021 Cold Weather Outages in Texas and the South Central United States}.
+    \newblock Technical report, July 2021.
+    \newblock \url{https://www.nerc.com/pa/rrm/ea/Documents/February_2021_Cold_Weather_Outages_Report.pdf}
+    
+    \bibitem{busby2021texas}
+    J.~W. Busby, D. Hart, and J. Bassett.
+    \newblock \emph{Understanding the 2021 Winter Blackout in Texas}.
+    \newblock \emph{Energy Research \& Social Science}, Vol. 77, 2021.
+    \newblock \url{https://doi.org/10.1016/j.erss.2021.102106}
+    
+    \bibitem{unece2023colonial}
+    United Nations Economic Commission for Europe (UNECE).
+    \newblock \emph{Cyber Resilience of Critical Energy Infrastructure: Colonial Pipeline Cyberattack Case Study}.
+    \newblock Revised edition, 2023.
+    \newblock \url{https://unece.org/sites/default/files/2023-12/Pipeline_Cyberattack_case.study_.2023_rev.2_0.pdf}
+    
+    \bibitem{reedernhall2021colonial}
+    J.~R. Reeder and R. Hall.
+    \newblock \emph{Lessons Learned from the Colonial Pipeline Ransomware Attack}.
+    \newblock \emph{Cyber Defense Review}, Vol. 6, No. 3, 2021.
+    \newblock \url{https://cyberdefensereview.army.mil/Portals/6/Documents/2021_summer_cdr/02_ReederHall_CDR_V6N3_2021.pdf}
+    
+    \bibitem{meta2021outage}
+    Meta Engineering.
+    \newblock \emph{More Details About the October 4, 2021 Outage}.
+    \newblock October 5, 2021.
+    \newblock \url{https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/}
+    
+    \bibitem{cloudflare2021fb}
+    Cloudflare.
+    \newblock \emph{Understanding How Facebook Disappeared from the Internet}.
+    \newblock October 4, 2021.
+    \newblock \url{https://blog.cloudflare.com/october-2021-facebook-outage/}
+    
+    \bibitem{wired2016dyn}
+    A. Greenberg.
+    \newblock \emph{Friday's East Coast Internet Outage Is a Major DDoS Attack}.
+    \newblock \emph{WIRED}, October 21, 2016.
+    \newblock \url{https://www.wired.com/2016/10/internet-outage-ddos-dns-dyn/}
+    
+    \end{thebibliography}
+
+\end{document}
