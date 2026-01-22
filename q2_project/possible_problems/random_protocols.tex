@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{lemma}{Lemma}[section]
+
+\title{Notes on Random Communication Protocols}
+\author{}
+\date{}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\begin{document}
+\maketitle
+
+\section{Randomized Protocols}
+
+\subsection{Basics}
+Public randomness: all parties share a random string $R$. Private randomness: each party samples its own random string. Fixing randomness yields a deterministic protocol, so a randomized protocol is a distribution over deterministic ones. Error can be worst-case or with respect to an input distribution. Randomness often trades a small error for fewer bits.
+
+\begin{lemma}
+Every private coin protocol can be simulated by a public coin protocol.
+\end{lemma}
+
+\begin{lemma}
+Every public coin protocol can be simulated by a private coin protocol, with a small increase in communication.
+\end{lemma}
+
+\begin{lemma}
+If a randomized protocol never errors, then fixing the randomness yields a deterministic protocol that is always correct.
+\end{lemma}
+
+\subsection{Applications and Examples}
+\begin{enumerate}[leftmargin=1.2em]
+    \item Equality: given $x,y \in \{0,1\}^n$, decide if $x=y$. Public hash $h:\{0,1\}^n \to \{0,1\}^k$, send $h(x)$, error $\le 2^{-k}$.
+    \item Equality via codes: given $x,y \in \{0,1\}^n$, decide if $x=y$. Use a code $C:\{0,1\}^n \to \Sigma^m$, send a random coordinate $(i,C(x)_i)$.
+    \item Greater-than: given $x,y \in [n]$, decide if $x>y$. Randomized equality on prefixes lets you find the first differing bit with $O(\log\log n)$ rounds.
+    \item Disjointness: given $X,Y \subseteq [n]$, decide if $X \cap Y = \emptyset$. Random filters reduce set sizes while preserving intersection.
+    \item Hamming distance: given $x,y \in \{\pm1\}^n$, estimate $\Delta(x,y)=|\{i:x_i \ne y_i\}|$ within $\pm m$ by sampling $k$ coordinates.
+    \item Set membership: Alice has $S \subseteq [n]$, Bob has $i \in [n]$, decide if $i \in S$. Alice sends a hash sketch of $S$.
+    \item Gap-Hamming: given $x,y \in \{0,1\}^n$, decide if $\Delta(x,y) \le n/2 - \sqrt{n}$ or $\ge n/2 + \sqrt{n}$. Random sampling separates the two cases.
+    \item Inner product mod 2: given $x,y \in \{0,1\}^n$, compute $\langle x,y\rangle \bmod 2$. Use shared random masks and parity sketches.
+    \item Indexing: Alice has $x \in \{0,1\}^n$, Bob has $i \in [n]$, output $x_i$. Random fingerprints help verify short answers.
+    \item Approximate counting: given $x \in \{0,1\}^n$, estimate $|x|_1$ within $\pm \alpha n$ using random samples.
+    \item Distinct elements: Alice and Bob each have streams $A,B$, estimate $|A \cup B|$ via random hash buckets.
+    \item Sparse recovery: given $x,y \in \mathbb{R}^n$ with $x-y$ $k$-sparse, Bob estimates $x-y$ from random linear sketches.
+    \item Triangle detection: Alice and Bob have edge sets $E_A,E_B \subseteq \binom{[n]}{2}$, decide if $E_A \cup E_B$ contains a triangle by sampling edges.
+    \item Closest pair: given point sets $P,Q \subset \mathbb{R}^d$, estimate $\min_{p\in P,q\in Q} \|p-q\|_2$ using random projections.
+    \item $\ell_2$ norm estimation: given $x,y \in \mathbb{R}^n$, estimate $\|x-y\|_2$ from random sign sketches.
+\end{enumerate}
+
+\end{document}
