@@ -1,0 +1,43 @@
+\usepackage{ryblatex.sty}
+
+\title{Embedding equality into our problem}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{The embedding}
+
+\begin{definition}
+The equality communication game is as follows: Let $x, y \in \{0,1\}^n$. Give $x$ to Alice and $y$ to Bob. Output $1$ if $x=y$ and $0$ otherwise.
+\end{definition}
+
+\begin{theorem}
+Equality has deterministic communication complexity $O(n)$ for input size in $\{0,1\}^n$. In other words, it is maximally complicated.
+\end{theorem}
+
+\begin{definition}
+Our problem (variant 1) is as follows: Given an undirected, unweighted graph $G = (V,E)$ which is known to Alice and Bob, Alice is given a start vertex $v$ and a subset $X \subset V$ and Bob an end vertex $w$ and a subset $Y \subset V$. $X,Y$ need not be disjoint nor cover the graph. Output 1 if there is a path from $v$ to $w$ using only vertices in $X \cup Y$ and edges $e = (i,j)$ where $i,j \in X$ or $i,j \in Y$.
+\end{definition}
+
+\begin{theorem}
+Our problem (variant 1) has deterministic communication complexity $O(n)$ where $|V| = O(n)$ (and so subsets are of cardinality $O(n)$).
+\end{theorem}
+
+\begin{proof}
+Construct a undirected unweighted graph $G = (V,E)$ as follows: Place $v,w \in V$ start and end vertices. 
+
+For every $i \in [n]$: Add 6 vertices: $A0_i$, $A1_i$, $B0_i$, $B1_i, C0_i, C1_i$. Add edges $\{A0_i, C0_i\}$, $\{C0_i, B0_i\}$, $\{A1_i, B1_i\}$, $\{B0_i, B0_{i+1}\}$, $\{B1_i, B1_{i+1}\}$. Add edges $\{v, A0_1\}$, $\{v, A1_1\}$, $\{B0_n, w\}$, $\{B1_n, w\}$. Define $X = \{ B0_j, B1_j, v, A_j \}$ for all $j \in [n]$ where $A_j = A0_j$ if $x_j = 0$ and $A_j = A1_j$ if $x_j = 1$. Do similarly for Bob: $Y = \{ A0_j, A1_j, v, B_j \}$ for all $j \in [n]$
+
+\begin{lemma}
+In the above graph $G$, $\exists$ a path $v$ to $w$ iff $x = y$.
+\end{lemma}
+
+\begin{proof}
+Suppose a path exists. For each $i \in [n]$, this path must pass through either $A0_i$ and $B0_i$ or $A1_i$ and $B1_i$. In the $A0_i$ and $B0_i$ case, Alice cannot also own $A1_i$ and Bob cannot also own $B0_i$. 
+\end{proof}
+\end{proof}
+
+\end{document}
