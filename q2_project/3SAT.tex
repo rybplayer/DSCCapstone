@@ -1,0 +1,191 @@
+% Copy-paste into Overleaf as main.tex
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{mathtools}
+
+\title{\vspace{-1.2cm}Notes on Embedding 3SAT into Graph Problems}
+\author{Deliverable: Notes on 3SAT Embedding}
+\date{}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+\maketitle
+
+\section{Motivation}
+A standard way to prove computational hardness of a graph problem is to give a polynomial-time reduction from a canonical NP-complete problem. \textbf{3SAT} is the most common starting point because it is expressive, structurally uniform (3-literal clauses), and reductions from 3SAT are modular: we can build \emph{gadgets} for variables and clauses and wire them together.
+
+Studying classic 3SAT-to-graph embeddings is useful for:
+\begin{itemize}[itemsep=2pt]
+  \item proving \textbf{NP-hardness} (via a reduction),
+  \item setting up \textbf{NP-completeness} (NP-hardness + membership in NP),
+  \item learning standard gadget patterns (variable choice, clause satisfaction, consistency),
+  \item anticipating loopholes (``cheating'' solutions not corresponding to assignments).
+\end{itemize}
+
+\section{Problem Statement: 3SAT}
+\begin{definition}[3SAT]
+An instance of \emph{3SAT} consists of Boolean variables $x_1,\dots,x_n$ and clauses $C_1,\dots,C_m$, where each clause is a disjunction of exactly three literals:
+\[
+C_j = (\ell_{j1} \lor \ell_{j2} \lor \ell_{j3}),
+\]
+and each literal $\ell$ is either $x_i$ or $\neg x_i$ for some $i$. The decision question is whether there exists an assignment $\alpha:\{x_i\}\to\{\text{T},\text{F}\}$ satisfying all clauses.
+\end{definition}
+
+\section{High-Level Reduction Template}
+Most 3SAT $\to$ graph reductions follow the same blueprint.
+
+\subsection*{Core idea}
+Construct a graph instance $G(\varphi)$ from a 3CNF formula $\varphi$ such that:
+\begin{quote}
+$\varphi$ is satisfiable $\iff$ $G(\varphi)$ has a feasible solution (for the target graph problem).
+\end{quote}
+
+\subsection*{Modular structure}
+\begin{enumerate}[itemsep=2pt]
+  \item \textbf{Variable gadgets}: enforce a binary choice (True vs False).
+  \item \textbf{Clause gadgets}: enforce ``at least one literal is True''.
+  \item \textbf{Consistency wiring}: ensure each literal occurrence respects the variable choice.
+  \item \textbf{Soundness/completeness}: prove both directions of the iff statement.
+\end{enumerate}
+
+\section{Variable Gadgets}
+\subsection{Purpose}
+A variable gadget for $x_i$ must encode a \emph{single global} truth choice, used consistently across all appearances of $x_i$ and $\neg x_i$ in clauses.
+
+\subsection{Common patterns}
+\paragraph{(A) Two-choice path gadget (routing)}
+Two internally disjoint branches correspond to $x_i=\text{T}$ and $x_i=\text{F}$. Any feasible global solution must pick exactly one branch (e.g., a path, a set of disjoint paths, a shortest path under constraints).
+
+\paragraph{(B) Matching choice gadget (selection)}
+A subgraph admits exactly two ``modes'' under a matching/perfect matching constraint; choosing one mode corresponds to $x_i=\text{T}$ and the other to $x_i=\text{F}$. This is common in reductions to matching/factor problems.
+
+\paragraph{(C) Orientation/circulation gadget (directed constraints)}
+In directed settings, orienting a cycle or selecting a circulation pattern can represent a truth value and constrain what edges can be used to satisfy clauses.
+
+\subsection{Design checklist}
+A correct variable gadget should satisfy:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Exclusivity}: cannot simultaneously represent T and F.
+  \item \textbf{Extractability}: from any feasible solution, we can read off T vs F.
+  \item \textbf{Interface}: literal ports connect cleanly to clause gadgets.
+\end{itemize}
+
+\section{Clause Gadgets}
+\subsection{Purpose}
+Each clause $C_j=(\ell_{j1}\lor \ell_{j2}\lor \ell_{j3})$ must be enforced by the graph so that \emph{feasibility} requires at least one of its literals to be ``activated'' (i.e., set to True by the variable gadget).
+
+\subsection{Standard approaches}
+\paragraph{(A) OR-gadget via availability}
+Clause gadget is feasible if at least one literal-connection edge/path is available; if all three are blocked (all false), the gadget becomes infeasible.
+
+\paragraph{(B) Flow-based OR-gadget}
+Require one unit of flow to enter the clause gadget. Flow can enter only through a port corresponding to a True literal; thus feasibility implies at least one literal is True.
+
+\paragraph{(C) Obstruction gadget}
+If all literals are false, the global solution is forced to contain an impossible structure (e.g., must traverse a forbidden edge/cut, violate planarity constraints, exceed a budget).
+
+\subsection{Design checklist}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Local correctness}: clause gadget enforces ``$\ge 1$ literal true''.
+  \item \textbf{No loopholes}: no alternate route that satisfies the gadget without a true literal.
+  \item \textbf{Constant size}: typically $O(1)$ vertices/edges per clause.
+\end{itemize}
+
+\section{Consistency: Wiring Literals to Variables}
+\subsection{Literal ports}
+For each occurrence of a literal $\ell$ in clause $C_j$, create a connection (edge/path/interface) from:
+\begin{itemize}[itemsep=2pt]
+  \item the \textbf{True side} of variable gadget $x_i$ if $\ell=x_i$, or
+  \item the \textbf{False side} of variable gadget $x_i$ if $\ell=\neg x_i$,
+\end{itemize}
+into the corresponding port of the clause gadget for $C_j$.
+
+\subsection{Preventing inconsistent assignments}
+Common enforcement methods (depending on the target graph problem):
+\begin{itemize}[itemsep=2pt]
+  \item capacity constraints (a port usable only if variable mode allows it),
+  \item disjointness constraints (cannot ``mix'' truth modes without conflict),
+  \item directed edges and reachability constraints,
+  \item shared resources/budgets that make cheating solutions impossible.
+\end{itemize}
+
+\section{Polynomial Size Bound}
+To be a valid polynomial-time reduction, the constructed graph must be polynomial in $n+m$.
+Typical guarantee:
+\[
+|V(G)|, |E(G)| = O\!\left(n + m + \sum_i \deg(x_i)\right) = O(n+m).
+\]
+This holds if each gadget is constant size and each literal occurrence contributes $O(1)$ wiring.
+
+\section{NP-Hardness Proof Structure}
+A clean write-up always includes two directions.
+
+\subsection{Completeness}
+\begin{claim}[Completeness]
+If $\varphi$ is satisfiable, then $G(\varphi)$ has a feasible solution (for the target graph problem).
+\end{claim}
+\noindent \textbf{Proof sketch.}
+Given a satisfying assignment, set each variable gadget to the corresponding mode (T/F). For each clause, at least one literal is True, so the corresponding clause gadget has at least one active port, making it feasible. Combine the local choices into a global feasible solution. \hfill $\square$
+
+\subsection{Soundness}
+\begin{claim}[Soundness]
+If $G(\varphi)$ has a feasible solution, then $\varphi$ is satisfiable.
+\end{claim}
+\noindent \textbf{Proof sketch.}
+From any feasible solution, read off each variable gadget's mode (extract an assignment). Consistency wiring ensures that literal ports reflect this mode. Clause gadget feasibility implies at least one literal port is active per clause, hence each clause has a satisfied literal. Therefore the extracted assignment satisfies $\varphi$. \hfill $\square$
+
+\section{Membership in NP (for NP-Completeness)}
+If the goal is NP-completeness, we also show that the graph problem is in NP.
+
+\subsection*{Typical certificate}
+Depending on the graph problem, a certificate could be:
+\begin{itemize}[itemsep=2pt]
+  \item an explicit path / set of paths,
+  \item a matching / factor set,
+  \item a flow assignment,
+  \item an ordering / labeling / orientation.
+\end{itemize}
+
+\subsection*{Verification}
+Verification is usually polynomial-time: check local constraints, capacities, adjacency, disjointness, and objective bounds.
+
+\section{Canonical Examples (for technique mining)}
+Many classic NP-hardness results use 3SAT embeddings:
+\begin{itemize}[itemsep=2pt]
+  \item Hamiltonian Path/Cycle (route must ``choose'' literals),
+  \item Vertex Cover / Independent Set (selection encodes truth),
+  \item Graph Coloring (colors encode assignments),
+  \item Disjoint Paths (routing encodes choices),
+  \item Flow/Circulation problems (literal availability controls feasibility).
+\end{itemize}
+These are useful as a library of gadget patterns, even if the target problem differs.
+
+\section{Relevance to Our Setting}
+To adapt these techniques to a specific graph problem:
+\begin{enumerate}[itemsep=2pt]
+  \item Identify the \textbf{primitive} your problem optimizes/decides (paths, matchings, flows, cuts, orientations, hyperedges, multi-agent structure).
+  \item Build a \textbf{variable gadget} that forces exactly two global modes under that primitive.
+  \item Build a \textbf{clause gadget} that is feasible iff at least one literal port is active.
+  \item Prove \textbf{no-cheating} (soundness), then show how to \textbf{construct} solutions from assignments (completeness).
+\end{enumerate}
+
+\section{Next Steps (Action Items)}
+\begin{enumerate}[itemsep=2pt]
+  \item Write down the formal definition of \emph{our} graph problem: instance format, decision question, and what a certificate looks like.
+  \item Decide the ``carrier object'' (path / matching / flow / labeling) that naturally serves as a certificate.
+  \item Draft candidate variable and clause gadgets in that language.
+  \item Stress-test soundness by attempting to construct a feasible solution that does \emph{not} correspond to any assignment; patch gadgets accordingly.
+\end{enumerate}
+
+\vspace{8pt}
+\noindent\textbf{Deliverable summary:} This document records standard 3SAT embedding patterns (variable/clause gadgets + consistency) and the proof skeleton (completeness/soundness + NP membership) to reuse when proving NP-hardness/NP-completeness for a graph problem.
+
+\end{document}
