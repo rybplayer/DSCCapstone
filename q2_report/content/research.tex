@@ -1,0 +1,157 @@
+In order to better understand the complexity of our problem, we examined several
+related areas of theoretical computer science and algorithms. In particular, we
+focused on reductions from known hard problems, communication complexity, and
+lower bounds in distributed or constrained graph settings. Studying these
+connections helps determine whether efficient algorithms are likely to exist
+and provides a framework for proving hardness results.
+
+The goal of this section is to summarize relevant ideas from existing literature
+and describe how they inform our approach. The main themes we explore are:
+\begin{itemize}
+    \item Reductions from 3SAT to graph problems,
+    \item Randomized communication protocols,
+    \item Lower bounds for shortest path computation in generalized models.
+\end{itemize}
+
+Each of these areas provides insight into different aspects of our problem,
+including computational hardness, communication requirements, and structural
+constraints.
+
+\subsection{3SAT to Graph Reduction}
+
+A standard method for proving that a graph problem is NP-hard is to reduce from
+\textbf{3SAT}. Because 3SAT is NP-complete and highly structured, it serves as a
+canonical starting point for hardness reductions.
+
+\paragraph{Goal.}
+Given a 3SAT formula $\varphi$, we construct a graph $G(\varphi)$ such that
+\[
+\varphi \text{ is satisfiable } \iff G(\varphi) \text{ has a feasible solution}.
+\]
+If such a construction can be performed in polynomial time, then the graph
+problem is at least as hard as 3SAT.
+
+\paragraph{3SAT definition.}
+A 3SAT instance consists of Boolean variables $x_1,\dots,x_n$ and clauses
+\[
+C_j = (\ell_{j1} \lor \ell_{j2} \lor \ell_{j3}),
+\]
+where each literal $\ell$ is either $x_i$ or $\neg x_i$. The objective is to
+determine whether there exists a truth assignment that satisfies all clauses.
+
+\paragraph{Reduction structure.}
+Most reductions from 3SAT to graph problems follow a common template:
+\begin{itemize}
+    \item \textbf{Variable gadgets:} Each variable is represented by a subgraph
+    that can be in one of two modes, corresponding to True or False.
+    \item \textbf{Clause gadgets:} Each clause is represented by a subgraph that
+    is feasible only if at least one of its literals evaluates to True.
+    \item \textbf{Consistency connections:} Edges connect variable gadgets to
+    clause gadgets so that all occurrences of a variable respect the same
+    truth assignment.
+\end{itemize}
+
+\paragraph{Correctness.}
+A valid reduction must show two directions:
+\begin{itemize}
+    \item \textbf{Completeness:} If the formula is satisfiable, we can configure
+    each variable gadget according to the assignment, producing a feasible
+    solution in the graph.
+    \item \textbf{Soundness:} If the graph has a feasible solution, the chosen
+    configuration of variable gadgets determines an assignment that satisfies
+    all clauses.
+\end{itemize}
+
+\paragraph{Size requirements.}
+To ensure the reduction is efficient, the graph must be polynomial in size:
+\[
+|V|, |E| = O(n + m),
+\]
+where $n$ is the number of variables and $m$ is the number of clauses.
+
+\paragraph{Relevance.}
+These techniques are useful for our setting because they provide a blueprint for
+encoding logical constraints into graph structure. If our problem can simulate
+variable choices and clause satisfaction, then a similar reduction could be
+used to prove NP-hardness.
+
+\subsection{Randomized Protocols and Communication}
+
+Another perspective on our problem comes from communication complexity. In many
+settings, information about a graph is distributed across multiple agents or
+data sources. In such cases, randomness can help reduce the amount of
+communication required to coordinate computations.
+
+\paragraph{Randomized protocols.}
+A randomized protocol can be viewed as a distribution over deterministic
+protocols. Instead of following a fixed sequence of messages, parties use random
+bits to guide their decisions. This often allows problems to be solved with much
+less communication than deterministic approaches.
+
+\paragraph{Public randomness.}
+Public randomness refers to a shared random string known to all parties. This
+allows them to coordinate actions without explicitly communicating every detail.
+For example, in the equality problem, two parties can hash their inputs using a
+shared random function and compare only the hash values. This reduces the amount
+of data that must be transmitted while still achieving high accuracy.
+
+\paragraph{Private randomness.}
+In private randomness models, each party has its own random bits. While this is
+more realistic in practice, it is slightly weaker than public randomness because
+parties may need to communicate their random choices. Nevertheless, private
+randomness still reduces communication requirements compared to deterministic
+protocols.
+
+\paragraph{Implications.}
+Randomization can dramatically reduce communication complexity. For problems
+involving distributed graph information, randomized protocols may provide
+efficient coordination strategies even when deterministic communication would
+be too expensive.
+
+\subsection{Hardness of Shortest Path Variants}
+
+We also examined known lower bounds for shortest path problems under more
+general models. While shortest path computation is easy in centralized graphs,
+it becomes significantly harder when the graph is distributed, streamed, or
+represented using hyperedges.
+
+\paragraph{Hypergraph setting.}
+In directed hypergraphs, a single edge can connect multiple vertices
+simultaneously. Computing a minimum-weight hyperpath in this model is known to
+be NP-hard. This suggests that if our problem requires combining edges from
+multiple sources in a hypergraph-like structure, efficient algorithms may not
+exist.
+
+\paragraph{Distributed setting.}
+When graph data is distributed across multiple players and communication per
+round is limited, computing exact shortest paths requires many rounds of
+communication. Even though centralized algorithms are efficient, distributed
+protocols face inherent communication bottlenecks.
+
+\paragraph{Streaming setting.}
+If edges arrive as a stream and memory is limited, computing reachability or
+shortest paths requires either large memory or multiple passes over the data.
+These results show that strong lower bounds exist when information is spread
+across multiple sources.
+
+\paragraph{Key takeaway.}
+Shortest path problems become significantly more difficult when graph
+information is partitioned across agents, streams, or hyperedges. These results
+suggest that our problem may inherit similar lower bounds if it involves
+distributed or constrained graph information.
+
+\section{Summary}
+
+The literature reviewed here provides several important insights:
+\begin{itemize}
+    \item Reductions from 3SAT offer a standard method for proving NP-hardness.
+    \item Randomized protocols can reduce communication in distributed settings.
+    \item Strong lower bounds exist for shortest path computation in generalized
+    models such as hypergraphs, distributed systems, and streaming frameworks.
+\end{itemize}
+
+Together, these ideas help frame our problem within a broader theoretical
+context. They suggest both potential strategies for proving hardness and
+possible directions for designing algorithms under realistic constraints.
+
+\end{document}
