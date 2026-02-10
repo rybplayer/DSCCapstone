@@ -328,6 +328,31 @@ inner sep=0pt
 \caption{Equality gadgets chained as adjacent hexagonal modules.}
 \end{figure}
 
-Therefore, any protocol that solves the reachability problem on this graph can be used to solve the Disjoint problem. Since Disjoint requires $\Omega(n)$ deterministic communication, it follows that our graph problem also requires $\Omega(n)$ deterministic communication.
+Therefore, any protocol that solves the reachability problem on this graph can
+be used to solve the Disjoint problem. Since Disjoint requires $\Omega(n)$
+deterministic communication, it follows that our graph problem also requires
+$\Omega(n)$ deterministic communication.
 
+\section*{Non-Induced proofs}
+\subsection*{Connected graph}
+Given some graph $G (V,E)$, Alice and Bob both receive some subset of vertices.
+We will impose the constraint that the set of vertices that Alice and Bob each
+have will form connected subgraphs. We also define a valid path to be one which
+only uses edges in which both vertices are owned entirely by at least one
+player, that is $(u,v)$ is a valid edge to traverse iff $u, v \in X$ or $u, v
+\in Y$. Since path length is not a constraint, Alice and Bob can each generate
+complete graphs with each of their own internal vertices, and there then exists
+a valid path between two nodes in one of two cases:
+\begin{itemize}
+	\item[Case 1] Both nodes are in one players input, in which case the
+		problem is trivial.
+	\item[Case 2] There exists a node in both of the player's input
+\end{itemize}
+In the second case, the problem is identifying if $X \cap Y = \emptyset$, and is
+computed by the Set disjointness protocol, thus creating a bound of $\Omega(n)$
+for this problem
+\subsection{Sparse Graphs}
+Here, we will again assume that Alice and Bob receive some subset of vertices,
+$X, Y \subseteq [n]$. In this case, we will not attempt to define the edges,
+and simply assume that $|E| \ll |V|$.
 \end{document}

@@ -3,5 +3,5 @@
 *.DS_Store
 *.log
 *.swp
-.DS_Store
+**/.DS_Store
 .DS_Store
