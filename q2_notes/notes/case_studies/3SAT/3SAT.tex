@@ -8,27 +8,16 @@
 \usepackage{mathtools}
 
 \title{\vspace{-1.2cm}Notes on Embedding 3SAT into Graph Problems}
-\author{Deliverable: Notes on 3SAT Embedding}
-\date{}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \newtheorem{claim}{Claim}
 \newtheorem{definition}{Definition}
 
+\date{}
+
 \begin{document}
 \maketitle
-
-\section{Motivation}
-A standard way to prove computational hardness of a graph problem is to give a polynomial-time reduction from a canonical NP-complete problem. \textbf{3SAT} is the most common starting point because it is expressive, structurally uniform (3-literal clauses), and reductions from 3SAT are modular: we can build \emph{gadgets} for variables and clauses and wire them together.
-
-Studying classic 3SAT-to-graph embeddings is useful for:
-\begin{itemize}[itemsep=2pt]
-  \item proving \textbf{NP-hardness} (via a reduction),
-  \item setting up \textbf{NP-completeness} (NP-hardness + membership in NP),
-  \item learning standard gadget patterns (variable choice, clause satisfaction, consistency),
-  \item anticipating loopholes (``cheating'' solutions not corresponding to assignments).
-\end{itemize}
 
 \section{Problem Statement: 3SAT}
 \begin{definition}[3SAT]
@@ -39,10 +28,9 @@ C_j = (\ell_{j1} \lor \ell_{j2} \lor \ell_{j3}),
 and each literal $\ell$ is either $x_i$ or $\neg x_i$ for some $i$. The decision question is whether there exists an assignment $\alpha:\{x_i\}\to\{\text{T},\text{F}\}$ satisfying all clauses.
 \end{definition}
 
-\section{High-Level Reduction Template}
-Most 3SAT $\to$ graph reductions follow the same blueprint.
-
-\subsection*{Core idea}
+\section{Reduction Template}
+Most 3SAT $\to$ graph reductions follow the same blueprint:
+\\\\
 Construct a graph instance $G(\varphi)$ from a 3CNF formula $\varphi$ such that:
 \begin{quote}
 $\varphi$ is satisfiable $\iff$ $G(\varphi)$ has a feasible solution (for the target graph problem).
@@ -157,7 +145,7 @@ Depending on the graph problem, a certificate could be:
 \subsection*{Verification}
 Verification is usually polynomial-time: check local constraints, capacities, adjacency, disjointness, and objective bounds.
 
-\section{Canonical Examples (for technique mining)}
+\section{Canonical Examples}
 Many classic NP-hardness results use 3SAT embeddings:
 \begin{itemize}[itemsep=2pt]
   \item Hamiltonian Path/Cycle (route must ``choose'' literals),
@@ -166,26 +154,4 @@ Many classic NP-hardness results use 3SAT embeddings:
   \item Disjoint Paths (routing encodes choices),
   \item Flow/Circulation problems (literal availability controls feasibility).
 \end{itemize}
-These are useful as a library of gadget patterns, even if the target problem differs.
-
-\section{Relevance to Our Setting}
-To adapt these techniques to a specific graph problem:
-\begin{enumerate}[itemsep=2pt]
-  \item Identify the \textbf{primitive} your problem optimizes/decides (paths, matchings, flows, cuts, orientations, hyperedges, multi-agent structure).
-  \item Build a \textbf{variable gadget} that forces exactly two global modes under that primitive.
-  \item Build a \textbf{clause gadget} that is feasible iff at least one literal port is active.
-  \item Prove \textbf{no-cheating} (soundness), then show how to \textbf{construct} solutions from assignments (completeness).
-\end{enumerate}
-
-\section{Next Steps (Action Items)}
-\begin{enumerate}[itemsep=2pt]
-  \item Write down the formal definition of \emph{our} graph problem: instance format, decision question, and what a certificate looks like.
-  \item Decide the ``carrier object'' (path / matching / flow / labeling) that naturally serves as a certificate.
-  \item Draft candidate variable and clause gadgets in that language.
-  \item Stress-test soundness by attempting to construct a feasible solution that does \emph{not} correspond to any assignment; patch gadgets accordingly.
-\end{enumerate}
-
-\vspace{8pt}
-\noindent\textbf{Deliverable summary:} This document records standard 3SAT embedding patterns (variable/clause gadgets + consistency) and the proof skeleton (completeness/soundness + NP membership) to reuse when proving NP-hardness/NP-completeness for a graph problem.
-
 \end{document}
