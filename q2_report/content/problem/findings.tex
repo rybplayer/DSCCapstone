@@ -64,10 +64,6 @@ Consider a graph $G$ with edges $E$ and vertices $V$, and subgraphs $G_1, \ldots
 not belonging to any player.}
 \end{figure}
 
-\subsection{Lower bound sketches and ideas}
-For \cref{one}, we think this would require computing $\binom{k}{2}$ pairwise set disjointnes in the worst case, to determine where the intersections of each $G_i$ are, at which point each player could on their own determine the possible
-paths between each of the subgraphs that intersect with their own. 
-
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -100,16 +96,6 @@ paths between each of the subgraphs that intersect with their own.
 \end{tikzpicture}
 \caption{Worst case for \cref{one}: Disjoint Subsets}
 \end{figure}
-
-
-For \cref{two}, we would be required to compute $\binom{k}{2}$ pairwise
-intersections, since in order to minimize the path we would need to know all
-possible paths that could connect $v$ and $w$. To find the shortest path, each
-player works backwards and sends the distances through their internal vertices
-to the players they intersect with, and each player will attempt to identify if
-a longer path can be dropped whenever they receive this list.
-
-
 
 \subsection{Lower bound using Equality}
 
@@ -203,9 +189,8 @@ Therefore, any protocol that solves the reachability problem on this graph can b
 \subsection{Lower bound using Disjointness}
 
 \paragraph{Set Disjointness problem.}
-Alice is given a vector 
-$x \in \{0,1\}^n$ and Bob is given a vector $y \in \{0,1\}^n$. 
-The goal is to determine whether the sets represented by $x$ and $y$ are disjoint. It is known that Disjointness has deterministic communication complexity $\Omega(n)$.
+Alice and Bob are both given sets $X, Y \subseteq [n]$
+The goal is to determine whether the sets represented by $X$ and $Y$ are disjoint. It is known that Disjointness has deterministic communication complexity $\Omega(n \log n)$. (Note that while this bound seems larger than that of equality, it represents the exact same--Alice sends her entire input to Bob, who then computes the function)
 
 \paragraph{Disjointness gadget.}
 We construct a gadget that enforces disjointness at a single bit position. The gadget is shown in Figure 5. The gadget is constructed so that traversal is possible for all assignments except when both parties contain the element.
