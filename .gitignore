@@ -1,7 +1,10 @@
 *.synctex.gz
 *.aux
+*.toc
+*.out
 *.DS_Store
 *.log
 *.swp
 **/.DS_Store
 .DS_Store
+*.thm

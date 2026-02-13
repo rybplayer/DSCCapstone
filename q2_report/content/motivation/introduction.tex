@@ -1,5 +1,22 @@
-This report studies communication lower and upper bounds for multi-party graph traversal problems, motivated by real systems in which no single agent holds the full network state. We focus on settings where a global graph is known but each party privately owns a subset of vertices and edges, and the task is to determine reachability or shortest paths that must lie within the union of their private subgraphs.
+\subsection{Lower bounds and Communication Complexity}
+As we gain and store every more information, we constantly need more effective
+ways to process and store that information. To do this more effectively, we can
+either create more powerful hardware, or create ever more efficient algorithms.
+We will consider the latter course. Many algorithm designers have created
+enormously efficient algorithms for solving many core problems in querying and
+optimization, but improvement does beg the question--how fast can we make these
+algorithms? Certainly, asked to check if two numbers are the same, our
+natural inclination might be to simply compare all of the digits, resulting in
+a protocol running in $\mathcal{O}(n)$ time. However, is it possible to do
+better than this? And can we prove it? While classical computing might provide
+tools for the case of equality---No, we cannot do better---many more complex
+questions such as optimization using linear programs cannot be proven using
+these classical tools. Communication Complexity provides a model under which we
+can transform these logical processes, for which we lack adequate mathematical
+tools to prove bounds on, into combinatorial ones for which we can find
+solutions much more easily.
 
+%%% TODO: We should decide if we want to keep this section or not. I don't think we need it, since we are able to motivate our problem using algorithm development above, but whether we keep it or not I dont think it fits well in this section
 \subsection{Motivation from multi-party traversal case studies}
 Large-scale transportation and infrastructure disruptions create a natural model for multi-party graph traversal. Consider the 2010 European volcanic ash shutdown: air-navigation service providers, airports, and airlines each control disjoint portions of airspace and schedules. Rerouting passengers is a shortest-path problem in a layered graph whose feasible vertices and edges change over time. No party can broadcast its full real-time state, both for operational and privacy reasons, so route feasibility must be computed with limited information exchange.
 
@@ -10,6 +27,8 @@ The maritime and logistics examples are equally instructive. The 2021 Suez Canal
 Communication bottlenecks become even sharper in critical infrastructure networks. During the 2021 Texas ERCOT blackout, grid operators and utilities effectively solve a constrained flow and connectivity problem as generation and transmission nodes go offline. The Colonial Pipeline cyber disruption similarly forced fuel logistics to reroute through alternate depots and terminals with incomplete visibility. Finally, the 2021 Meta backbone withdrawal and the 2016 Dyn DNS attack show that digital services rely on reachability in routing and dependency graphs, where policy and security constraints limit information sharing across administrative domains.
 
 These cases motivate a theoretical study of multi-party graph traversal: agents must collaboratively decide reachability and shortest paths while their private subgraphs, capacities, or weights are not fully shareable. The fundamental question is how much communication is necessary, and how randomized protocols, sketches, or partial disclosures can reduce the burden while preserving correctness.
+
+
 
 \subsection{Why communication is the bottleneck}
 In the model we consider, each party has unlimited local computation but limited ability to share data. This is realistic: air traffic control centers, network operators, or utilities can compute detailed local routes, but cannot afford to broadcast all local states and constraints due to bandwidth, privacy, regulatory, or security limitations. The communication cost, not the local computation, is what constrains real-time coordination.
@@ -26,10 +45,39 @@ Randomized protocols allow parties to use random coins to reduce communication. 
 
 Two classical benchmark problems are equality and disjointness. Equality asks whether $x=y$ for $x,y\in\{0,1\}^n$, and disjointness asks whether $X\cap Y=\emptyset$ for subsets of $[n]$. Both are complete for a wide range of lower-bound techniques. Deterministically, equality requires $n$ bits in the worst case, and disjointness requires $\Omega(n)$ communication. Randomization yields large gains for equality via hashing, but not for disjointness, which remains hard.
 
-\subsection{From communication to graph traversal}
-Graph traversal problems can be embedded with these benchmarks. A simple variant illustrates the connection. Let a known undirected graph $G=(V,E)$ be given. Alice receives a start vertex $v$ and a subset $X\subseteq V$, Bob receives an end vertex $w$ and a subset $Y\subseteq V$. The task is to output $1$ if there exists a path from $v$ to $w$ using only vertices in $X\cup Y$ and edges that are wholly contained within $X$ or wholly contained within $Y$. By constructing a graph in which each bit of an input string controls which local vertices are present, one can reduce equality to this traversal problem. This implies that even this restricted reachability task has deterministic communication complexity $\Omega(n)$ when $|V|=\Theta(n)$.
+\subsubsection{Proof Example: Equality}
+Here we will detail a small example proof of a well known problem in the field:
+That of equality. While the proof itself is simple, the crucial point of it is
+that it is valid independent of any specific protocol. Thus, rather than
+showing that any specific protocol will not perform better than this, it shows
+that no protocol can exist for this problem which will do any better. 
 
-The case studies above map naturally to this model. Each actor controls a subgraph of the global infrastructure; edges represent feasible transitions, and reachability encodes whether a route exists that respects ownership and availability constraints. The reduction perspective explains why coordination can be intrinsically expensive: some instances encode hard communication problems, so no protocol can be both exact and frugal with communication in the worst case.
+This proof utilizes the concept of a matrix for a function, and a monochromatic
+rectangle. A functions communication matrix can be thought of as a table in
+which the columns correspond to one parties input, and the rows correspond to
+the other parties input. Each entry, $M_x,y$ represents the output of the
+function $f(x,y)$. A monochromatic rectangle in this matrix is a rectangle
+where all input pairs produce the same output, allowing for protocols which can
+halt before transmitting their entire input if they can identify that their
+input falls in a large one. Conversely, in order to halt every time, the
+protocol must in the worst case transmit enough bits to find the smallest
+rectangle, and therefore finding a bound on the number of monochromatic
+rectangles for a given output can induce a bound for any protocol which
+computes this function.
 
-\subsection{Scope of this report}
-The remainder of this report develops a communication-complexity view of multi-party graph traversal. We formalize traversal models, establish lower bounds via reductions, and explore upper bounds that exploit randomness, sketches, or structure. Throughout, the guiding message is that communication is not merely an implementation detail. It is a fundamental resource with provable limits, and understanding those limits yields actionable insights for designing distributed routing, resilient infrastructure, and scalable coordination protocols.
+\theorem{The Deterministic communication complexity for \emph{Equality} is
+$\Omega(n)$}
+\begin{proof}
+	We observe that the matrix for \bold{E.Q.} does not contain any
+	large 1-monochromatic rectangles. Given two points, $(x, x')$ where $x
+	\neq x'$, $(x,x)$ and $(x',x')$ cannot be in the same monochromatic
+	rectangles, as otherwise $(x,x')$ and $(x',x)$ would also occupy this
+	same rectangle. Thus, we have that there must be at least $n$
+	monochromatic rectangles.
+\end{proof}
+
+In this report, we focus on studying the specific case of graph problems, in
+which two or more parities are given a subset of the graph and asked to compute
+its properties. Primarily we research vertex reachability, that is, given two
+vertices $(u,v)$, identify it there is a path between them which uses only the
+subsets of the graph owned by the communicating parties.
