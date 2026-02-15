@@ -65,15 +65,15 @@ rectangle, and therefore finding a bound on the number of monochromatic
 rectangles for a given output can induce a bound for any protocol which
 computes this function.
 
-\theorem{The Deterministic communication complexity for \emph{Equality} is
-$\Omega(n)$}
+The Deterministic communication complexity for \emph{Equality} is
+$\Omega(n)$
+
 \begin{proof}
-	We observe that the matrix for \bold{E.Q.} does not contain any
-	large 1-monochromatic rectangles. Given two points, $(x, x')$ where $x
-	\neq x'$, $(x,x)$ and $(x',x')$ cannot be in the same monochromatic
-	rectangles, as otherwise $(x,x')$ and $(x',x)$ would also occupy this
-	same rectangle. Thus, we have that there must be at least $n$
-	monochromatic rectangles.
+We observe that the matrix for EQ does not contain any
+large 1-monochromatic rectangles. Given two points, $(x, x')$ where $x \neq x'$, $(x,x)$ and $(x',x')$ cannot be in the same monochromatic
+rectangles, as otherwise $(x,x')$ and $(x',x)$ would also occupy this
+same rectangle. Thus, we have that there must be at least $n$
+monochromatic rectangles.
 \end{proof}
 
 In this report, we focus on studying the specific case of graph problems, in
