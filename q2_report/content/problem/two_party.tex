@@ -286,3 +286,38 @@ inner sep=0pt
 \end{figure}
 
 Therefore, any protocol that solves the reachability problem on this graph can be used to solve the Disjoint problem. Since Disjoint requires $\Omega(n)$ deterministic communication, it follows that our graph problem also requires $\Omega(n)$ deterministic communication.
+
+\subsection*{Non-Induced proofs}
+Useful as the above proofs are, they require inducing edges along a specific
+path between the vertices $u$ and $v$. This has the unfortunate drawback that
+it does not generalize well to all possible graphs that we might be interested
+in analyzing. We therefore detail two additional proofs which we can later use
+in the multiparty setting, without enforcing a specific graph structure.
+
+\subsubsection*{Connected graph}
+Given some graph $G (V,E)$, Alice and Bob both receive some subset of vertices.
+We will impose the constraint that the set of vertices that Alice and Bob each
+have will form connected subgraphs. We also define a valid path to be one which
+only uses edges in which both vertices are owned entirely by at least one
+player, that is $(u,v)$ is a valid edge to traverse iff $u, v \in X$ or $u, v
+\in Y$. Since path length is not a constraint, Alice and Bob can each generate
+complete graphs with each of their own internal vertices, and there then exists
+a valid path between two nodes in one of two cases:
+\begin{itemize}
+	\item[Case 1] Both nodes are in one players input, in which case the
+		problem is trivial.
+	\item[Case 2] There exists a node in both of the player's input
+\end{itemize}
+In the second case, the problem is identifying if $X \cap Y = \emptyset$, and is
+computed by the Set disjointness protocol, thus creating a bound of $\Omega(n)$
+for this problem
+\subsubsection{Sparse Graphs}
+Here, we will again assume that Alice and Bob receive some subset of vertices,
+$X, Y \subseteq [n]$. In this case, we will not attempt to define the edges,
+and simply assume that $|E| \ll |V|$.
+\\\\
+We can define the set of all inputs in which Alice and Bob share exactly one
+vertex with each other, and otherwise have complete graphs. Alice and Bob will
+then need to find the one element they have in common in order to determine if
+there is a valid path. In a set of $n$ vertices, there are then $n$ possible
+intersecting points, requiring at least $\Omega(n \log n)$ bits to identify one.
