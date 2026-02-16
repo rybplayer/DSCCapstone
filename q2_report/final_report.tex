@@ -10,9 +10,14 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{fontspec}
+\usepackage[basic, small, disableredefinitions]{complexity}
 \usetikzlibrary{shapes.geometric}
 
 \newcommand{\term}{\emph}
+
+\newtheorem{claim}{Claim}
+\newclass{\EQ}{EQ}
+\newclass{\DISJ}{DISJ}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Title and Authors
@@ -38,16 +43,24 @@ Multi-Party Graph Traversal \medbreak
 \begin{document}
 \maketitle
 
+\tikzset{
+  point/.style={
+    circle,
+    fill,
+    inner sep=1pt
+  }
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Abstract and Links
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-    \input{content/motivation/abstract.tex}
+    \input{content/introduction/abstract.tex}
 \end{abstract}
 
 \begin{center}
-% Website: \url{https://abc.github.io/} \\
+Website: \url{https://rybplayer.github.io/capstone/} \\
 Repository: \url{https://github.com/rybplayer/DSCCapstone}
 \end{center}
 
@@ -59,17 +72,20 @@ Repository: \url{https://github.com/rybplayer/DSCCapstone}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
-\input{content/motivation/motivation.tex}
-\input{content/motivation/introduction.tex}
+\input{content/introduction/introduction.tex}
+
+% \section{Literature Review}
+% \input{content/literature/literature_review.tex}
 
 \section{The Traversal Problem}
-\input{content/problem/findings.tex}
+\input{content/problem/statement.tex}
+\input{content/problem/two_party.tex}
 
 \section{Other Problems}
 \input{content/other_problems/trivial_problems.tex}
 
 \makereference
-\bibliography{reference}
+\bibliography{reference.bib}
 \bibliographystyle{../resources/style/dsc180bibstyle}
 \nocite{*}
 
@@ -77,8 +93,11 @@ Repository: \url{https://github.com/rybplayer/DSCCapstone}
 %%%% Appendix
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \clearpage
-% \makeappendix
+\clearpage
+\makeappendix
+\setcounter{section}{0}
+
+\input{content/appendix/case_studies.tex}
 
 % \subsection{Notes on Communication Complexity}
 

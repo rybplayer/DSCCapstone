@@ -1,0 +1,14 @@
+\section{Multi-Party Graph Traversal Case Studies}
+\label{appendix:case-studies}
+
+Here, we survey a variety of real-world case studies where communication was a major bottleneck.
+
+Large-scale transportation and infrastructure disruptions create a natural model for multi-party graph traversal. Consider the 2010 European volcanic ash shutdown: air-navigation service providers, airports, and airlines each control disjoint portions of airspace and schedules. Rerouting passengers is a shortest-path problem in a layered graph whose feasible vertices and edges change over time. No party can broadcast its full real-time state, both for operational and privacy reasons, so route feasibility must be computed with limited information exchange.
+
+Similar graph-traversal constraints appear in urban transit shutdowns and phased restorations, where distinct agencies own stations and tunnels. After Hurricane Sandy, service availability evolved over weeks, and agencies coordinated alternate routes under partial knowledge of what infrastructure was open. Highway detours after the I-95 bridge collapse in Philadelphia illustrate the same phenomenon in a road network: different operators own highway segments and toll roads, and a single failed cut edge forces traffic onto alternative paths with asymmetric knowledge of capacities.
+
+The maritime and logistics examples are equally instructive. The 2021 Suez Canal blockage forced carriers to reroute around the Cape of Good Hope or wait, a decision that depends on schedule and capacity information held privately by shipping lines and port operators. When the Baltimore Key Bridge collapsed, access to the port was blocked and cargo was diverted to alternate ports, again requiring coordination across a sea--port--land graph with private operational constraints.
+
+Communication bottlenecks become even sharper in critical infrastructure networks. During the 2021 Texas ERCOT blackout, grid operators and utilities effectively solve a constrained flow and connectivity problem as generation and transmission nodes go offline. The Colonial Pipeline cyber disruption similarly forced fuel logistics to reroute through alternate depots and terminals with incomplete visibility. Finally, the 2021 Meta backbone withdrawal and the 2016 Dyn DNS attack show that digital services rely on reachability in routing and dependency graphs, where policy and security constraints limit information sharing across administrative domains.
+
+These cases motivate a theoretical study of multi-party graph traversal: agents must collaboratively decide reachability and shortest paths while their private subgraphs, capacities, or weights are not fully shareable. The fundamental question is how much communication is necessary, and how randomized protocols, sketches, or partial disclosures can reduce the burden while preserving correctness.

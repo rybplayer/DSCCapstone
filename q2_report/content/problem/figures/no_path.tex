@@ -1,0 +1,33 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \draw (0,0) ellipse [x radius=6, y radius=2.5];
+  \node at (0,2.1) {$G$};
+
+  \draw plot [smooth cycle, tension=0.9] coordinates {(-4.2,0.5) (-3.2,1.4) (-1.8,0.8) (-2.2,-0.6) (-3.6,-0.7)};
+  \node at (-3.1,1) {$G_1$};
+
+  \draw plot [smooth cycle, tension=1.1] coordinates {(-0.6,1.2) (0.8,1.6) (2.1,0.6) (1.1,-0.2) (-0.4,0.3)};
+  \node at (0.7,1.2) {$G_2$};
+
+  \draw plot [smooth cycle, tension=0.8] coordinates {(2.3,0.9) (4.6,1.2) (4.4,-0.2) (3.2,-0.9) (2.0,-0.2)};
+  \node at (4.2,0.8) {$G_3$};
+
+  \node[point] (a1) at (-3.6,0.2) {};
+  \node[point] (a2) at (-2.6,0.6) {};
+  \node[point] (a3) at (-2.8,-0.4) {};
+  \draw[dotted] (a1) -- (a2) -- (a3);
+
+  \node[point] (b1) at (-0.2,0.9) {};
+  \node[point] (b2) at (0.8,0.7) {};
+  \node[point] (b3) at (1.4,0.2) {};
+  \draw[dotted] (b1) -- (b2) -- (b3);
+
+  \node[point] (c1) at (2.6,0.5) {};
+  \node[point] (c2) at (3.8,0.6) {};
+  \node[point] (c3) at (3.4,-0.3) {};
+  \draw[dotted] (c1) -- (c2) -- (c3);
+\end{tikzpicture}
+\caption{Worst case for case \cref{prob:traversal-exists-path}: Disjoint subgraphs $G_i$}
+\label{fig:traversal-no-path}
+\end{figure}
