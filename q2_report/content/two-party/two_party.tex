@@ -1,0 +1,75 @@
+\subsection{Problem Statement}
+
+We begin with the simplest non-trivial formulation of our problem, inspired by \ref{ex:motivating-problem}.
+
+Consider a graph $G = (V,E)$ and subgraphs $G_1, \ldots, G_k \subset G$. Let $G_i = (V_i, E_i)$ for these subgraphs. For now let us suppose $G$ is unweighted and undirected. The subgraphs need not cover $G$ and can overlap. Each player $i$ knows $G$ and $G_i$, but not the other player's graphs. The goal is, given some starting vertex $v \in V$, and some end vertex $w \in V$ to:
+\begin{enumerate}
+	\item  Identify if it is possible to construct a path $v, v_1, \dots, v_l, w$ such that every edge on the path is in $\bigcup_{i=0}^{k} E_i$. \label{prob:traversal-exists-path}
+	\item  If such a path exists, find the minimum number of edges needed to get from $v$ to $w$, while using only edges belonging to $\bigcup_{i=0}^{k} E_i$. \label{prob:traversal-min-path}
+\end{enumerate}
+If some $e = (u,v) \in G_i$, we must have $u,v \in V(G_i)$. But the converse is not always true.
+
+\input{content/two-party/figures/valid_path.tex}
+
+Sometimes, condition \ref{prob:traversal-exists-path} fails, as in Figure \ref{fig:traversal-no-path}. In such a case, it is sufficient for one party to be convinced that no path exists.
+
+\input{content/two-party/figures/no_path.tex}
+
+\subsection{Two-party lower bounds}
+
+We begin by considering the case with only two players and thus two subgraphs. Let these players be named Alice and Bob, with subgraphs $G_A$ and $G_B$ respectively. Denote this problem by $\TRAV_2$, i.e. the traversal problem for 2 players, where $|V(G)| = n$ and $|E(G)| = O(n^2)$.
+
+\begin{claim}
+\label{claim:equality-trav-bound}
+Recall that equality $\EQ$ has inputs $x,y \in \{0,1\}^n$, and $\EQ(x,y) = 1$ iff $x = y$. Then $D(\TRAV_2) \geq D(\EQ)$ and so on.
+\end{claim}
+
+\begin{proof}
+\textbf{Equality gadget.}
+We construct a gadget that enforces equality at a single bit position. The gadget is shown in Figure~\ref{fig:equality_gadget}. The gadget consists of two parallel branches.
+
+\begin{enumerate}
+    \item The top branch corresponds to the assignment $x_i = y_i = 1$, 
+    \item The bottom branch corresponds to the assignment $x_i = y_i = 0$. 
+\end{enumerate}
+ 
+\input{content/two-party/figures/equality_gadget.tex}
+
+The idea is that Alice enables exactly one entry node of the gadget depending on $x_i$, and Bob enables exactly one exit node depending on $y_i$. A path exists through the gadget if and only if Alice and Bob select nodes on the same branch, which holds exactly when $x_i = y_i$.
+
+\textbf{Reduction to our graph problem.}
+Construct a graph of $n$ equality gadgets in a chain, as in Figure \ref{fig:equality-gadget-chain}. Construct subgraph $G_A$ as follows: Include all vertices at the start and end of each equality gadget. Also, for every $i \in [n]$, give the vertex labelled $x_i = 1$ if this is true, else $x_i = 0$. Then, add all edges between these vertices, as well as all edges between $x_i = z$ and $y_i = z$ for $z \in \{0,1\}$. Do similar for $G_B$.
+
+In the resulting graph, there exists a path from $v$ to $w$ if and only if all gadgets are traversable, which occurs if and only if $x_i = y_i$ for all $i$, i.e., if and only if $x = y$.
+
+\input{content/two-party/figures/equality_gadget_chain.tex}
+
+We conclude by noting that the resulting graph $G$ has $\Theta(n)$ vertices and $\Theta(n)$ edges.
+\end{proof}
+
+\begin{claim}
+\label{claim:disjoint-trav-bound}
+Recall that in two-party $\DISJ$, Alice and Bob are given sets $X, Y \subseteq [n]$ each. The goal is to determine whether $X \cap Y = \emptyset$. We claim $D(\TRAV_2) \geq D(\DISJ)$ and so on.
+\end{claim}
+
+\begin{proof}
+\textbf{Disjointness gadget.}
+We construct a gadget that enforces disjointness at a single entry $i \in [n]$. The gadget is shown in Figure \ref{fig:disjoint_gadget}. There, let $x_i$ and $y_1$ be indicator functions whether $i \in X$ and $i \in Y$ respectively. Then:
+\begin{enumerate}
+    \item The top branch corresponds to when $x_i$ has the element but $y_i$ does not
+    \item The middle branch corresponds to when $x_i$ and $y_i$ do not have the element
+    \item The top branch corresponds to when $y_i$ has the element but $x_i$ does not
+\end{enumerate}
+In other words, there is no path left to right if $i \in X \cap Y$.
+
+\input{content/two-party/figures/disjoint_gadget}
+
+\textbf{Reduction to our graph problem.}
+We construct a graph $G$ by chaining one copy of this gadget for each index $i \in [n]$ between a global start vertex $v$ (left) and end vertex $w$ (right). Construct $G_A$ by giving all vertices at the start and end of every disjointness gadget, and vertices labelled $x_i = 1$ if it is true, else $x_i = 0$. Add all edges between these vertices, and all edges between $x_i = z$ and $y_i = z'$ for $z, z' \in \{0,1\}$. Do similar for $G_B$.
+
+In the resulting graph, there exists a path from $v$ to $w$ if and only if all disjointness gadgets are traversable, which occurs if and only if $X \cap Y = \emptyset$.
+
+\input{content/two-party/figures/disjoint_gadget_chain.tex}
+
+We conclude by noting that $|V(G)| = \Theta(n)$ and $|E(G)| = \Theta(n)$.
+\end{proof}

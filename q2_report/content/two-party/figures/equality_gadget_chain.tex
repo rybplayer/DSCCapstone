@@ -1,0 +1,30 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+hex/.style={
+draw,
+regular polygon,
+regular polygon sides=6,
+minimum size=1.4cm,
+inner sep=0pt
+}
+]
+
+% Hexagons placed manually so edges touch
+\node[hex] (h1) at (0,0) {};
+\node[hex] (h2) at (1.4,0) {};
+\node[hex] (h3) at (2.8,0) {};
+\node[hex] (h4) at (4.2,0) {};
+\node[hex] (h5) at (5.6,0) {};
+
+% Optional labels
+\node at (h1) {\scriptsize $i=1$};
+\node at (h2) {\scriptsize $i=2$};
+\node at (h3) {\scriptsize $i=3$};
+\node at (h4) {\scriptsize $\cdots$};
+\node at (h5) {\scriptsize $i=n$};
+
+\end{tikzpicture}
+\caption{$n$ equality gadgets chained together.}
+\label{fig:equality-gadget-chain}
+\end{figure}

@@ -1,0 +1,17 @@
+In section \ref{sec:two-party}, we considered $\TRAV_2$, the communication game where both Alice and Bob computed the minimum length path from $v$ to $w$ under some conditions. However, many problems that are modelled by $\TRAV_2$ tend to occur \term{iteratively}.
+
+For example, consider the motivating problem \ref{ex:motivating-problem}. A user may want to send multiple queries in succession, while having partial information of the state of the system based on their previous queries. We try to generalize this notion here.
+
+\begin{definition}
+Let $\ITRAV_2$ be the following communication game: A graph $G = (V,E)$ is known, and two players Alice and Bob receive initial subgraphs $G_A^0$ and $G_B^0$ of $G$. Call this iteration $t = 0$. Alice and Bob then play $\TRAV_2$ on $G$, $G_A^0$, and $G_B^0$. Then, some process $p$ will transform $G_A^0$ into $G_A^1$, and $G_B^1 = p(G_B^0)$. Then Alice and Bob play $\TRAV_2$ on $G$, $G_A^1$, and $G_B^1$. This process continues for an indefinite number of iterations $t$.
+
+Thus, a game of $\ITRAV$ is an infinite iteration of $\TRAV_2$ games on some graph $G$ with subgraphs changing between iterations by some process $p$. There are two measures for the communication complexity of $\ITRAV_2(G,G_A^0,G_B^0,p)$: First, the \term{initial} communication cost, i.e. the communication at iteration $0$, and the \term{iterative} communication cost, i.e. the communication between one iteration and the next.
+\end{definition}
+
+\begin{example}
+Suppose $p$ is a process that constructs $G_A^{t+1}$ from $G_A^t$ as follows: add one vertex $v \notin G_A^t$ and all edges $(v,u) \in E(G)$ with $(v,u) \notin E(G_A^t)$, $\forall u \in V(G_A^t)$ to create $H_A^t$. Then delete one vertex $v' \in H_A^t$ and all edges $(v',u') \in E(G)$ with $(v',u') \notin E(H_A^t)$, $\forall u' \in V(H_A^t)$. This finally creates $G_A^{t+1}$. The choice of vertex is uniformly random in both cases. The same applies for $G_B^t$.
+
+Then if in the initial iteration Alice and Bob send all of their inputs, every iteration afterwards Alice and Bob can solve $\TRAV_2$ with only $4\log(n)$ additional communication, where Alice communicates the vertices added and removed and Bob does the same.
+\end{example}
+
+The rest of this section is under construction!

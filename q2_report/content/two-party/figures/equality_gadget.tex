@@ -1,0 +1,29 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.2, every node/.style={circle, fill=black, inner sep=1.5pt}]
+
+\node (L) at (-2,0) {};
+\node (T1) at (-0.8,1.5) {};
+\node (T2) at (0.8,1.5) {};
+\node (B1) at (-0.8,-1.5) {};
+\node (B2) at (0.8,-1.5) {};
+\node (R) at (2,0) {};
+
+\draw (L) -- (T1);
+\draw (T1) -- (T2);
+\draw (T2) -- (R);
+
+\draw (L) -- (B1);
+\draw (B1) -- (B2);
+\draw (B2) -- (R);
+
+\node[draw=none, fill=none, above=6pt] at (T1) {$x_i = 1$};
+\node[draw=none, fill=none, above=6pt] at (T2) {$y_i = 1$};
+
+\node[draw=none, fill=none, below=6pt] at (B1) {$x_i = 0$};
+\node[draw=none, fill=none, below=6pt] at (B2) {$y_i = 0$};
+
+\end{tikzpicture}
+\label{fig:equality_gadget}
+\caption{Gadget for proving equality. A path only exists if $x_i = y_i$ for either branch.}
+\end{figure}

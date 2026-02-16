@@ -1,0 +1,38 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.2, every node/.style={circle, fill=black, inner sep=1.5pt}]
+
+\node (L) at (-2,0) {};
+\node (T1) at (-0.8,1.5) {};
+\node (T2) at (0.8,1.5) {};
+\node (M1) at (-0.8,0) {};
+\node (M2) at (0.8,0) {};
+\node (B1) at (-0.8,-1.5) {};
+\node (B2) at (0.8,-1.5) {};
+\node (R) at (2,0) {};
+
+\draw (L) -- (T1);
+\draw (T1) -- (T2);
+\draw (T2) -- (R);
+
+\draw (L) -- (B1);
+\draw (B1) -- (B2);
+\draw (B2) -- (R);
+
+\draw (L) -- (M1);
+\draw (M1) -- (M2);
+\draw (M2) -- (R);
+
+\node[draw=none, fill=none, above=6pt] at (T1) {$x_i = 1$};
+\node[draw=none, fill=none, above=6pt] at (T2) {$y_i = 0$};
+
+\node[draw=none, fill=none, above=6pt] at (M1) {$x_i = 0$};
+\node[draw=none, fill=none, above=6pt] at (M2) {$y_i = 0$};
+
+\node[draw=none, fill=none, below=6pt] at (B1) {$x_i = 0$};
+\node[draw=none, fill=none, below=6pt] at (B2) {$y_i = 1$};
+
+\end{tikzpicture}
+\caption{Disjoitness gadget. A path left to right only exists if either $x_i = 0$ or $y_i = 0$.}
+\label{fig:disjoint_gadget}
+\end{figure}

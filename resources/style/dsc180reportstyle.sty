@@ -199,6 +199,12 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=\parskip
+  \thm@postskip=\parskip
+}
+\makeatother
 \usepackage{mathtools}
 \usepackage{verbatim}
 \usepackage{xcolor}
