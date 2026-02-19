@@ -97,14 +97,11 @@
 
 \begin{block}{Motivation}
 
-	\begin{itemize}
-		\item Figure of multiple agents on graph
-		\item Point about good algorithm designers finding $\mathcal{O}$
-			bounds
-		\item CC allows for finding $\Omega$ bounds, reducing problem
-			scope for algorithm designers
-	\end{itemize}
-
+	We motivate our problem by considering a ``Learning Graph'', and
+	multiple agents which may wish to identify characteristics of the
+	graph.
+	% Figure
+	\input{agent_fig.tex}
 \end{block}
 
 %----------------------------------------------------------------------------------------
@@ -149,10 +146,10 @@ minimize the total number of bits communicated.
     }
   };
 \end{tikzpicture}
-\caption {Visual for Equality Proof}
+\caption {Protocol tree Equality}
 \end{figure}
 
-Figure 3 demonstrates how, in the worst case, we must check every bit, since if
+Figure 2 demonstrates how, in the worst case, we must check every bit, since if
 every bit except $x_n$ and $y_n$ are the same, we will have to check all $n$
 bits to show equality.  Thus, the deterministic communication complexity of
 Equality is $D(\text{EQ}) = n$

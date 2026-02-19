@@ -199,19 +199,23 @@
    \begin{column}{0.4\linewidth}
     \vskip1cm
     \centering
-    \usebeamercolor{title in headline}{\color{jblue}\Huge{\textbf{\inserttitle}}\\[0.5ex]}
-    \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
-    \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
+    \usebeamercolor{title in headline}{\color{jblue}\Large{\textbf{\inserttitle}}\\[0.5ex]}
+    \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[1ex]}
+    \usebeamercolor{institute in headline}{\color{fg}\normalsize{\insertinstitute}\\[1ex]}
     \vskip1cm
    \end{column}
    \begin{column}{0.4\linewidth}
-	   \centering \Large Abstract\\
-	   \large
-	   Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit.
-	   Sed laoreet accumsan mattis. Integer sapien tellus, auctor ac
-	   blandit eget, sollicitudin vitae lorem. Praesent dictum tempor
-	   pulvinar. Suspendisse potenti. Sed tincidunt varius ipsum, et porta
-	   nulla suscipit et. Etiam congue bibendum
+	   \centering \large Abstract\\
+	   \small \raggedright
+	   A large number of computational problems can be modelled as communication
+	   games: For example, given a graph, two players each have a subgraph they know
+	   is traversable, and wish to collaboratively construct a path from one vertex to
+	   another. Communication complexity studies such situations by creating
+	   asymptotic bounds on the minimum communication necessary to complete these
+	   tasks. In this report, we prove communication lower and upper bounds for a
+	   variety of graph traversal problems, such as the example above. We also review
+	   potential applications of these bounds, such as for modelling real-world
+	   scenarios and designing algorithms.
    \end{column}
    \begin{column}{0.2\linewidth}
 	   \centering
