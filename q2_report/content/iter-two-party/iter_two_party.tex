@@ -11,7 +11,7 @@ Thus, a game of $\ITRAV$ is an infinite iteration of $\TRAV_2$ games on some gra
 \begin{example}
 Suppose $p$ is a process that constructs $G_A^{t+1}$ from $G_A^t$ as follows: add one vertex $v \notin G_A^t$ and all edges $(v,u) \in E(G)$ with $(v,u) \notin E(G_A^t)$, $\forall u \in V(G_A^t)$ to create $H_A^t$. Then delete one vertex $v' \in H_A^t$ and all edges $(v',u') \in E(G)$ with $(v',u') \notin E(H_A^t)$, $\forall u' \in V(H_A^t)$. This finally creates $G_A^{t+1}$. The choice of vertex is uniformly random in both cases. The same applies for $G_B^t$.
 
-Then if in the initial iteration Alice and Bob send all of their inputs, every iteration afterwards Alice and Bob can solve $\TRAV_2$ with only $4\log(n)$ additional communication, where Alice communicates the vertices added and removed and Bob does the same.
+Then if in the initial iteration Alice and Bob send all of their inputs, every iteration afterwards Alice and Bob can solve $\TRAV_2$ with only $2\log(n) + 1$ additional communication, where Alice communicates the vertices added and removed to Bob and Bob returns a single bit to denote if a traversal still exists.
 \end{example}
 
 The rest of this section is under construction!

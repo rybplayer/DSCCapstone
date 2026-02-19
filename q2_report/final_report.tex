@@ -12,6 +12,8 @@
 \usepackage{fontspec}
 \usepackage[basic, small, disableredefinitions]{complexity}
 \usetikzlibrary{shapes.geometric}
+\usepackage[notes,backend=biber]{biblatex-chicago}
+\addbibresource{reference.bib}
 
 \newcommand{\term}{\emph}
 
@@ -107,9 +109,6 @@ Repository: \url{https://github.com/rybplayer/DSCCapstone}
 \input{content/other_problems/trivial_problems.tex}
 
 \makereference
-\bibliography{reference.bib}
-\bibliographystyle{../resources/style/dsc180bibstyle}
-\nocite{*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Appendix
