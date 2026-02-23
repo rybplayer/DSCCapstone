@@ -24,7 +24,15 @@
 
 \documentclass[final]{beamer}
 
+
+
+
 \usepackage[scale=1.24]{beamerposter} % Use the beamerposter package for laying out the poster
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usepackage{float}
+\usetikzlibrary{positioning}
 
 \usetheme{confposter} % Use the confposter theme supplied with this template
 
@@ -178,23 +186,40 @@ Equality is $D(\text{EQ}) = n$
 
 \begin{block}{Two Player TRAV with EQ}
 
-The following materials were required to complete the research:
 
-\begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Eu facilisis est tempus quis
-\end{itemize}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+hex/.style={
+draw,
+regular polygon,
+regular polygon sides=6,
+minimum size=5cm,
+inner sep=0p
+}
+]
 
-The materials were prepared according to the steps outlined below:
+% Hexagons placed manually so edges touch
+\node[hex] (h1) at (0,0)  {\scriptsize $i=1$};
+\node[hex] (h2) at (5,0)  {\scriptsize $i=2$};
+\node[hex] (h3) at (10,0)  {\scriptsize $i=3$};
+\node[hex] (h4) at (15,0) {\scriptsize $\cdots$};
+\node[hex] (h5) at (20,0) {\scriptsize $i=n$};
+
+\node[above=4pt of h3] {\scriptsize $x_i = y_i=0$};
+\node[below=4pt of h3] {\scriptsize $x_i = y_i=1$};
+
+\end{tikzpicture}
+\caption{equality gadgets}
+\label{fig:equality-gadget-chain}
+\end{figure}
+
 
 \begin{enumerate}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\item Curabitur pellentesque dignissim
+    \item The top branch corresponds to $x_i = y_i = 1$, 
+    \item The bottom branch corresponds to $x_i = y_i = 0$. 
 \end{enumerate}
+
 
 \end{block}
 
@@ -210,15 +235,49 @@ The materials were prepared according to the steps outlined below:
 
 \begin{block}{Two Player TRAV with DISJ.}
 
-Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed laoreet
-accumsan mattis. Integer sapien tellus, auctor ac blandit eget, sollicitudin
-vitae lorem. Praesent dictum tempor pulvinar. Suspendisse potenti. Sed
-tincidunt varius ipsum, et porta nulla suscipit et. Etiam congue bibendum
-felis, ac dictum augue cursus a. \textbf{Donec} magna eros, iaculis sit amet
-placerat quis, laoreet id est. In ut orci purus, interdum ornare nibh.
-Pellentesque pulvinar, nibh ac malesuada accumsan, urna nunc convallis tortor,
-ac vehicula nulla tellus eget nulla. Nullam lectus tortor, \textit{consequat
-tempor hendrerit} quis, vestibulum in diam. Maecenas sed diam augue.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+hex/.style={
+draw,
+regular polygon,
+regular polygon sides=6,
+minimum size=5cm,
+inner sep=0pt
+}
+]
+
+% Hexagons placed manually so edges touch
+\node[hex] (h1) at (0,0)  {};
+\node[hex] (h2) at (5,0)  {};
+\node[hex] (h3) at (10,0)  {};
+\node[hex] (h4) at (15,0) {};
+\node[hex] (h5) at (20,0) {};
+
+\node[below=4mm of h1.center] {\scriptsize $i=1$};
+\node[below=4mm of h2.center] {\scriptsize $i=2$};
+\node[below=4mm of h3.center] {\scriptsize $i=3$};
+\node[below=4mm of h4.center] {\scriptsize $\cdots$};
+\node[below=4mm of h5.center] {\scriptsize $i=n$};
+
+
+\node[above=4pt of h3] {\scriptsize $x_i=1  \quad y_i=0$};
+\node[above=1mm of h3.center] {\scriptsize $x_i= y_i=0$};
+\node[below=4pt of h3] {\scriptsize $x_i=0  \quad y_i=1$};
+
+    \draw (-2.5,0) -- (22.5,0);
+
+\end{tikzpicture}
+\caption{disjoint gadgets}
+\label{fig:equality-gadget-chain}
+\end{figure}
+
+\begin{enumerate}
+    \item The top branch corresponds to when $x_i$ has the element but $y_i$ does not
+    \item The middle branch corresponds to when $x_i$ and $y_i$ do not have the element
+    \item The top branch corresponds to when $y_i$ has the element but $x_i$ does not
+\end{enumerate}
+
 
 \end{block}
 
