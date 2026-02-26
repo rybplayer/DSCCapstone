@@ -2,7 +2,12 @@
 
 We begin with the simplest non-trivial formulation of our problem, inspired by \ref{ex:motivating-problem}.
 
-Consider a graph $G = (V,E)$ and subgraphs $G_1, \ldots, G_k \subset G$. Let $G_i = (V_i, E_i)$ for these subgraphs. For now let us suppose $G$ is unweighted and undirected. The subgraphs need not cover $G$ and can overlap. Each player $i$ knows $G$ and $G_i$, but not the other player's graphs. The goal is, given some starting vertex $v \in V$, and some end vertex $w \in V$ to:
+Consider a graph $G = (V,E)$ and subgraphs $G_1, \ldots, G_k \subset G$. Let % We are already discussing multi-party here. This is probably not a good idea, since we start with two party and go from there. Introduce new topics as needed, not all at once, since this will confuse the reader less
+$G_i = (V_i, E_i)$ for these subgraphs. For now let us suppose $G$ is
+unweighted and undirected. The subgraphs need not cover $G$ and can overlap.
+Each player $i$ knows $G$ and $G_i$, but not the other player's graphs. The
+goal is, given some starting vertex $v \in V$, and some end vertex $w \in V$
+to:
 \begin{enumerate}
 	\item  Identify if it is possible to construct a path $v, v_1, \dots, v_l, w$ such that every edge on the path is in $\bigcup_{i=0}^{k} E_i$. \label{prob:traversal-exists-path}
 	\item  If such a path exists, find the minimum number of edges needed to get from $v$ to $w$, while using only edges belonging to $\bigcup_{i=0}^{k} E_i$. \label{prob:traversal-min-path}
@@ -11,7 +16,7 @@ If some $e = (u,v) \in G_i$, we must have $u,v \in V(G_i)$. But the converse is 
 
 \input{content/two-party/figures/valid_path.tex}
 
-Sometimes, condition \ref{prob:traversal-exists-path} fails, as in Figure \ref{fig:traversal-no-path}. In such a case, it is sufficient for one party to be convinced that no path exists.
+Sometimes, condition \ref{prob:traversal-exists-path} fails, as in Figure \ref{fig:traversal-no-path}. Here, the protocol must output 0.
 
 \input{content/two-party/figures/no_path.tex}
 
@@ -35,12 +40,12 @@ We construct a gadget that enforces equality at a single bit position. The gadge
  
 \input{content/two-party/figures/equality_gadget.tex}
 
-The idea is that Alice enables exactly one entry node of the gadget depending on $x_i$, and Bob enables exactly one exit node depending on $y_i$. A path exists through the gadget if and only if Alice and Bob select nodes on the same branch, which holds exactly when $x_i = y_i$.
+Alice enables exactly one entry node of the gadget depending on $x_i$, and Bob enables exactly one exit node depending on $y_i$. A path through the gadget exists if and only if Alice and Bob select nodes on the same branch, which holds exactly when $x_i = y_i$.
 
 \textbf{Reduction to our graph problem.}
 Construct a graph of $n$ equality gadgets in a chain, as in Figure \ref{fig:equality-gadget-chain}. Construct subgraph $G_A$ as follows: Include all vertices at the start and end of each equality gadget. Also, for every $i \in [n]$, give the vertex labelled $x_i = 1$ if this is true, else $x_i = 0$. Then, add all edges between these vertices, as well as all edges between $x_i = z$ and $y_i = z$ for $z \in \{0,1\}$. Do similar for $G_B$.
 
-In the resulting graph, there exists a path from $v$ to $w$ if and only if all gadgets are traversable, which occurs if and only if $x_i = y_i$ for all $i$, i.e., if and only if $x = y$.
+In the resulting graph, there exists a path from $v$ to $w$ if and only if all gadgets are traversable, which occurs if and only if $x_i = y_i$ for all $i$, and therefore if and only if $x = y$.
 
 \input{content/two-party/figures/equality_gadget_chain.tex}
 
@@ -49,7 +54,7 @@ We conclude by noting that the resulting graph $G$ has $\Theta(n)$ vertices and 
 
 \begin{claim}
 \label{claim:disjoint-trav-bound}
-Recall that in two-party $\DISJ$, Alice and Bob are given sets $X, Y \subseteq [n]$ each. The goal is to determine whether $X \cap Y = \emptyset$. We claim $D(\TRAV_2) \geq D(\DISJ)$ and so on.
+Recall that in two-party $\DISJ$, Alice and Bob are given sets $X, Y \subseteq [n]$ each. The goal is to determine whether $X \cap Y = \emptyset$. We claim $D(\TRAV_2) \geq D(\DISJ)$.
 \end{claim}
 
 \begin{proof}
@@ -73,3 +78,5 @@ In the resulting graph, there exists a path from $v$ to $w$ if and only if all d
 
 We conclude by noting that $|V(G)| = \Theta(n)$ and $|E(G)| = \Theta(n)$.
 \end{proof}
+
+% An additional paragraph should go here noting why we want both. Earlier we showed that Equality is very easy using randomness, link back here to explain why it is helpful that we have disjointness as well. If this was a report for a math audience, we wouldn't include the first proof at all, since it is redundant, so we include it here to tie into the differences in random computation for the different functions.
