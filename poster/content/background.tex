@@ -1,0 +1,29 @@
+
+  \begin{block}{Why Study Communication Complexity}
+    Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least 2 parties with unbounded computing power. The 2 party problem is typically stated as the following:
+    \vskip0.2in
+    \begin{quote}
+        There are two players, Alice and Bob who each have a n-bit string, $a$ and $b$ that may or may not be the same. The goal is to compute a function, $f(a, b)$ that depends on both $a$ and $b$.
+    \end{quote}
+    \vskip-0.2in
+    Under the two party problem, it is always possible to compute $f(a,b)$ by sending all of $a$ to $b$, effectively reducing problem to a single party. This approach of sending the entire input from one party to another is what we consider the \textit{trivial solution} and is \textit{maximally hard}. We consider this \textit{maximally hard} because it has a communication complexity of $\theta (n)$ bits as all inputs must be sent from $a$ to $b$. One of the most common examples of a \textit{maximally hard} problem is 2 Player Equality.
+    \begin{exampleblock}{Communication Complexity of 2 Player Equality}
+
+    \p{TODO} Write the equality proof
+    
+    \end{exampleblock}
+    By studying communication complexity, we seek to find creative ways to achieve non-trivial bounds on multiparty problems or embed proven bounds in novel problems.
+
+    \textbf{Note:} Communication complexity is fundamentally disjoint from time complexity as it studies the communication under the assumption of unlimited computing power.
+  \end{block}
+
+
+  \begin{block}{The Graph Traversal Problem}
+
+    We consider the case where we have a known graph with $n$ nodes and an unknown number of edges, and two parties, Alice and Bob, with connected subgraphs $a, b \in \{0,1\}^n$. Our goal is to determine whether or not, given a starting node $v$ in $a$ and ending node $w$ in $b$, we can find a path from $v$ to $w$ such that every edge traversed exists within either $a$ or $b$. 
+    
+    \p{TODO} Add figures for the graph traversal here. 
+
+    More formally, we define our problem, denoted as $TRAV:\{0,1\}^n \times \{0,1\}^n \rightarrow \{0,1\}$, by $TRAV(x,y)=1$ if there exists a path from $v$ to $u$ such that all edges traversed belong to either $x$ or $y$.
+ 
+  \end{block}
