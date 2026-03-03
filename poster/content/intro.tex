@@ -107,20 +107,29 @@
 \caption{Path in Agent Owned Graphs}
 \end{figure}
 
- \end{block} 
+Many real-world systems involve multiple agents coordinating, such as self-driving cars, airports, or distributed servers. Each agent has only partial information, so communication is required to solve the shared task. This begs the question:
 
+\vspace{0.5em}
 
-\begin{block} {Communication Complexity} 
-
-Communication Complexity studies how much information two (or more) parties must exchange in order to solve a problem when the input is split between them. \\[16pt]
-
-The key idea is that instead of asking: \textit{How fast is the algorithm?}\\[8pt]
-
-We ask: \textit{How many bits do the parties in the algorithm need to communicate?}\\[8pt]
+\begin{center}
+\textit{How much communication is fundamentally necessary?}
+\end{center}
 
 \end{block}
 
-\begin{block} {Two Party Communcation Complexity} 
+\begin{block}{Communication Complexity}
+
+Communication Complexity studies the minimum number of bits that multiple parties must exchange to compute a function when the input is distributed.
+
+\medskip
+
+Instead of asking: \textit{How fast is the algorithm?}\\
+We ask: \textit{How much communication is needed within the algorithm?}
+
+
+\end{block}
+
+\begin{block}{Two Party Communcation Complexity} 
 
 There are two players, traditionally called \textbf{Alice} and \textbf{Bob}.  
 \begin{itemize}
@@ -174,13 +183,58 @@ Neither of them knows the inputs of the other persons, so they must talk back an
 \end{tikzpicture}
 \caption{Alice and Bob exchanging messages.}
 \end{figure}
-
-In the worst case, someone just sends everything (n bits). So any problem that still requires ~n bits is \textbf{maximally hard}.
-
 \end{block}
 
+\begin{block} {Maximally Hard} 
+
+In the worst case, Alice just send all $n$ bits. This is called \textbf{maximally hard}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.5]
+
+% ---------- Alice ----------
+\draw (0,0) circle (0.5);            
+\draw (0,-0.5) -- (0,-2);             
+\draw (0,-1) -- (-0.8,-1.5);          
+\draw (0,-1) -- (0.8,-1.5);          
+\draw (0,-2) -- (-0.6,-3);           
+\draw (0,-2) -- (0.6,-3);             
+\node at (0,-3.6) {$Alice: x$};
 
 
+% ---------- Bob ----------
+\draw (12,0) circle (0.5);              
+\draw (12,-0.5) -- (12,-2);              
+\draw (12,-1) -- (11.2,-1.5);            
+\draw (12,-1) -- (12.8,-1.5);            
+\draw (12,-2) -- (11.4,-3);              
+\draw (12,-2) -- (12.6,-3);              
+\node at (12,-3.6) {$Bob: y$};
+
+% ---------- Speech bubble from Alice ----------
+\draw[rounded corners=10pt] 
+(2,0.5) rectangle (8,2);
+
+\node at (5,1.2) {\small ``I give up, my number is 5''};
+\draw (1,0.5) -- (2,1);
+\draw (1,0.5) -- (2,1.5);
+
+
+
+% ---------- Speech bubble from Bob ----------
+\draw[rounded corners=10pt] 
+(3.5,-2) rectangle (9.5,-0.5);
+\node at (6.5,-1.3) {\small ``Ok now I know everything''};
+\draw (9.5,-1) -- (11,-0.5); 
+\draw (9.5,-1.5) -- (11,-0.5);  
+
+
+\end{tikzpicture}
+\caption{Alice and Bob in Maximally Hard case}
+\end{figure}
+
+\end{block}
 
 
 
