@@ -27,7 +27,7 @@ In figure 3, we represent $\textsc{EQ}$ as a communication matrix:
 
 \bigskip
 
-In communication complexity, a correct protocol must divide this matrix into monochromatic rectangles that contain either all 0’s or all 1’s. \\
+In communication complexity, a correct protocol must divide this matrix into rectangles that contain either all 0’s or all 1’s. \\
 
 \vspace{0.5em}
 
@@ -106,7 +106,7 @@ But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, th
 \tikzset{
   point/.style={circle, fill=black, inner sep=1.2pt}
 }
-\begin{block}{The TRAV Problem}
+\begin{block}{The Traversal Problem}
 
 
 \begin{figure}
@@ -172,7 +172,7 @@ But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, th
 
 \end{tikzpicture}
 
-\caption{TRAV example where a valid path from $v$ to $w$ is shown in bold.}
+\caption{Traversal example where a valid path from $v$ to $w$ is shown in bold.}
 \end{figure}
 
 
@@ -236,7 +236,7 @@ Consider this gadget where its only traversable from Start to End if both $x_i$ 
 
 
 
-\begin{block}{Embedding Equality into TRAV: Equality Gadget Chain}
+\begin{block}{Embedding Equality into Traversal Equality Gadget Chain}
 \vspace{0.3em}
 
 \begin{figure}[H]
@@ -262,15 +262,15 @@ inner sep=0pt
 \caption{Chain of Equality Gadgets}
 \end{figure}
 
-To prove that \textsc{TRAV} is also maximally hard, like Equality,
-we show that we can reduce \textsc{Equality} to \textsc{TRAV}.
+To prove that \textsc{Traversal} is also maximally hard, like Equality,
+we show that we can reduce \textsc{Equality} to \textsc{Traversal}.
 
 By chaining the gadgets together, we turn each bit comparison into a small “gate.” 
 The chain is traversable only if every gate opens, which happens exactly when 
 $x_i = y_i$ for all $i$, in other words, when $x = y$.
 
-Therefore, any protocol that solves \textsc{TRAV} can also solve \textsc{Equality}. 
+Therefore, any protocol that solves \textsc{Traversal} can also solve \textsc{Equality}. 
 Since Equality is deterministically maximally hard, 
-\textbf{\textsc{TRAV} is also deterministically maximally hard.}
+\textbf{\textsc{Traversal} is also deterministically maximally hard.}
 
 \end{block}
