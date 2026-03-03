@@ -44,12 +44,12 @@ But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, th
 
 % Grid (flipped vertically using yscale=-1)
 \begin{scope}[yscale=-1]
-\draw[step=0.8cm,gray!30] (0,0) grid (4,4);
+\draw[step=0.8cm,gray!30] (0,0) grid (3.2,3.2);
 
 % Fill all cells
-\foreach \x in {0,1,2,3,4}
+\foreach \x in {0,1,2,3}
 {
-    \foreach \y in {0,1,2,3,4}
+    \foreach \y in {0,1,2,3}
     {
         \pgfmathsetmacro{\cx}{0.4 + 0.8*\x}
         \pgfmathsetmacro{\cy}{0.4 + 0.8*\y}
@@ -64,11 +64,15 @@ But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, th
 }
 
 % Coordinate labels (0 to 4)
-\foreach \x in {0,1,2,3,4}
-    \node at (\x*0.8 + 0.4,-0.15) {\small \x};
+\node at (0.4,-0.15) {\small 00};
+\node at (0.8 + 0.4,-0.15) {\small 01};
+\node at (1.6 + 0.4,-0.15) {\small 10};
+\node at (2.4 + 0.4,-0.15) {\small 11};
 
-\foreach \y in {0,1,2,3,4}
-    \node at (-0.15,\y*0.8 + 0.4) {\small \y};
+\node at (-0.15,0.4) {\small 00};
+\node at (-0.15,0.8 + 0.4) {\small 01};
+\node at (-0.15,1.6 + 0.4) {\small 10};
+\node at (-0.15,2.4 + 0.4) {\small 11};
 
 \end{scope}
 
@@ -77,12 +81,12 @@ But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, th
 \node[rotate=90] at (-0.8,-2) {Alice: x};
 
 % Legend dot
-\fill[blue!80] (4.4,0) circle (0.08);
-\node[anchor=west] at (4.5,0) {\small $f(x,y)=1$};
+\fill[blue!80] (4,0) circle (0.08);
+\node[anchor=west] at (4.1,0) {\small $f(x,y)=1$};
 
 % Legend empty
-\fill[gray!25] (4.4,-0.3) circle (0.08);
-\node[anchor=west] at  (4.5,-0.3) {\small $f(x,y)=0$};
+\fill[gray!25] (4,-0.3) circle (0.08);
+\node[anchor=west] at  (4.1,-0.3) {\small $f(x,y)=0$};
 
 \end{tikzpicture}
 \end{center}
