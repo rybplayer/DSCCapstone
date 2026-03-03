@@ -15,6 +15,8 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.14}
 \usepackage{anyfontsize}
@@ -82,22 +84,10 @@ Ryan Batubara & Ivy Hawks & Darren Ho & Ciro Zhang & Dr.~Shachar Lovett \\
 \separatorcolumn
 
 % ====================
-% Background
-% ====================
-
-\begin{column}{\colwidth}
-
-\input{content/background}
-
-\end{column}
-
-\separatorcolumn
-
-% ====================
 % Determine/Equality
 % ====================
 
-\begin{column}{\colwidth}
+\begin{column}{2\colwidth}
 
 \input{content/determine}
 
