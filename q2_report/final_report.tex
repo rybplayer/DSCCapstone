@@ -1,446 +1,125 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Jacobs Landscape Poster
-% LaTeX Template
-% Version 1.1 (14/06/14)
-%
-% Created by:
-% Computational Physics and Biophysics Group, Jacobs University
-% https://teamwork.jacobs-university.de:8443/confluence/display/CoPandBiG/LaTeX+Poster
-% 
-% Further modified by:
-% Nathaniel Johnston (nathaniel@njohnston.ca)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
-\documentclass[final]{beamer}
-
-
-
-
-\usepackage[scale=1.24]{beamerposter} % Use the beamerposter package for laying out the poster
-
+% !TEX program = xelatex
+\documentclass[12pt,letterpaper]{article}
+\usepackage[base]{babel}
+\usepackage{nicefrac}
+\PassOptionsToPackage{pdfpagelabels=false}{hyperref}
+\usepackage{../resources/style/dsc180reportstyle}
+\usepackage{tabularx}
+\usepackage{cleveref}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric}
 \usepackage{float}
-\usetikzlibrary{positioning}
+\usepackage{tikz}
+\usepackage{fontspec}
+\usepackage[basic, small, disableredefinitions]{complexity}
+\usetikzlibrary{shapes.geometric}
+\usepackage[notes,backend=biber]{biblatex-chicago}
+\addbibresource{reference.bib}
 
-\usetheme{confposter} % Use the confposter theme supplied with this template
+\newcommand{\term}{\emph}
 
-\setbeamercolor{block title}{fg=ngreen,bg=white} % Colors of the block titles
-\setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
-\setbeamercolor{block alerted title}{fg=white,bg=dblue!70} % Colors of the highlighted block titles
-\setbeamercolor{block alerted body}{fg=black,bg=dblue!10} % Colors of the body of highlighted blocks
-% Many more colors are available for use in beamerthemeconfposter.sty
+\newtheorem{claim}{Claim}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
 
-%-----------------------------------------------------------
-% Define the column widths and overall poster size
-% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
-% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
-% onecolwid should therefore be (1-(# of columns+1)*sepwid)/# of columns e.g. (1-(4+1)*0.024)/4 = 0.22
-% Set twocolwid to be (2*onecolwid)+sepwid = 0.464
-% Set threecolwid to be (3*onecolwid)+2*sepwid = 0.708
+\newclass{\EQ}{EQ}
+\newclass{\DISJ}{DISJ}
+\newclass{\TRAV}{TRAV}
+\newclass{\CTRAV}{CTRAV}
+\newclass{\STRAV}{STRAV}
+\newclass{\ITRAV}{I\text{-}TRAV}
+\newclass{\BHS}{BHS}
 
-\newlength{\sepwid}
-\newlength{\onecolwid}
-\newlength{\twocolwid}
-\newlength{\threecolwid}
-\setlength{\paperwidth}{48in} % A0 width: 46.8in
-\setlength{\paperheight}{36in} % A0 height: 33.1in
-\setlength{\sepwid}{0.024\paperwidth} % Separation width (white space) between columns
-\setlength{\onecolwid}{0.22\paperwidth} % Width of one column
-\setlength{\twocolwid}{0.464\paperwidth} % Width of two columns
-\setlength{\threecolwid}{0.708\paperwidth} % Width of three columns
-\setlength{\topmargin}{-0.5in} % Reduce the top margin size
-%-----------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Title and Authors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{graphicx}  % Required for including images
+\title{Communication Lower Bounds for \\
+Multi-Party Graph Traversal \medbreak
+\large Quarter 2 Project Report}
 
-\usepackage{booktabs} % Top and bottom rules for tables
-
-%----------------------------------------------------------------------------------------
-%	TITLE SECTION 
-%----------------------------------------------------------------------------------------
-
-\title{Communication lower bounds for Multi-Party Graph Traversal} % Poster title
-
-\author{Ryan Batubara, Ivy Hawks, Darren Ho, Ciro Zhang} % Author(s)
-
-\institute{Mentor: Shachar Lovett, \textit{slovett@ucsd.edu}} % Institution(s)
-
-%\logo{\includegraphics{logo.png}}
-%----------------------------------------------------------------------------------------
+\author{
+    Ryan Batubara \\ 
+    {\tt \small{rbatubara@ucsd.edu}} \\\And
+    Ivy Hawks \\
+    {\tt \small{mahawks@ucsd.edu}} \\\And
+    Darren Ho \\
+    {\tt \small{dah103@ucsd.edu}} \\\And
+    Ciro Zhang \\
+    {\tt \small{ciz001@ucsd.edu}} \\\And
+    Mentor: Dr.\ Shachar Lovett \\
+    {\tt \small{slovett@ucsd.edu}} \\}
+\normalsize
 
 \begin{document}
+\maketitle
 
-\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
-\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under
-							 % highlighted (alert) blocks
-
-\setlength{\belowcaptionskip}{2ex} % White space under figures
-\setlength\belowdisplayshortskip{2ex} % White space under equations
-
-\begin{frame}[t] % The whole poster is enclosed in one beamer frame
-
-\begin{columns}[t] % The whole poster consists of three major columns, the
-	% second of which is split into two columns twice - the [t] option aligns
-	% each column's content to the top
-
-\begin{column}{\sepwid}\end{column} % Empty spacer column
-
-\begin{column}{\onecolwid} % The first column
-
-%----------------------------------------------------------------------------------------
-%	OBJECTIVES
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Motivation}
-
-	\begin{itemize}
-		\item Figure of multiple agents on graph
-		\item Point about good algorithm designers finding $\mathcal{O}$
-			bounds
-		\item CC allows for finding $\Omega$ bounds, reducing problem
-			scope for algorithm designers
-	\end{itemize}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%	INTRODUCTION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Basic Example: Equality}
-
-There are two players, traditionally called \textbf{Alice} and \textbf{Bob}.  
-\begin{itemize}
-    \item Alice holds input $x$
-    \item Bob holds input $y$
-    \item Together, they want to compute a function $f(x,y)$
-\end{itemize}
-They are allowed to send messages (bits) back and forth. The goal is to
-minimize the total number of bits communicated.
-\\
-\textbf{Equality} wishes to compute if two bit-strings are the same:
-\\
-
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-  scale=0.75,                
-  transform shape,          
-  node/.style={draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm},
-  level distance=2.5cm,
-  sibling distance=10cm
-]
-
-\node[node] {Is $x_1 = y_1$?}
-  child { node[node] {if $\neq$: output $0$} }
-  child { node[node] {if $=$: Is $x_2 = y_2$?}
-    child { node[node] {if $\neq$: output $0$} }
-    child { node[node] {$\dots$}
-      child { node[node] {if $\neq$: output $0$} }
-      child { node[node] {if $=$: Is $x_n = y_n$?}
-        child { node[node] {if $\neq$: output $0$} }
-        child { node[node] {if $=$: output $1$} }
-      }
-    }
-  };
-\end{tikzpicture}
-\caption {Visual for Equality Proof}
-\end{figure}
-
-Figure 3 demonstrates how, in the worst case, we must check every bit, since if
-every bit except $x_n$ and $y_n$ are the same, we will have to check all $n$
-bits to show equality.  Thus, the deterministic communication complexity of
-Equality is $D(\text{EQ}) = n$
-
-\end{block}
-
-%------------------------------------------------
-
-
-\end{column} % End of the first column
-
-\begin{column}{\sepwid}\end{column} % Empty spacer column
-
-\begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
-
-\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column
-
-\begin{column}{\onecolwid}\vspace{-.6in} % The first column within column 2 (column 2.1)
-
-%----------------------------------------------------------------------------------------
-%	MATERIALS
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Two Player TRAV with EQ}
-
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-hex/.style={
-draw,
-regular polygon,
-regular polygon sides=6,
-minimum size=4cm,
-inner sep=0pt
+\tikzset{
+  point/.style={
+    circle,
+    fill,
+    inner sep=1pt
+  }
 }
-]
 
-% Hexagons placed manually so edges touch
-\node[hex] (h1) at (0,0)  {\scriptsize $i=1$};
-\node[hex] (h2) at (4,0)  {\scriptsize $i=2$};
-\node[hex] (h3) at (8,0)  {\scriptsize $i=3$};
-\node[hex] (h4) at (12,0) {\scriptsize $\cdots$};
-\node[hex] (h5) at (16,0) {\scriptsize $i=n$};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Abstract and Links
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\node[above=4pt of h3] {\scriptsize $x_i = y_i=0$};
-\node[below=4pt of h3] {\scriptsize $x_i = y_i=1$};
-
-\end{tikzpicture}
-\caption{equality gadgets}
-\label{fig:equality-gadget-chain}
-\end{figure}
-
-
-\begin{enumerate}
-    \item The top branch corresponds to $x_i = y_i = 1$, 
-    \item The bottom branch corresponds to $x_i = y_i = 0$. 
-\end{enumerate}
-
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.1
-
-\begin{column}{\onecolwid}\vspace{-.6in} % The second column within column 2 (column 2.2)
-
-%----------------------------------------------------------------------------------------
-%	METHODS
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Two Player TRAV with DISJ.}
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-hex/.style={
-draw,
-regular polygon,
-regular polygon sides=6,
-minimum size=4cm,
-inner sep=0pt
-}
-]
-
-% Hexagons placed manually so edges touch
-\node[hex] (h1) at (0,0)  {};
-\node[hex] (h2) at (4,0)  {};
-\node[hex] (h3) at (8,0)  {};
-\node[hex] (h4) at (12,0) {};
-\node[hex] (h5) at (16,0) {};
-
-\node[below=4mm of h1.center] {\scriptsize $i=1$};
-\node[below=4mm of h2.center] {\scriptsize $i=2$};
-\node[below=4mm of h3.center] {\scriptsize $i=3$};
-\node[below=4mm of h4.center] {\scriptsize $\cdots$};
-\node[below=4mm of h5.center] {\scriptsize $i=n$};
-
-
-\node[above=4pt of h3] {\scriptsize $x_i=1  \quad y_i=0$};
-\node[above=1mm of h3.center] {\scriptsize $x_i=1  \quad y_i=1$};
-\node[below=4pt of h3] {\scriptsize $x_i=0  \quad y_i=1$};
-
-    \draw (-2,0) -- (18,0);
-
-\end{tikzpicture}
-\caption{disjoint gadgets}
-\label{fig:equality-gadget-chain}
-\end{figure}
-
-\begin{enumerate}
-    \item The top branch corresponds to when $x_i$ has the element but $y_i$ does not
-    \item The middle branch corresponds to when $x_i$ and $y_i$ do not have the element
-    \item The top branch corresponds to when $y_i$ has the element but $x_i$ does not
-\end{enumerate}
-
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.2
-
-\end{columns} % End of the split of column 2 - any content after this will now
-% take up 2 columns width
-
-%----------------------------------------------------------------------------------------
-%	IMPORTANT RESULT
-%----------------------------------------------------------------------------------------
-
-%\begin{alertblock}{Important Result}
-%
-%Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo
-%molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat
-%elit.
-%
-%\end{alertblock} 
-%
-%----------------------------------------------------------------------------------------
-
-\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column again
-
-\begin{column}{\onecolwid} % The first column within column 2 (column 2.1)
-
-%----------------------------------------------------------------------------------------
-%	MATHEMATICAL SECTION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Multi-Player TRAV, disjoint graphs}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-  
-\begin{equation}
-E = mc^{2}
-\label{eqn:Einstein}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-\label{eq:refname}
-\end{equation}
-
-Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin. Nam quis odio enim, in molestie libero. Vivamus cursus mi at nulla elementum sollicitudin.
-
-\begin{equation}
-\kappa =\frac{\xi}{E_{\mathrm{max}}} %\mathbb{ZNR}
-\end{equation}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.1
-
-\begin{column}{\onecolwid} % The second column within column 2 (column 2.2)
-
-%----------------------------------------------------------------------------------------
-%	RESULTS
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Multi-Player TRAV, connected graphs}
-
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{placeholder.jpg}
-\caption{Figure caption}
-\end{figure}
-
-Nunc tempus venenatis facilisis. Curabitur suscipit consequat eros non porttitor. Sed a massa dolor, id ornare enim:
-
-\begin{table}
-\vspace{2ex}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.2
-
-\end{columns} % End of the split of column 2
-
-\end{column} % End of the second column
-
-\begin{column}{\sepwid}\end{column} % Empty spacer column
-
-\begin{column}{\onecolwid} % The third column
-
-%----------------------------------------------------------------------------------------
-%	CONCLUSION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Two-player TRAV, iterative}
-
-Nunc tempus venenatis facilisis. \textbf{Curabitur suscipit} consequat eros non porttitor. Sed a massa dolor, id ornare enim. Fusce quis massa dictum tortor \textbf{tincidunt mattis}. Donec quam est, lobortis quis pretium at, laoreet scelerisque lacus. Nam quis odio enim, in molestie libero. Vivamus cursus mi at \textit{nulla elementum sollicitudin}.
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%	ADDITIONAL INFORMATION
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Multi-Player TRAV, iterative}
-
-Maecenas ultricies feugiat velit non mattis. Fusce tempus arcu id ligula varius dictum. 
-\begin{itemize}
-\item Curabitur pellentesque dignissim
-\item Eu facilisis est tempus quis
-\item Duis porta consequat lorem
-\end{itemize}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%	REFERENCES
-%----------------------------------------------------------------------------------------
-
-\begin{block}{References}
-
-\nocite{*} % Insert publications even if they are not cited in the poster
-\small{\bibliographystyle{unsrt}
-\bibliography{sample}\vspace{0.75in}}
-
-\end{block}
-
-%----------------------------------------------------------------------------------------
-%	ACKNOWLEDGEMENTS
-%----------------------------------------------------------------------------------------
-
-\setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
-
-\begin{block}{Acknowledgements}
-
-\small{\rmfamily{Nam mollis tristique neque eu luctus. Suspendisse rutrum congue nisi sed convallis. Aenean id neque dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.}} \\
-
-\end{block}
-
+\begin{abstract}
+    \input{content/introduction/abstract.tex}
+\end{abstract}
 
 \begin{center}
-
+Website: \url{https://rybplayer.github.io/capstone/} \\
+Repository: \url{https://github.com/rybplayer/DSCCapstone}
 \end{center}
 
-%----------------------------------------------------------------------------------------
+\maketoc
+\clearpage
 
-\end{column} % End of the third column
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Main Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\end{columns} % End of all the columns in the poster
+\section{Introduction}
+\label{sec:introduction}
+\input{content/introduction/introduction.tex}
 
-\end{frame} % End of the enclosing frame
+\section{The Two-Party Traversal Problem}
+\label{sec:two-party}
+\input{content/two-party/statement.tex}
+\input{content/two-party/two_party.tex}
+\input{content/two-party/special_two_party.tex}
+
+\section{The Iterated Two-Party Traversal Problem}
+\label{sec:iter-two-party}
+\input{content/iter-two-party/iter_two_party.tex}
+
+\section{The Multi-Party Traversal Problem}
+\label{sec:multi-party}
+\input{content/multi-party/multi-party.tex}
+
+\section{The Iterated Multi-Party Traversal Problem}
+\label{sec:iter-multi-party}
+\input{content/iter-multi-party/iter-multi-party.tex}
+
+\section{Other Problems}
+\label{sec:other-probs}
+\input{content/other_problems/trivial_problems.tex}
+
+\makereference
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\makeappendix
+\setcounter{section}{0}
+
+\input{content/appendix/case_studies.tex}
+\input{content/appendix/contributions.tex}
+\clearpage
+\input{content/appendix/proposal.tex}
 
 \end{document}

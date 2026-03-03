@@ -1,4 +1,4 @@
-\subsection{A motivating problem}
+\subsection{Motivating Communication Complexity}
 \label{ex:motivating-problem}
 
 Graphs are fundamental data structures for modelling relationships between entities. For example, an airline may choose to store their flights as a graph, whose vertices are destinations and directed edges are flights between destinations. Many well-known algorithms make this a feasible data structure for the airline. Now suppose a user wishes to plan flights, perhaps with transits, from point $A$ to $B$. This user may need to consider a large variety of airlines, each with their own graph. How can the user do this?
@@ -7,96 +7,14 @@ Clearly, the user can get the full database of all flights, and compute the desi
 
 In this report, we ask an adjacent question: What is the minimum amount of communication necessary for the user to complete this task, without considering the local storage and computational cost to each party? Yao's communication complexity model formalizes this idea, allowing us to prove algorithmic lower bounds for situations like the above. These algorithmic lower bounds are concrete, mathematical claims that show we cannot asymptotically reduce communication beyond a certain point.
 
-\subsection{Why communication is the bottleneck}
 
-In the model we consider, each party has unlimited local computation and we only wish to minimize the communication between them. In the airline routing example above, this restriction is quite realistic: airline servers and user computers can easily compute routes given the data. However, neither can afford to broadcast or receive all states due to bandwidth limitations, especially if there are multiple requests. The communication cost, not the local computation, is the bottleneck.
+% -----------------------------
 
-Communication complexity makes this separation explicit. In particular, it shows that even when each party can compute arbitrarily powerful local summaries, some global questions still require a large number of bits to be exchanged. For example, a route may require flights from multiple airlines. Thus communication is not just a practical nuisance, but an inherent barrier that must be designed around.
-
-\subsection{Why communication bounds matter}
-
-These lower bounds have a variety of applications for algorithm, system and software design. An algorithm's complexity could be described as an upper bound on the amount of communication between parties. If communication complexity provides a corresponding lower bound, this means this algorithm is tight and its communication cannot asymptotically be improved. For system designers, there is often a lot of choice in how communication is routed through a network. For example, a central server could manage all communications, or a distributed network may be used. Communication complexity can provide lower bounds for each of these scenarios, for instance by proving that distributed networks are asymptotically no better than a centralized communication server. Communication complexity can also inform software decisions, by providing insight into how to manage the bits of communication between parties.
 
 \subsection{Communication complexity basics}
 
-We briefly define the various measures of communication complexity used in this
-report. Interested readers should see \cite{RaoYehudayoffBook} or
-\cite{RoughgardenBook} for a more thorough introduction. Let $f: X \times Y \to
-\{0,1\}$ be a function. In the two-party model, Alice receives $x \in X$ and
-Bob receives $y \in Y$, and they wish to compute $f(x,y)$. A
-\term{deterministic protocol} is a binary decision tree whose nodes are labeled
-by which party speaks and whose edges are labeled by bits $0$ or $1$. The
-\term{transcript} $\pi(x,y)$ is the sequence of bits exchanged for a particular
-input $x$ and $y$. The protocol must output $f(x,y)$ at a leaf. The  % Perhaps add more intuitive phrasing, as this is quite difficult to parse for most readers
-\term{deterministic} communication complexity $D(f)$ is the minimum, over all
-correct protocols, of the maximum transcript length (or equivalently, protocol
-tree depth) over all inputs. Important to note here is that unlike classical
-protocols, the upper bound of any Deterministic communication protocol is
-always $\mathcal{O}(n)$. Such a bound can be achieved trivially if Alice sends  % Since our problem nearly always reaches this bound, it would be good to make sure the reader understands its' significance
-her entire input to Bob, who computes the function and sends the output back to
-Alice, requiring only $n + 1$ bits.
-
-A \term{nondeterministic protocol} for $f$ has two parts: First, an external % Check if we need to motivate this, I don't think  we talk about or use nondeterminism at all, so this is probably unnecessary
-party has access to $x$ and $y$, and provides advice $a$ to both players. Then,
-the players, with access to $a$ and their respective input, communicate to
-decide whether to output $0$ or $1$. Let $\Pi(x,y,a)$ denote the output of the
-protocol, which we say is correct if
-\begin{itemize}
-    \item If $f(x,y) = 1$, then $\exists a$ with $\Pi(x,y,a) = 1$.
-    \item If $f(x,y) = 0$, then $\forall a$, $\Pi(x,y,a) = 0$.
-\end{itemize} 
-The cost of $\Pi$ is the sum of $a$ and any communication between players. The \term{nondeterministic} cost of $f$, denoted $N^1(f)$, is the minimal cost of a protocol computing $f$. The \term{co-nondeterministic} cost of $f$ is the nondeterministic cost for $1-f$.
-
-Randomized protocols allow parties to use random coins to reduce communication. A public-coin protocol assumes a shared random string, while a private-coin protocol lets each party sample independently. Fixing the randomness yields a deterministic protocol, so a randomized protocol is a distribution over deterministic protocols. The \term{randomized} communication complexity $R_\varepsilon(f)$ is the minimum communicated bits needed to compute $f$ with error at most $\varepsilon$ on every input. Public-coin ($R^{pub}_\varepsilon(f)$) and private-coin ($R_\varepsilon(f)$) models are equivalent up to small overhead, and randomness often---though not always---trades a small probability of error for large savings in communication. Let $R(f) = R_{c}(f)$ with $c = 1/3 < 1/2$.
-
-\subsection{Communication complexity basic examples}
-
-% We don't need to have proven this in order to use it, rather, the point is to demonstrate to a wider audience how proofs in this field work--specifically how we can prove a total lower bound on any possible protocol. Most readers likely will not fully understand the proofs we write, and we don't need them to.
-
-Two classic communication complexity problems are equality and disjointness. Equality asks whether $x=y$ for $x,y\in\{0,1\}^n$, and disjointness asks whether $X\cap Y=\emptyset$ for subsets of $[n]$. Both are useful for a range of lower-bound techniques, so we go through their communication complexity bounds below:
-
-\begin{claim}
-Equality, denoted $\EQ: X \times Y \to \{0,1\}$, outputs $1$ if $x \in X$ and
-$y \in Y$ have $x=y$, and $0$ otherwise. $\EQ$ has $D(\EQ) = \Theta(n)$, $N^1(\EQ) =
-\Theta(n)$, $N^0(\EQ) = \Theta(\log n)$, and $R^{pub}_\varepsilon(\EQ) =
-O(\log(1/\varepsilon))$.
-\end{claim}
-
-\begin{proof}
-First $D(\EQ) = \Theta(n)$. 
-\begin{itemize}
-    \item Upper bound: Alice sends all $n$ bits of $x$ to Bob, who compared it to $y$ and outputs.
-    \item Lower bound: Any deterministic protocol partitions the $\{0,1\}^n \times \{0,1\}^n$ matrix $M_\EQ$ into combinatorial $z$-rectangles, i.e. regions $R = A \times B \subseteq X \times Y$ where $f(a,b) = z$ for all $a \in A$, $b \in B$, and $z \in \{0,1\}$. Clearly $M_\EQ = I_{\{0,1\}^n \times \{0,1\}^n}$. Hence there are $2^n$ 1-rectangles or at least $2^n$ leaves in the protocol tree. Thus $D(f) \geq \log_2(2^n) = n$. 
-\end{itemize}
-Now $N^1(\EQ) = \Theta(n)$. This means we want to certify $x = y$. % Like above, non-determinism seems like a confusing addition for most readers, as we do not use it anywhere in our proofs.
-\begin{itemize}
-    \item Upper bound: The prover sends $x$ to both players. Both players check if it matches their input. If so, accept.
-    \item Lower bound: Similar to $D(\EQ)$, we need $2^n$ distinct certificates to cover all possible inputs. Hence certificate length $\geq \log_2(2^n) = n$. 
-\end{itemize}
-Now $N^0(\EQ) = \log(n)$. This means we want to certify $x \neq y$.
-\begin{itemize}
-    \item The prover computes an index $i \in [n]$ where $x_i \neq y_i$. This takes $\log(n)$ bits to communicate to Alice and Bob, who can exchange bits at that coordinate and witness if they differ.
-    \item There are $n$ possible indices $i$. If certificates had length $< \log(n)$, there would be $< n$ certificates which cannot cover all the possibilities.
-\end{itemize}
-Now $R_\varepsilon^{pub}(\EQ) = O(\log(1/\varepsilon))$.
-\begin{itemize}
-    \item Upper bound: Using shared randomness, pick $k$ strings $r^{(1)}, \ldots, r^{(k)} \in \{0,1\}^n$. For each $j \in [k]$, Alice sends $b_j = \langle x, r^{(j)} \rangle \text{mod } 2$. Bob computes $\langle y, r^{(j)}\rangle \text{mod }2$ and checks equality for all $j \in [k]$. If $x = y$, this always succeeds. If $x \neq y$, each check fails independently with probability $1/2$, since the $r^{(j)}$ are uniformly random. Take $k = \lceil \log_2(1 / \epsilon) \rceil$. 
-\end{itemize}
-We do not prove it, but $R_\varepsilon^{pub}(\EQ) = O(\log(n))$ with only private randomness.
-\end{proof}
-
-\begin{claim}
-Set disjointness, denoted $\DISJ$, interprets $x,y \in \{0,1\}^n$ as subsets $X,Y \subseteq [n]$ with 
-\begin{align}
-    \DISJ(x,y) = 1 \iff \forall i \in [n], x_i y_i = 0.
-\end{align}
-Then $D(\DISJ) = \Theta(n)$, $N^1(\DISJ) = \Theta(n)$, $N^0(\DISJ) = \Theta(\log n)$, $R(\DISJ) = \Theta(n)$. Furthermore, if $|X| = |Y| = k \ll n$, then $D(\DISJ) = \Theta(k)$.
-\end{claim}
-
-These bounds are well known in the literature, so we choose to omit the proof
-for $\DISJ$ bounds. Both $\EQ$ and $\DISJ$ are very useful for
-\term{reductions}, where we embed a problem with known bounds in another, to
-show this other problem cannot be solved too efficiently. In particular, $\EQ$
-is ``maximally complicated'' for deterministic protocols and $\DISJ$ is % Could also move earlier explanation of trivial maximal protocol here, but somewhere should note why O(n) is maximal
-``maximally complicated'' for randomized protocols, in the sense that $D(\EQ) =
-n$ and $R(\DISJ) = \Theta(n)$.
+Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least 2 parties with unbounded computing power. The 2 party problem is typically stated as the following:
+    \begin{quote}
+        There are two players, Alice and Bob who each have a n-bit string, $a$ and $b$ that may or may not be the same. The goal is to compute a function, $f(a, b)$ that depends on both $a$ and $b$.
+    \end{quote}
+    Under the two party problem, it is always possible to compute $f(a,b)$ by sending all of $a$ to $b$, effectively reducing problem to a single party. This approach of sending the entire input from one party to another is what we consider the \textit{trivial solution} and is \textit{maximally hard}. We consider this \textit{maximally hard} because it has a communication complexity of $\theta (n)$ bits as all inputs must be sent from $a$ to $b$. One of the most common examples of a \textit{maximally hard} problem is 2 Player Equality. By studying Communication Complexity, we seek to find creative ways to achieve non-trivial bounds on multiparty problems or embed proven bounds in novel problems.
