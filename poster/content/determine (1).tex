@@ -1,0 +1,272 @@
+% =========================================
+\begin{block}{Equality is Maximally Hard}
+
+\begin{columns}[T]
+
+\column{0.5\textwidth}
+
+\textbf{Equality Problem:} Do Alice and Bob have the same $n$-bit string?
+
+\[
+\textsc{EQ}(x,y)=
+\begin{cases}
+1 & x=y \\
+0 & x\neq y
+\end{cases}
+\]
+
+\vspace{0.5em}
+
+In figure 3, we represent $\textsc{EQ}$ as a communication matrix:
+
+\begin{itemize}
+    \item Rows = Alice's input $x$
+    \item Columns = Bob's input $y$
+    \item Blue dots mark where $\textsc{EQ}(x,y)=1$
+\end{itemize}
+
+\bigskip
+
+In communication complexity, a correct protocol must divide this matrix into monochromatic rectangles that contain either all 0’s or all 1’s. \\
+
+\vspace{0.5em}
+
+But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, the protocol needs at least $2^n$ rectangles. It turns out this implies that Equality requires at least $n$ bits of communication. \\
+\vspace{0.5em}
+
+\textbf{Thus, Equality is maximally hard.}
+
+
+\column{0.48\textwidth}
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[scale=4]
+
+% Grid (flipped vertically using yscale=-1)
+\begin{scope}[yscale=-1]
+\draw[step=0.8cm,gray!30] (0,0) grid (4,4);
+
+% Fill all cells
+\foreach \x in {0,1,2,3,4}
+{
+    \foreach \y in {0,1,2,3,4}
+    {
+        \pgfmathsetmacro{\cx}{0.4 + 0.8*\x}
+        \pgfmathsetmacro{\cy}{0.4 + 0.8*\y}
+
+        % If diagonal → blue (1), else light gray (0)
+        \ifnum\x=\y
+            \fill[blue!80] (\cx,\cy) circle (0.12);
+        \else
+            \fill[gray!25] (\cx,\cy) circle (0.12);
+        \fi
+    }
+}
+
+% Coordinate labels (0 to 4)
+\foreach \x in {0,1,2,3,4}
+    \node at (\x*0.8 + 0.4,-0.15) {\small \x};
+
+\foreach \y in {0,1,2,3,4}
+    \node at (-0.15,\y*0.8 + 0.4) {\small \y};
+
+\end{scope}
+
+% Axis labels
+\node at (2,0.5) {Bob: y};
+\node[rotate=90] at (-0.8,-2) {Alice: x};
+
+% Legend dot
+\fill[blue!80] (4.4,0) circle (0.08);
+\node[anchor=west] at (4.5,0) {\small $f(x,y)=1$};
+
+% Legend empty
+\fill[gray!25] (4.4,-0.3) circle (0.08);
+\node[anchor=west] at  (4.5,-0.3) {\small $f(x,y)=0$};
+
+\end{tikzpicture}
+\end{center}
+\caption{Communication matrix for Equality}
+\end{figure}
+
+\end{columns}
+
+\end{block}
+
+% =========================================
+\begin{columns}[T]  
+
+
+\column{0.45\textwidth}
+
+\tikzset{
+  point/.style={circle, fill=black, inner sep=1.2pt}
+}
+\begin{block}{The TRAV Problem}
+
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=2.2]
+
+\tikzset{
+  point/.style={circle, fill=black, inner sep=1.8pt}
+}
+
+  % Outer graph
+  \draw[very thick] (0,0) ellipse [x radius=6, y radius=2.5];
+  \node at (0,2.1) {$G$};
+
+  % Subgraphs
+  \draw[thick] plot [smooth cycle, tension=0.6] coordinates {
+    (-2.2,-0.5) (-1.2,0.4) (1.2,0.4)
+    (1.8,-0.8) (0.2,-1.6) (-1.6,-1.7)
+  };
+  \node at (-1.1,-1.3) {$G_1$};
+
+  \draw[thick] plot [smooth cycle, tension=1.1] coordinates {
+    (-0.6,1.2) (0.8,1.6) (2.1,0.6)
+    (1.1,0) (-0.4,0.3)
+  };
+  \node at (0.7,1.2) {$G_2$};
+
+  \draw[thick] plot [smooth cycle, tension=0.8] coordinates {
+    (2.3,0.9) (4.6,1.2) (4.4,-0.2)
+    (3.2,-0.9) (1.0,-0.2)
+  };
+  \node at (4.2,0.8) {$G_3$};
+
+  % Points + edges
+  \node[point] (a1) at (-1.5,0.1) {};
+  \node[point] (a2) at (-0.5,-0.6) {};
+  \node[point] (a3) at (0.8,-0.4) {};
+  \draw[dotted, line width=1pt] (a1) -- (a2) -- (a3);
+
+  \node[point] (b1) at (-0.2,0.9) {};
+  \node[point] (b2) at (0.8,0.7) {};
+  \node[point] (b3) at (1.4,0.2) {};
+  \draw[dotted, line width=1pt] (b1) -- (b2) -- (b3);
+
+  \node[point] (c1) at (2.6,0.5) {};
+  \node[point] (c2) at (3.8,0.6) {};
+  \node[point] (c3) at (3.4,-0.3) {};
+  \draw[dotted, line width=1pt] (c1) -- (c2) -- (c3);
+
+  \node[point] (d1) at (-5,0) {};
+  \node[point] (d2) at (-3,-0.7) {};
+  \node[point] (d3) at (-2.4,1) {};
+  \node[point] (d4) at (-4,0.4) {};
+  \draw[dotted, line width=1pt] (d1) -- (d2) -- (d4);
+  \draw[dotted, line width=1pt] (d2) -- (d3) -- (b1);
+
+  % Labels
+  \node[below left=2pt] at (0.8,-0.4) {$v$};
+  \node[above right=2pt] at (2.6,0.5) {$w$};
+
+  % Highlighted valid path
+  \draw[ultra thick] (c1) -- (b3) -- (a3);
+
+\end{tikzpicture}
+
+\caption{TRAV example where a valid path from $v$ to $w$ is shown in bold.}
+\end{figure}
+
+
+\vspace{0.3em}
+In this section, we define a simpler version of the problem from our motivation.
+
+Consider a large graph $G$. Inside $G$, each agent “owns” part of the graph. We call these subgraphs $G_1, G_2, \dots, G_k$. No single player sees the entire graph.
+
+Given a starting vertex $v$ and a target vertex $w$, how much information do the agents need to share about their subgraphs to determine whether there is a path from $v$ to $w$?
+
+For this poster, we will only consider a two agent case. 
+
+\end{block}
+
+\column{0.45\textwidth}
+\begin{block}{ The Equality Gadget}
+
+\begin{figure}[H]
+\begin{tikzpicture}[scale=3, every node/.style={circle, fill=black, inner sep=1.5pt}]
+
+\node (L) at (-2,0) {};
+\node (T1) at (-0.8,1.5) {};
+\node (T2) at (0.8,1.5) {};
+\node (B1) at (-0.8,-1.5) {};
+\node (B2) at (0.8,-1.5) {};
+\node (R) at (2,0) {};
+
+\draw (L) -- (T1);
+\draw (T1) -- (T2);
+\draw (T2) -- (R);
+
+\draw (L) -- (B1);
+\draw (B1) -- (B2);
+\draw (B2) -- (R);
+
+\node[draw=none, fill=none, left=20pt] at (L) {$Start$};
+\node[draw=none, fill=none, right=20pt] at (R) {$End$};
+
+
+\node[draw=none, fill=none, above=6pt] at (T1) {$x_i = 1$};
+\node[draw=none, fill=none, above=6pt] at (T2) {$y_i = 1$};
+
+\node[draw=none, fill=none, below=6pt] at (B1) {$x_i = 0$};
+\node[draw=none, fill=none, below=6pt] at (B2) {$y_i = 0$};
+
+\end{tikzpicture}
+\label{fig:equality_gadget}
+\caption{Gadget for proving equality Embedding}
+\end{figure}
+
+\begin{enumerate}
+    \item \ Top branch corresponds to $x_i = y_i = 1$, 
+    \item \ Bot branch corresponds to $x_i = y_i = 0$. 
+\end{enumerate}
+
+Consider this gadget where its only traversable from Start to End if both $x_i$ and $y_i$ are both $0$ or $1$. In other words when $y_i=x_i$
+
+\end{block}
+
+\end{columns}
+
+
+
+\begin{block}{Embedding Equality into TRAV: Equality Gadget Chain}
+\vspace{0.3em}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.5, transform shape,
+hex/.style={
+draw,
+regular polygon,
+regular polygon sides=6,
+minimum size=5cm,
+inner sep=0pt
+}
+]
+
+\node[hex] (h1) at (0,0)  {$i=1$};
+\node[hex] (h2) at (5,0)  {$i=2$};
+\node[hex] (h3) at (10,0) {$i=3$};
+\node[hex] (h4) at (15,0) {$\cdots$};
+\node[hex] (h5) at (20,0) {$i=n$};
+
+
+\end{tikzpicture}
+\caption{Chain of Equality Gadgets}
+\end{figure}
+
+To prove that \textsc{TRAV} is also maximally hard, like Equality,
+we show that we can reduce \textsc{Equality} to \textsc{TRAV}.
+
+By chaining the gadgets together, we turn each bit comparison into a small “gate.” 
+The chain is traversable only if every gate opens, which happens exactly when 
+$x_i = y_i$ for all $i$, in other words, when $x = y$.
+
+Therefore, any protocol that solves \textsc{TRAV} can also solve \textsc{Equality}. 
+Since Equality is deterministically maximally hard, 
+\textbf{\textsc{TRAV} is also deterministically maximally hard.}
+
+\end{block}
