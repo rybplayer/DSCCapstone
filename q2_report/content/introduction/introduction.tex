@@ -1,20 +1,25 @@
 \subsection{Motivating Communication Complexity}
 \label{ex:motivating-problem}
 
-Graphs are fundamental data structures for modelling relationships between entities. For example, an airline may choose to store their flights as a graph, whose vertices are destinations and directed edges are flights between destinations. Many well-known algorithms make this a feasible data structure for the airline. Now suppose a user wishes to plan flights, perhaps with transits, from point $A$ to $B$. This user may need to consider a large variety of airlines, each with their own graph. How can the user do this?
-
-Clearly, the user can get the full database of all flights, and compute the desired sequence of flights on their own. But this is obviously costly in many regards. We want to minimize the amount of processing and communication between these parties while still giving the user the desired result. Indeed, there exists a variety of algorithms for this in the literature.
-
-In this report, we ask an adjacent question: What is the minimum amount of communication necessary for the user to complete this task, without considering the local storage and computational cost to each party? Yao's communication complexity model formalizes this idea, allowing us to prove algorithmic lower bounds for situations like the above. These algorithmic lower bounds are concrete, mathematical claims that show we cannot asymptotically reduce communication beyond a certain point.
-
+As the computational landscape expands beyond the capabilities of individual machines, there will be an ever increasing need for distributed computing. We see this already in multi-agent models where we have 
 
 % -----------------------------
 
 
 \subsection{Communication complexity basics}
 
-Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least 2 parties with unbounded computing power. The 2 party problem is typically stated as the following:
+Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least 2 parties with unbounded computing power. The base case of a 2 party problem is typically stated as the following:
     \begin{quote}
         There are two players, Alice and Bob who each have a n-bit string, $a$ and $b$ that may or may not be the same. The goal is to compute a function, $f(a, b)$ that depends on both $a$ and $b$.
     \end{quote}
-    Under the two party problem, it is always possible to compute $f(a,b)$ by sending all of $a$ to $b$, effectively reducing problem to a single party. This approach of sending the entire input from one party to another is what we consider the \textit{trivial solution} and is \textit{maximally hard}. We consider this \textit{maximally hard} because it has a communication complexity of $\theta (n)$ bits as all inputs must be sent from $a$ to $b$. One of the most common examples of a \textit{maximally hard} problem is 2 Player Equality. By studying Communication Complexity, we seek to find creative ways to achieve non-trivial bounds on multiparty problems or embed proven bounds in novel problems.
+    Under the two party problem, it is always possible to compute $f(a,b)$ by sending all of $a$ to $b$, effectively reducing problem to a single party. This approach of sending the entire input from one party to another is what we consider the \textit{trivial solution} and is \textit{maximally hard}. We consider this \textit{maximally hard} because it has a communication complexity of $\theta (n)$ bits as all inputs must be sent from $a$ to $b$. One of the most common examples of a \textit{maximally hard} problem is 2 Player Equality:
+    
+    \begin{quote}
+    \paragraph{Claim} The deterministic communication complexity of computing the equality between two parties is maximally hard.
+
+    Consider the case where Alice and Bob want to compute a function that determines whether or not their inputs are equal. We will formally define this problem as $EQ: \{0,1\}^n \times \{0,1\}^n \rightarrow \{0,1\}$ where $EQ(a,b) = 1$ if $a = b$.
+
+    Now assume that $CC(EQ) \le n-1$. This means that for every $x, y$ where $x \ne y$, 
+    \end{quote}
+    
+    By studying Communication Complexity, we seek to find creative ways to achieve non-trivial bounds on multiparty problems or embed proven bounds in novel problems.
