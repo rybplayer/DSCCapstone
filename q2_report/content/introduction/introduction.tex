@@ -1,12 +1,14 @@
 \subsection{Motivating Communication Complexity}
 \label{ex:motivating-problem}
 
-As the computational landscape expands beyond the capabilities of individual machines, there will be an ever increasing need for distributed computing. We see this already in multi-agent models where we have 
+As data growth transforms the computational landscape, it will become increasingly difficult practically and computationally for individual machines to compute functions. Practically, proprietary company information may create unexpected and consequential gaps in our data. Say we are trying to use air transit to travel from San Diego to Shanghai, however there does not exist a single airline that has both flights out of San Diego and into Shanghai. By attempting to take only a single airline, we would conclude that a route does not exist. Do we conclude that no route exists then? No, we understand that by taking different airlines for separate legs of our route we can eventually make it to Shanghai. However, do we have to search through every individual flight or is there a technique that we can employ to reduce the amount of flights that we have to search through?
+
+This is the essence of communication complexity. By studying communication complexity, we are trying to find how much information we need to send from each party in order to compute a function. 
 
 % -----------------------------
 
 
-\subsection{Communication complexity basics}
+\subsection{Communication Complexity Basics}
 
 Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least 2 parties with unbounded computing power. The base case of a 2 party problem is typically stated as the following:
     \begin{quote}
@@ -23,3 +25,17 @@ Communication complexity studies the communication requirements to solve problem
     \end{quote}
     
     By studying Communication Complexity, we seek to find creative ways to achieve non-trivial bounds on multiparty problems or embed proven bounds in novel problems.
+
+\subsection{The Graph Traversal Problem}
+Recall the Airline route example from an earlier section. We want to formalize this problem into a communication complexity problem, with each party representing an airline and it's connected routes. 
+
+Let us say that the graph of all possible flights is $G=(V,E)$, where $V$ represents the set of airports as vertices and $E$ represents the set of flight paths as edges. The flight network of each airline belongs to a subset of $G$, such that $G_1, G_2, ...,G_k \subset G$ where $k$ is the number of airlines. For simplicity, let us also suppose that G is unweighted, no preference among flights, and undirected, each flight between airport A to B operates both directions. Given a starting airport $v \in V$ and a destination airport $w \in V$, such that no single airline operates in both $v$ and $w$, our goal is to determine how much communication do these airlines need to communicate to determine whether a route exists. 
+
+More formally, let us denote this problem as:
+\begin{quote}
+    $TRAV(v,w) = \{0,1\}^n \times ... \times \{0,1\}_k^n \rightarrow \{0,1\}$ where $TRAV(v,w)=1$ if there exists a connected path between $v$ and $w$ such that every edge traversed belongs to a graph in $G_1, G_2,..., G_k$. 
+\end{quote}
+Each subgraph is a connected subset of the entire graph space G, $G_1, G_2,..., G_k \subset G$. We consider an edge to belong to a graph if both the starting and ending vertex of the edge are inside of the subgraph. 
+
+\input{content/two-party/figures/valid_path.tex}
+\input{content/two-party/figures/no_path.tex}
