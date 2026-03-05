@@ -107,13 +107,21 @@
 \caption{Path in Agent Owned Graphs}
 \end{figure}
 
-Many real-world systems involve multiple agents coordinating, such as self-driving cars, airports, or distributed servers. Each agent has only partial information, so communication is required to solve the shared task. This begs the question:
+In multi-agentic learning systems, there is a strong need for multiple agents
+to be able to coordinate while learning a problem. However, it is also
+important for those agents to be able to communicate the minimum amount of
+information possible, so as to avoid one agent dominating the training process.
+It is therefore natural to consider questions in Communication complexity,
+which asks, for any function,
 
 \vspace{0.5em}
 
 \begin{center}
 \textit{How much communication is fundamentally necessary?}
 \end{center}
+
+In our model, we consider the learning space as a graph, which each agent will
+need to understand properties of in order to find ideal training parameters.
 
 \end{block}
 
@@ -137,57 +145,14 @@ There are two players, traditionally called \textbf{Alice} and \textbf{Bob}.
     \item Bob holds input $y$
 \end{itemize}
 
-Neither of them knows the inputs of the other persons, so they must talk back and forth until they know enough to compute some function $f(x,y)$
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[scale=1.5]
-
-% ---------- Alice ----------
-\draw (0,0) circle (0.5);            
-\draw (0,-0.5) -- (0,-2);             
-\draw (0,-1) -- (-0.8,-1.5);          
-\draw (0,-1) -- (0.8,-1.5);          
-\draw (0,-2) -- (-0.6,-3);           
-\draw (0,-2) -- (0.6,-3);             
-\node at (0,-3.6) {$Alice: x$};
+Neither of them knows the inputs of the other persons, so they must talk back
+and forth until they know enough to compute some function $f(x,y)$
 
 
-% ---------- Bob ----------
-\draw (12,0) circle (0.5);              
-\draw (12,-0.5) -- (12,-2);              
-\draw (12,-1) -- (11.2,-1.5);            
-\draw (12,-1) -- (12.8,-1.5);            
-\draw (12,-2) -- (11.4,-3);              
-\draw (12,-2) -- (12.6,-3);              
-\node at (12,-3.6) {$Bob: y$};
+In the worst case, Alice just send all $n$ bits. This is called
+\textbf{maximally hard}, as after sending her entire input, Bob can simply
+compute the result.
 
-% ---------- Speech bubble from Alice ----------
-\draw[rounded corners=10pt] 
-(2,0.5) rectangle (8,2);
-
-\node at (5,1.2) {\small ``My first bit is 1''};
-\draw (1,0.5) -- (2,1);
-\draw (1,0.5) -- (2,1.5);
-
-
-
-% ---------- Speech bubble from Bob ----------
-\draw[rounded corners=10pt] 
-(3.5,-2) rectangle (9.5,-0.5);
-\node at (6.5,-1.3) {\small ``My third bit is 0''};
-\draw (9.5,-1) -- (11,-0.5); 
-\draw (9.5,-1.5) -- (11,-0.5);  
-
-
-\end{tikzpicture}
-\caption{Alice and Bob exchanging messages.}
-\end{figure}
-\end{block}
-
-\begin{block} {Maximally Hard} 
-
-In the worst case, Alice just send all $n$ bits. This is called \textbf{maximally hard}.
 
 \begin{figure}[H]
 \centering
@@ -231,10 +196,112 @@ In the worst case, Alice just send all $n$ bits. This is called \textbf{maximall
 
 
 \end{tikzpicture}
-\caption{Alice and Bob in Maximally Hard case}
+\caption{Alice and Bob in the Maximally Hard case}
 \end{figure}
 
+
+% --------------------
+% Old figure... I think we don't need this, since the maximal case is more
+% important to get across than the idea of communicating bits.
+% --------------------
+
+% \begin{figure}[H]
+% \centering
+% \begin{tikzpicture}[scale=1.5]
+% 
+% % ---------- Alice ----------
+% \draw (0,0) circle (0.5);            
+% \draw (0,-0.5) -- (0,-2);             
+% \draw (0,-1) -- (-0.8,-1.5);          
+% \draw (0,-1) -- (0.8,-1.5);          
+% \draw (0,-2) -- (-0.6,-3);           
+% \draw (0,-2) -- (0.6,-3);             
+% \node at (0,-3.6) {$Alice: x$};
+% 
+% 
+% % ---------- Bob ----------
+% \draw (12,0) circle (0.5);              
+% \draw (12,-0.5) -- (12,-2);              
+% \draw (12,-1) -- (11.2,-1.5);            
+% \draw (12,-1) -- (12.8,-1.5);            
+% \draw (12,-2) -- (11.4,-3);              
+% \draw (12,-2) -- (12.6,-3);              
+% \node at (12,-3.6) {$Bob: y$};
+% 
+% % ---------- Speech bubble from Alice ----------
+% \draw[rounded corners=10pt] 
+% (2,0.5) rectangle (8,2);
+% 
+% \node at (5,1.2) {\small ``My first bit is 1''};
+% \draw (1,0.5) -- (2,1);
+% \draw (1,0.5) -- (2,1.5);
+% 
+% 
+% 
+% % ---------- Speech bubble from Bob ----------
+% \draw[rounded corners=10pt] 
+% (3.5,-2) rectangle (9.5,-0.5);
+% \node at (6.5,-1.3) {\small ``My third bit is 0''};
+% \draw (9.5,-1) -- (11,-0.5); 
+% \draw (9.5,-1.5) -- (11,-0.5);  
+% 
+% 
+% \end{tikzpicture}
+% \caption{Alice and Bob exchanging messages.}
+% \end{figure}
+
 \end{block}
+
+% \begin{block} {Maximally Hard} 
+% 
+% In the worst case, Alice just send all $n$ bits. This is called \textbf{maximally hard}.
+% 
+% \begin{figure}[H]
+% \centering
+% \begin{tikzpicture}[scale=1.5]
+% 
+% % ---------- Alice ----------
+% \draw (0,0) circle (0.5);            
+% \draw (0,-0.5) -- (0,-2);             
+% \draw (0,-1) -- (-0.8,-1.5);          
+% \draw (0,-1) -- (0.8,-1.5);          
+% \draw (0,-2) -- (-0.6,-3);           
+% \draw (0,-2) -- (0.6,-3);             
+% \node at (0,-3.6) {$Alice: x$};
+% 
+% 
+% % ---------- Bob ----------
+% \draw (12,0) circle (0.5);              
+% \draw (12,-0.5) -- (12,-2);              
+% \draw (12,-1) -- (11.2,-1.5);            
+% \draw (12,-1) -- (12.8,-1.5);            
+% \draw (12,-2) -- (11.4,-3);              
+% \draw (12,-2) -- (12.6,-3);              
+% \node at (12,-3.6) {$Bob: y$};
+% 
+% % ---------- Speech bubble from Alice ----------
+% \draw[rounded corners=10pt] 
+% (2,0.5) rectangle (8,2);
+% 
+% \node at (5,1.2) {\small ``I give up, my number is 5''};
+% \draw (1,0.5) -- (2,1);
+% \draw (1,0.5) -- (2,1.5);
+% 
+% 
+% 
+% % ---------- Speech bubble from Bob ----------
+% \draw[rounded corners=10pt] 
+% (3.5,-2) rectangle (9.5,-0.5);
+% \node at (6.5,-1.3) {\small ``Ok now I know everything''};
+% \draw (9.5,-1) -- (11,-0.5); 
+% \draw (9.5,-1.5) -- (11,-0.5);  
+% 
+% 
+% \end{tikzpicture}
+% \caption{Alice and Bob in Maximally Hard case}
+% \end{figure}
+
+% \end{block}
 
 
 

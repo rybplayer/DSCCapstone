@@ -10,4 +10,6 @@
 *.thm
 *.xdv
 *.bbl
-*.latexmk
+*.latexmk*.bcf
+*.xml
+*.bcf
