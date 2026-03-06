@@ -72,29 +72,30 @@
 			\draw[red, very thick] (4.9,-1.3) -- (5.3,-1.9);
 
 		\end{tikzpicture}
-		\caption{Graph with Skipped Edges}
+		\caption{Graph with ignored Edges}
 	\end{figure}
 
 
-	Deterministically we have seen that this is \textbf{maximally hard}. There is
-	no better way to solve this problem than for Alice to send her entire input to
-	Bob. However, we might also consider adding randomness, and allowing for error.
-	For instance, if there is a path, it is unlikely that any randomly selected
-	vertex will fall on it, so we might consider randomly removing some.
+	Deterministically we have seen that Traversal is \textbf{maximally hard}.
+	There is no asymptotically better way to solve this problem than for
+	Alice to send her entire input to Bob. However, we might also consider
+	adding randomness and allowing error. For instance, if there is a
+	path, it is unlikely that it will use any randomly selected edge,
+	so we might consider randomly ignoring some.
 
 \end{block}
 
 \begin{block}{Set Disjointness}
 
 	To find a lower bound for a random algorithm we can no longer rely on
-	embedding equality, as random algorithm's for equality can be bounded
-	as low as $\Theta(1)$. Thus, we turn to set disjointness.
+	embedding Equality, as random algorithms for equality can be bounded
+	as low as $\Theta(1)$. Thus, we turn to Set Disjointness:
 
 	\[
 		\textsc{DISJ}(x,y)=
 		\begin{cases}
-			0 & x \cap y \neq \emptyset \\
-			1 & x \cap y = \emptyset
+			1 & x \cap y \neq \emptyset, \\
+			0 & x \cap y = \emptyset.
 		\end{cases}
 	\]
 
@@ -102,78 +103,54 @@
 	and asks if the players have any elements in common. If so, the
 	protocol outputs 0, and 1 otherwise. Set Disjointness is usefull when
 	studying random algorithms since it has been shown that it requires
-	\textbf{maximal \emph{random} communication}.
+	asymptotically \textbf{maximal \emph{random} communication}.
 
 \end{block}
 
 \begin{block}{Disjoint Gadget and Embedding}
 
+	\begin{center}
 	\begin{figure}
-		\centering
-		\begin{tikzpicture}[y=1cm, x=1cm, scale=2, every node/.append style={scale=1.2}, inner sep=0pt, outer sep=0pt]
-			\node[line width=0.0cm,anchor=south west] (text11) at (7.3, 27.3){$v$};
-			\path[draw=black,fill=black,line width=0.0cm,shift={(2.5, 3.7)}] (5.5, 23.4) 
-				ellipse (0.1cm and 0.1cm);
-			\node[line width=0.0cm,anchor=south west] (text14) at (1.0, 24.7){$Alice$};
-			\node[line width=0.0cm,anchor=south west] (text22) at (4.8, 24.8){1};
-			\node[line width=0.0cm,anchor=south west] (text23) at (6.3, 24.8){2};
-			\node[line width=0.0cm,anchor=south west] (text24) at (7.6, 24.8){3};
-			\node[line width=0.0cm,anchor=south west] (text25) at (9.4, 24.8){4};
-			\node[line width=0.0cm,anchor=south west] (text26) at (10.6, 24.8){5};
-			\node[line width=0.0cm,anchor=south west] (text27) at (7.3, 20.3){$w$};
-			\node[line width=0.0cm,anchor=south west] (text28) at (1.0, 23){$Bob$};
-			\path[draw=black,line width=0.0cm] (5.5, 24.7) -- (6.8, 24.7);
-			\path[draw=black,line width=0.0cm] (8.0, 24.7) -- (6.8, 24.7);
-			\path[draw=black,line width=0.0cm] (5.5, 24.7) -- (8.0, 27.2) -- (6.8, 24.7);
-			\path[draw=black,line width=0.0cm] (8.0, 27.2) -- (8.0, 24.7);
-			\path[draw=black,line width=0.0cm] (9.3, 24.7) -- (8.0, 27.2);
-			\path[draw=black,line width=0.0cm] (10.5, 24.7) -- (8.0, 27.2);
-			\path[draw=black,line width=0.0cm] (5.5, 23.4) -- (8.0, 20.7) -- (6.8, 23.4);
-			\path[draw=black,line width=0.0cm] (8.0, 23.4) -- (8.0, 20.7) -- (9.3, 23.4);
-			\path[draw=black,line width=0.0cm] (10.5, 23.4) -- (8.0, 20.7);
-			\path[draw=black,line width=0.0cm] (6.8, 24.7) -- (6.8, 23.4); % Line connecting 3--3
-			\path[draw=black,fill=black,line width=0.0cm] (5.5, 24.7) ellipse (0.1cm and 
-				0.1cm);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(1.3, -0.0)}] (5.5, 24.7) 
-				ellipse (0.1cm and 0.1cm);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(2.5, -0.0)}] (5.5, 24.7) 
-				ellipse (0.1cm and 0.1cm);
-			\path[draw=black,line width=0.0cm] (9.3, 24.7) -- (8.0, 24.7);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(3.8, -0.0)}] (5.5, 24.7) 
-				ellipse (0.1cm and 0.1cm);
-			\path[draw=black,line width=0.0cm] (10.5, 24.7) -- (9.2, 24.7);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(5.0, -0.0)}] (5.5, 24.7) 
-				ellipse (0.1cm and 0.1cm);
-			\node[line width=0.0cm,anchor=south west] (text22-8) at (4.8, 23.5){1};
-			\node[line width=0.0cm,anchor=south west] (text23-4) at (6.3, 23.5){2};
-			\node[line width=0.0cm,anchor=south west] (text24-1) at (7.6, 23.5){3};
-			\node[line width=0.0cm,anchor=south west] (text25-8) at (9.4, 23.5){4};
-			\node[line width=0.0cm,anchor=south west] (text26-8) at (10.6, 23.5){5};
-			\path[draw=black,line width=0.0cm] (5.5, 23.4) -- (6.7, 23.4);
-			\path[draw=black,line width=0.0cm] (8.0, 23.4) -- (6.7, 23.4);
-			\path[draw=black,fill=black,line width=0.0cm] (5.5, 23.4) ellipse (0.1cm and 
-				0.1cm);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(1.3, -0.0)}] (5.5, 23.4) 
-				ellipse (0.1cm and 0.1cm);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(2.5, -0.0)}] (5.5, 23.4) 
-				ellipse (0.1cm and 0.1cm);
-			\path[draw=black,line width=0.0cm] (9.3, 23.4) -- (8.0, 23.4);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(3.8, -0.0)}] (5.5, 23.4) 
-				ellipse (0.1cm and 0.1cm);
-			\path[draw=black,line width=0.0cm] (10.5, 23.4) -- (9.2, 23.4);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(5.0, -0.0)}] (5.5, 23.4) 
-				ellipse (0.1cm and 0.1cm);
-			\path[draw=black,fill=black,line width=0.0cm,shift={(2.5, -2.7)}] (5.5, 23.4) 
-				ellipse (0.1cm and 0.1cm);
-		\end{tikzpicture}
-		\caption{Disjointness Gadget. Here, a path exists as Alice and Bob both share element 2}
-		\label{fig:equality-gadget-chain}
-	\end{figure}
+	\begin{tikzpicture}[scale=2]
 
-	This gadget can also be embedded into Traversal. Here, edges between
-	Alice's side and Bob's side only exist if both players have an element
-	in common
+		\node[circle, label=above left:{1}, fill=black, inner sep=1.5pt] (1) at (3,0);
+		\node[circle, label=above left:{2}, fill=black, inner sep=1.5pt] (2) at (4,0);
+		\node[circle, label=above left:{3}, fill=black, inner sep=1.5pt] (3) at (5,0);
+		\node[circle, label=above left:{4}, fill=black, inner sep=1.5pt] (4) at (6,0);
+		\node[circle, label=above left:{5}, fill=black, inner sep=1.5pt] (5) at (7,0);
+
+		\node[circle, label=above left:{$v$}, fill=black, inner sep=1.5pt] (v) at (5,2);
+		\node[circle, label=above left:{$w$}, fill=black, inner sep=1.5pt] (w) at (5,-2);
+
+		\node[draw] at (1,1) () {Alice};
+		\node[draw] at (1,-1) () {Bob};
+
+		% Bobs nodes
+		\draw (v) -- (1);
+		\draw (v) -- (2);
+
+		\draw (w) -- (2);
+		\draw (w) -- (4);
+		\draw (w) -- (5);
+
+	\end{tikzpicture}
+	\caption{Disjointness Gadget. Here, Alice has $\{1,2\}$, and Bob has
+	$\{2,4,5\}$. There is a path from $v$ to $w$ through 2.}
+	\end{figure}
+	\end{center}
+
+
+	This gadget shows that Set Disjointness can also be embedded into
+	Traversal. We let Alice own edges between $v$ and $i$, if $i$ is in
+	$x$, and likewise for Bob. Therefore there is a path between $v$ and
+	$w$ iff $x \cap y \neq \emptyset$.
 
 \end{block}
 
+\begin{block}{Multi-Party}
+	In addition, we have found that these results generalize to
+	three or more players as well. Specifically, we show that in this case
+	the problem is still maximally hard in both the Deterministic and
+	Random case.
+\end{block}
 

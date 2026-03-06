@@ -17,7 +17,7 @@
 
 \vspace{0.5em}
 
-In figure 3, we represent $\textsc{EQ}$ as a communication matrix:
+In Figure 3, we represent $\textsc{EQ}$ as a communication matrix:
 
 \begin{itemize}
     \item Rows = Alice's input $x$
@@ -27,11 +27,16 @@ In figure 3, we represent $\textsc{EQ}$ as a communication matrix:
 
 \bigskip
 
-In communication complexity, a correct protocol must divide this matrix into rectangles that contain either all 0’s or all 1’s. \\
+In Communication Complexity, Alice send bits to Bob to eliminate parts of
+this matrix, and vice-versa. The regions eliminated are rectangles, so a bound
+on a function can be proven by finding the minimum number of bits needed to
+reduce to rectangles containing only 1s or 0s.
 
 \vspace{0.5em}
 
-But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, the protocol needs at least $2^n$ rectangles. It turns out this implies that Equality requires at least $n$ bits of communication. \\
+But in Equality, each blue dot is isolated, so in order to cover all $2^n$
+diagonal 1’s, the protocol needs at least $2^n$ rectangles. It turns out this
+implies that Equality requires at least $n$ bits of communication. \\
 \vspace{0.5em}
 
 \textbf{Thus, Equality is maximally hard.}
@@ -179,11 +184,14 @@ But each blue dot is isolated, so in order to cover all $2^n$ diagonal 1’s, th
 \vspace{0.3em}
 In this section, we define a simpler version of the problem from our motivation.
 
-Consider a large graph $G$. Inside $G$, each agent “owns” part of the graph. We call these subgraphs $G_1, G_2, \dots, G_k$. No single player sees the entire graph.
+Consider a large graph $G$, known by both players. Inside $G$, each agent
+“owns” part of the graph. We call these subgraphs $G_1$ and , $G_2$. Neither
+player knows the other players subgraph.
 
-Given a starting vertex $v$ and a target vertex $w$, how much information do the agents need to share about their subgraphs to determine whether there is a path from $v$ to $w$?
-
-For this poster, we will only consider a two agent case. 
+Given a starting vertex $v$ and a target vertex $w$, how much information do
+the player need to share about their subgraphs to determine whether there is a
+path from $v$ to $w$, which can only use vertices and edges in the players
+subgraphs?
 
 \end{block}
 
@@ -223,12 +231,17 @@ For this poster, we will only consider a two agent case.
 \caption{Gadget for proving equality Embedding}
 \end{figure}
 
+Consider Figure 5 as one part of a whole graph. All players own the start and
+end vertices. Let $x_i$ be the $i$th bit of Alice's input, and $y_i$ be the
+$i$th bit of Bob's input. Then:
+
 \begin{enumerate}
-    \item \ Top branch corresponds to $x_i = y_i = 1$, 
-    \item \ Bot branch corresponds to $x_i = y_i = 0$. 
+    \item \ The top branch corresponds to $x_i = y_i = 1$, 
+    \item \ The bottom branch corresponds to $x_i = y_i = 0$. 
 \end{enumerate}
 
-Consider this gadget where its only Traversable from Start to End if both $x_i$ and $y_i$ are both $0$ or $1$. In other words when $y_i=x_i$
+And thus, traversal is only possible if Alice's $x_i$ is equal to Bob's
+$y_i$.
 
 \end{block}
 
@@ -262,15 +275,15 @@ inner sep=0pt
 \caption{Chain of Equality Gadgets}
 \end{figure}
 
-To prove that \textsc{Traversal}, like Equality, is also maximally hard
-we show that we can embed \textsc{Equality} in \textsc{Traversal}.
+We can string a set of these graphs along in a chain, one for every index $i$,
+so that traversing from one end to the other is only possible if $x_i = y_i$
+for every index, which means that it is only possible if $x=y$.
 
-By chaining the gadgets together, we turn each bit comparison into a small “gate.” 
-The chain is traversable only if every gate opens, which happens exactly when 
-$x_i = y_i$ for all $i$, in other words, when $x = y$.
+Using this, we can embed Equality into the Traversal problem. Solving this case
+efficiently would mean checking if $x=y$ efficiently, so any algorithm that
+solves the Traversal problem will also solve Equality.
 
-Therefore, any protocol that solves \textsc{Traversal} can also solve \textsc{Equality}. 
-Since Equality is deterministically maximally hard, 
-\textbf{\textsc{Traversal} is also deterministically maximally hard.}
+From this we can conclude that \textbf{\textsc{Traversal} is also
+deterministically maximally hard.}
 
 \end{block}

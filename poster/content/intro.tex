@@ -110,8 +110,8 @@
 In multi-agentic learning systems, there is a strong need for multiple agents
 to be able to coordinate while learning a problem. However, it is also
 important for those agents to be able to communicate the minimum amount of
-information possible, so as to avoid one agent dominating the training process.
-It is therefore natural to consider questions in Communication complexity,
+information possible to optimize the computational cost of the overall process.
+It is therefore natural to consider questions in Communication Complexity,
 which asks, for any function,
 
 \vspace{0.5em}
@@ -120,36 +120,33 @@ which asks, for any function,
 \textit{How much communication is fundamentally necessary?}
 \end{center}
 
-In our model, we consider the learning space as a graph, which each agent will
-need to understand properties of in order to find ideal training parameters.
+We consider the learning space as a graph, which each agent will
+need to understand properties during training to optimize training parameters.
 
 \end{block}
 
 \begin{block} {Two Party Communication Complexity} 
 
-Communication Complexity studies the minimum number of bits that multiple parties must exchange to compute a function when the input is distributed.
+Communication Complexity studies the minimum number of bits that two parties must exchange to compute a function when the input is distributed.
 
 \medskip
 
-Instead of asking: \textit{How fast is the algorithm?}\\
-We ask: \textit{How much communication is needed within the algorithm?}
+Instead of asking \textit{How fast is the algorithm?},\\
+We ask \textit{How much communication is needed within the algorithm?}
 
+\vspace{0.5em}
 
-\end{block}
-
-\begin{block}{Two Party Communcation Complexity} 
-
-There are two players, traditionally called \textbf{Alice} and \textbf{Bob}.  
+In this model, there are two players, traditionally called \textbf{Alice} and \textbf{Bob}.  
 \begin{itemize}
     \item Alice holds input $x$
     \item Bob holds input $y$
 \end{itemize}
 
-Neither of them knows the inputs of the other persons, so they must talk back
-and forth until they know enough to compute some function $f(x,y)$
+Neither of them knows the inputs of the other person, so they must talk back
+and forth until they know enough to compute some function $f(x,y)$.
 
 
-In the worst case, Alice just send all $n$ bits. This is called
+In the worst case, Alice just sends all $n$ bits. This is called
 \textbf{maximally hard}, as after sending her entire input, Bob can simply
 compute the result.
 
@@ -165,7 +162,7 @@ compute the result.
 \draw (0,-1) -- (0.8,-1.5);          
 \draw (0,-2) -- (-0.6,-3);           
 \draw (0,-2) -- (0.6,-3);             
-\node at (0,-3.6) {$Alice: x$};
+\node at (0,-3.6) {Alice: $x$};
 
 
 % ---------- Bob ----------
@@ -175,7 +172,7 @@ compute the result.
 \draw (12,-1) -- (12.8,-1.5);            
 \draw (12,-2) -- (11.4,-3);              
 \draw (12,-2) -- (12.6,-3);              
-\node at (12,-3.6) {$Bob: y$};
+\node at (12,-3.6) {Bob: $y$};
 
 % ---------- Speech bubble from Alice ----------
 \draw[rounded corners=10pt] 
@@ -196,7 +193,7 @@ compute the result.
 
 
 \end{tikzpicture}
-\caption{Alice and Bob in the Maximally Hard case}
+\caption{Alice and Bob in the maximally hard case}
 \end{figure}
 
 
