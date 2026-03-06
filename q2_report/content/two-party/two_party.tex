@@ -1,25 +1,3 @@
-\subsection{Problem Statement}
-
-We begin with the simplest non-trivial formulation of our problem, inspired by \ref{ex:motivating-problem}.
-
-Consider a graph $G = (V,E)$ and subgraphs $G_1, \ldots, G_k \subset G$. Let % We are already discussing multi-party here. This is probably not a good idea, since we start with two party and go from there. Introduce new topics as needed, not all at once, since this will confuse the reader less
-$G_i = (V_i, E_i)$ for these subgraphs. For now let us suppose $G$ is
-unweighted and undirected. The subgraphs need not cover $G$ and can overlap.
-Each player $i$ knows $G$ and $G_i$, but not the other player's graphs. The
-goal is, given some starting vertex $v \in V$, and some end vertex $w \in V$
-to:
-\begin{enumerate}
-	\item  Identify if it is possible to construct a path $v, v_1, \dots, v_l, w$ such that every edge on the path is in $\bigcup_{i=0}^{k} E_i$. \label{prob:traversal-exists-path}
-	\item  If such a path exists, find the minimum number of edges needed to get from $v$ to $w$, while using only edges belonging to $\bigcup_{i=0}^{k} E_i$. \label{prob:traversal-min-path}
-\end{enumerate}
-If some $e = (u,v) \in G_i$, we must have $u,v \in V(G_i)$. But the converse is not always true.
-
-\input{content/two-party/figures/valid_path.tex}
-
-Sometimes, condition \ref{prob:traversal-exists-path} fails, as in Figure \ref{fig:traversal-no-path}. Here, the protocol must output 0.
-
-\input{content/two-party/figures/no_path.tex}
-
 \subsection{Two-party lower bounds}
 
 We begin by considering the case with only two players and thus two subgraphs. Let these players be named Alice and Bob, with subgraphs $G_A$ and $G_B$ respectively. Denote this problem by $\TRAV_2$, i.e. the traversal problem for 2 players, where $|V(G)| = n$ and $|E(G)| = O(n^2)$.
