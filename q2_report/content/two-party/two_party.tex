@@ -1,15 +1,15 @@
 \subsection{Two-party lower bounds}
 
-We begin by considering the case with only two players and thus two subgraphs. Let these players be named Alice and Bob, with subgraphs $G_A$ and $G_B$ respectively. Denote this problem by $\TRAV_2$, i.e. the traversal problem for 2 players, where $|V(G)| = n$ and $|E(G)| = O(n^2)$.
+We begin by considering the case with only two players and thus two subgraphs ($k=2$). Let these players be named Alice and Bob, with subgraphs $G_A$ and $G_B$ respectively. Denote this problem by $\TRAV_2$, i.e. the traversal problem for 2 players, where $|V(G)| = n$ and $|E(G)| = O(n^2)$.
 
 \begin{claim}
 \label{claim:equality-trav-bound}
-Recall that equality $\EQ$ has inputs $x,y \in \{0,1\}^n$, and $\EQ(x,y) = 1$ iff $x = y$. Then $D(\TRAV_2) \geq D(\EQ)$ and so on.
+Recall that equality $\EQ$ has inputs $x,y \in \{0,1\}^n$, and $\EQ(x,y) = 1$ iff $x = y$. Then $D(\TRAV_2) \geq D(\EQ)$.
 \end{claim}
 
 \begin{proof}
 \textbf{Equality gadget.}
-We construct a gadget that enforces equality at a single bit position. The gadget is shown in Figure~\ref{fig:equality_gadget}. The gadget consists of two parallel branches.
+We construct a gadget that enforces equality at a single bit position. The gadget is shown in Figure~\ref{fig:equality_gadget}, and consists of two parallel branches:
 
 \begin{enumerate}
     \item The top branch corresponds to the assignment $x_i = y_i = 1$, 
@@ -21,7 +21,7 @@ We construct a gadget that enforces equality at a single bit position. The gadge
 Alice enables exactly one entry node of the gadget depending on $x_i$, and Bob enables exactly one exit node depending on $y_i$. A path through the gadget exists if and only if Alice and Bob select nodes on the same branch, which holds exactly when $x_i = y_i$.
 
 \textbf{Reduction to our graph problem.}
-Construct a graph of $n$ equality gadgets in a chain, as in Figure \ref{fig:equality-gadget-chain}. Construct subgraph $G_A$ as follows: Include all vertices at the start and end of each equality gadget. Also, for every $i \in [n]$, give the vertex labelled $x_i = 1$ if this is true, else $x_i = 0$. Then, add all edges between these vertices, as well as all edges between $x_i = z$ and $y_i = z$ for $z \in \{0,1\}$. Do similar for $G_B$.
+Construct a graph of $n$ equality gadgets in a chain, as in Figure \ref{fig:equality-gadget-chain}. Construct subgraph $G_A$ as follows: Include all vertices at the start and end of each equality gadget. Also, for every $i \in [n]$, give the vertex labelled $x_i = 1$ if this is true, else $x_i = 0$. Then, add all edges between these vertices, as well as all edges between $x_i = z$ and $y_i = z$ for $z \in \{0,1\}$. Repeat for $G_B$.
 
 In the resulting graph, there exists a path from $v$ to $w$ if and only if all gadgets are traversable, which occurs if and only if $x_i = y_i$ for all $i$, and therefore if and only if $x = y$.
 
@@ -30,9 +30,19 @@ In the resulting graph, there exists a path from $v$ to $w$ if and only if all g
 We conclude by noting that the resulting graph $G$ has $\Theta(n)$ vertices and $\Theta(n)$ edges.
 \end{proof}
 
+\subsubsection{Randomness}
+Above, we note that the problem is \textit{Deterministically maximally hard}.
+However, allowing for some error may allow us to produce a random algorithm
+which performs much better. It can be shown that using the Public Coin
+Randomness model, Equality---which is Deterministically maximal---can be
+reduced to being $O(1)$. Unfortunately, for our problem we find that
+such a bound is unattainable. $\DISJ$, the set disjointness function, has a
+random communication under both models of $\Theta(n)$, and can be embedded into
+$\TRAV$.
+
 \begin{claim}
 \label{claim:disjoint-trav-bound}
-Recall that in two-party $\DISJ$, Alice and Bob are given sets $X, Y \subseteq [n]$ each. The goal is to determine whether $X \cap Y = \emptyset$. We claim $D(\TRAV_2) \geq D(\DISJ)$.
+Recall that in two-party $\DISJ$, Alice and Bob are given sets $X, Y \subseteq [n]$ each. The goal is to determine whether $X \cap Y = \emptyset$. We claim $R(\TRAV_2) \geq R(\DISJ)$.
 \end{claim}
 
 \begin{proof}

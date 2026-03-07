@@ -2,23 +2,23 @@
 
 % I think we might be able to save this if we have time, but otherwise cut. The motivation is very good, so I like the idea, but we will need to construct a concise enough statement that we could include it
 
-The previous proofs show that $\TRAV_2$ is maximally complicated in terms of deterministic communication complexity, and almost maximally complicated in terms of randomized communication complexity. A natural follow up question is to ask if we can do better. That is, given some additional constraints, can we solve the problem with less communication asymptotically?
+The previous proofs show that $\TRAV_2$ is maximally complicated in terms of deterministic communication complexity and randomized communication complexity. A natural follow up question is to ask if we can do better. That is, given some additional constraints, can we solve the problem with less communication asymptotically?
 
 \begin{definition}
 Define the $\CTRAV_2$ problem as a $\TRAV_2$ problem where $G_A$ and $G_B$ are guaranteed to be complete and connected.
 \end{definition}
 
 \begin{claim}
-$D(\CTRAV_2) \geq D(\DISJ)$ and so on.
+$D(\CTRAV_2) \geq D(\DISJ)$ and likewise for $R(\STRAV)$.
 \end{claim}
 
 \begin{proof}
 If the start $v$ or end $w$ is in neither $G_A$ nor $G_B$ or both in one of $G_A$ or $G_B$, the problem can be resolved in $O(1)$ communication. So suppose $v \in G_A$ and $w \in G_B$.
 
-Since $G_A$ and $G_B$ are complete, then a valid path occurs if and only if $V(G_A) \cap V(G_B) \neq \emptyset$. Then, by a similar argument to Claim \ref{claim:disjoint-trav-bound}, this problem is at least as hard as $\DISJ$. Thus $D(\CTRAV_2) \geq D(\DISJ)$ and so on.
+Since $G_A$ and $G_B$ are complete, then a valid path occurs if and only if $V(G_A) \cap V(G_B) \neq \emptyset$. Then, by a similar argument to Claim \ref{claim:disjoint-trav-bound}, this problem is at least as hard as $\DISJ$. Thus $D(\CTRAV_2) \geq D(\DISJ)$ and likewise for $R(\STRAV)$.
 \end{proof}
 
-\input{q2_report/content/two-party/figures/complete_vs_minimal.tex}
+\input{content/two-party/figures/complete_vs_minimal.tex}
 
 This tells us that the local structure of $G_A$ and $G_B$ alone is not a significant source of communication difficulty. That is, even when $G_A$ and $G_B$ are complete graphs, we do not get obviously better lower bounds.
 
@@ -27,13 +27,13 @@ Define $\STRAV_2$ as a $\TRAV_2$ problem where $E(G) = O(n)$, $E(G_A) = O(n)$, a
 \end{definition}
 
 \begin{claim}
-$D(\STRAV_2) \geq D(\DISJ)$ and so on.
+$D(\STRAV_2) \geq D(\DISJ)$, and likewise for $R(\STRAV)$.
 \end{claim}
 
 \begin{proof}
 Consider the case where $G_A$ and $G_B$ are connected. If the start $v$ or end $w$ is in neither $G_A$ nor $G_B$ or both in one of $G_A$ or $G_B$, the problem can be resolved in $O(1)$ communication. So suppose $v \in G_A$ and $w \in G_B$.
 
-Then a valid path occurs if and only if $V(G_A) \cap V(G_B) \neq \emptyset$. Then, by a similar argument to Claim \ref{claim:disjoint-trav-bound}, this problem is at least as hard as $\DISJ$. Thus $D(\STRAV_2) \geq D(\DISJ)$ and so on.
+Then a valid path occurs if and only if $V(G_A) \cap V(G_B) \neq \emptyset$. Then, by a similar argument to Claim \ref{claim:disjoint-trav-bound}, this problem is at least as hard as $\DISJ$. Thus $D(\STRAV_2) \geq D(\DISJ)$ and likewise for $R(\STRAV)$.
 \end{proof}
 
 This tells us that weak edge sparsity of $G$, $G_A$, and $G_B$ does not add nor remove significant communication cost.
