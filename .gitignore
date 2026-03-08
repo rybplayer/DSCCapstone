@@ -13,3 +13,6 @@
 *.latexmk*.bcf
 *.xml
 *.bcf
+*.fls
+*.bbl
+*.fdb_latexmk

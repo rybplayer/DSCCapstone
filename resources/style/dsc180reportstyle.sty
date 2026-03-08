@@ -213,7 +213,8 @@
 \definecolor{MyRed}{rgb}{0.4,0,0.1}
 \definecolor{MyGreen}{rgb}{0,0.4,0}
 \definecolor{LightGrey}{rgb}{0.7,0.7,0.7}
-\usepackage[hyphens]{url}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{url}
 %\usepackage[hidelinks]{hyperref}
 \usepackage{hyperref}
 \hypersetup{breaklinks=true}
@@ -269,11 +270,17 @@
 %\usepackage{pdflscape}
 
 % citation
+\makeatletter
+\@ifpackageloaded{biblatex}{}{%
 \usepackage{natbib}
 \setcitestyle{aysep={}}
 \setlength{\bibsep}{-.1pt} % Reduce space between bibliographies
+}
+\makeatother
 \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ } % AER style nobreak
-\renewcommand\bibname{References}
+\providecommand{\bibname}{References}
+\renewcommand{\bibname}{References}
+\renewcommand{\refname}{References}
 % create appendix
 \providecommand{\makereference}{}
 \renewcommand{\makereference}{%

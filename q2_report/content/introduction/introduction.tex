@@ -11,25 +11,27 @@ This is the essence of communication complexity. By studying communication compl
 \subsection{Communication Complexity Basics}
 
 Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least 2 parties with unbounded computing power. The base case of a 2 party problem is typically stated as the following:
-    \begin{quote}
-        There are two players, Alice and Bob who each have a n-bit string, $a$ and $b$ that may or may not be the same. The goal is to compute a function, $f(a, b)$ that depends on both $a$ and $b$.
-    \end{quote}
-    Under the two party problem, it is always possible to compute $f(a,b)$ by sending all of $a$ to $b$, effectively reducing problem to a single party. This approach of sending the entire input from one party to another is what we consider the \textit{trivial solution} and is \textit{maximally hard}. We consider this \textit{maximally hard} because it has a communication complexity of $\theta (n)$ bits as all inputs must be sent from $a$ to $b$. One of the most common examples of a \textit{maximally hard} problem is 2 Player Equality:
-    
-    \begin{quote}
-    \paragraph{Claim} The deterministic communication complexity of computing the equality between two parties is $\Omega(n)$.
+\begin{quote}
+    There are two players, Alice and Bob who each have a n-bit string, $a$ and $b$ that may or may not be the same. The goal is to compute a function, $f(a, b)$ that depends on both $a$ and $b$.
+\end{quote}
+Under the two party problem, it is always possible to compute $f(a,b)$ by sending all of $a$ to $b$, effectively reducing problem to a single party. This approach of sending the entire input from one party to another is what we consider the \textit{trivial solution} and is \textit{maximally hard}. We consider this \textit{maximally hard} because it has a communication complexity of $\theta (n)$ bits as all inputs must be sent from $a$ to $b$. One of the most common examples of a \textit{maximally hard} problem is 2 Player Equality:
 
-    \paragraph{Proof} We can represent the universe of two parties with $n$ bit
-    strings using a $2^n \times 2^n$ boolean matrix $M$. Given two $n$ bit
-    strings, $a$ and $b$, $M_{i,j} = 1$ if $a_i = b_j$. When proving equality,
-    if $a=b$ then for all $i = j$, $a_i=b_i$. Therefore, the equality function
-    can also be represented as the identity matrix. It is a well studied fact
-    that the log of the rank of a boolean matrix representing a function is
-    equivalent to the communication complexity of the protocol. Therefore,
-    since the equality matrix is the $2^n \times 2^n$ identity matrix, whose
-    rank is $2^n$, the communication complexity of equality is
-    $\Omega(\log(2^n)) = \Omega(n)$.
-    \end{quote}
+\begin{claim} 
+The deterministic communication complexity of computing the equality between two parties is $\Omega(n)$.
+\end{claim}
+
+\begin{proof}
+We can represent the universe of two parties with $n$ bit
+strings using a $2^n \times 2^n$ boolean matrix $M$. Given two $n$ bit
+strings, $a$ and $b$, $M_{i,j} = 1$ if $a_i = b_j$. When proving equality,
+if $a=b$ then for all $i = j$, $a_i=b_i$. Therefore, the equality function
+can also be represented as the identity matrix. It is a well studied fact
+that the log of the rank of a boolean matrix representing a function is
+equivalent to the communication complexity of the protocol. Therefore,
+since the equality matrix is the $2^n \times 2^n$ identity matrix, whose
+rank is $2^n$, the communication complexity of equality is
+$\Omega(\log(2^n)) = \Omega(n)$.
+\end{proof}
 \begin{figure}[H]
 \centering
 \[

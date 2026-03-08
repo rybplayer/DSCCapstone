@@ -1,7 +1,10 @@
 % !TEX program = xelatex
+% !BIB program = biber
 \documentclass[12pt,letterpaper]{article}
 \usepackage[base]{babel}
 \usepackage{nicefrac}
+\usepackage[notes,backend=biber]{biblatex-chicago}
+\addbibresource{reference.bib}
 \PassOptionsToPackage{pdfpagelabels=false}{hyperref}
 \usepackage{../resources/style/dsc180reportstyle}
 \usepackage{tabularx}
@@ -12,9 +15,6 @@
 \usepackage{fontspec}
 \usepackage[basic, small, disableredefinitions]{complexity}
 \usetikzlibrary{shapes.geometric}
-\usepackage[notes,backend=biber]{biblatex-chicago}
-\addbibresource{reference.bib}
-
 \newcommand{\term}{\emph}
 
 \newtheorem{claim}{Claim}
