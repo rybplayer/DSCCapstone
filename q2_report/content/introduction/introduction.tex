@@ -55,21 +55,21 @@ In this report, we study the problem of finding a path in a graph which is joint
 
 Informally, the graph traversal problem presents a graph, where players can own vertices. There is a start and end vertex. The player wish to know whether there exists a path from the start to the end through only vertices and edges owned by some player. Though each player knows what the graph looks like, they do not know who owns vertices and edges besides their own.
 
-Formally, the graph traversal problem ($\TRAV$) is defined as follows:
+Formally, the graph traversal problem $\TRAV_2$ is defined as follows:
 
 \begin{definition}
-Let $G = (V,E)$ be an unweighted, undirected graph, where $V$ is the set of all nodes and $E$ is the set of edges. Each player $i$ owns a vertex subset $V_i \subseteq V$ of the graph, as well as all edges $E_i = \{e = (u,v) \in E \mid \{u, v\} \cap V_i \neq \emptyset\}$ connected to these vertices. Thus each player can be said owns a subgraph $G_i = (V_i, E_i)$ of $G$. Note that multiple players can own the same vertices and edges, and some vertices and edges may have no owner whatsoever.
+Let $G = (V,E)$ be an unweighted, undirected graph, where $V$ is the set of all nodes and $E$ is the set of edges. Alice and Bob each own a vertex subset $V_i \subseteq V$ of the graph, as well as all edges $E_i = \{(u,v) \in E \mid \{u, v\} \cap V_i \neq \emptyset\}$ connected to these vertices, for $i \in \{A,B\}$ for Alice and Bob respectively. Thus each player can be said owns a subgraph $G_i = (V_i, E_i)$ of $G$. Note that multiple players can own the same vertices and edges, and some vertices and edges may have no owner whatsoever.
 
-Therefore, player inputs are solely determined by the vertices they own. Let the graph $G$ have $|V| = n$ vertices. Then each player's subgraph can be represented by $n$-bit strings $x$ and $y$, where $1$ at index $j$ indicates the player owns vertex $j$, and $0$ means the player does not own $j$. We may use $x,y$ and $G_1, G_2$ interchangeably, as they encode the same information. Given a fixed $G$, start vertex $v$, and end vertex $w$, we can an instance of two player $\TRAV_2$ as follows:
+Therefore, player inputs are solely determined by the vertices they own. Let the graph $G$ have $|V| = n$ vertices. Then each player's subgraph can be represented by $n$-bit strings $x$ and $y$, where $1$ at index $j$ indicates the player owns vertex $j$, and $0$ means the player does not own $j$. We may use $x,y$ and $G_A, G_B$ interchangeably, as they encode the same information. Given a fixed $G$, start vertex $v$, and end vertex $w$, an instance of $\TRAV_2$ is defined as follows:
 \begin{align}
     \TRAV_2(x,y) &: \{0,1\}^n \times \{0,1\}^n \to \{0,1\} \\
     \TRAV_2(x,y) &= \begin{cases}
-        1 & \text{$\exists$ path from $v$ to $w$ through only vertices and edges in $G_1 \cup G_2$.} \\
+        1 & \text{$\exists$ path from $v$ to $w$ through only vertices and edges in $G_A \cup G_B$.} \\
         0 & \text{There is no such path.}
     \end{cases}
 \end{align}
 \end{definition}
-The above definition generalizes to $\TRAV_k$, the traversal problem with $k$ players. The following figures illustrate what $\TRAV_3$ may look like.
+The above definition generalizes to $\TRAV_k$, the traversal problem with $k$ players, as seen in Definition \ref{def:multi-party-trav}. The following figures illustrate what $\TRAV_3$ may look like.
 
 \input{content/two-party/figures/valid_path.tex}
 \input{content/two-party/figures/no_path.tex}

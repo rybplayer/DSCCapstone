@@ -1,0 +1,21 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.2, every node/.style={circle, fill=black, inner sep=1.5pt}]
+
+\node (L) at (-2,0) {};
+\node (T2) at (0,0) {};
+\node (R) at (2,0) {};
+
+\draw (L) -- (T2);
+
+\draw (T2) -- (R);
+
+\node[draw=none, fill=none, above=6pt] at (T2) {$M_j$};
+
+\node[draw=none, fill=none, left=6pt] at (L) {$L_j$};
+\node[draw=none, fill=none, right=6pt] at (R) {$R_j$};
+
+\end{tikzpicture}
+\caption{Gadget for embedding $\DISJ_k$. A valid path $L_j$ to $R_j$ exists if and only if $\exists i \in [k]$ with $x_j^{(i)} = 0$.}
+\label{fig:multi-disj-gadget}
+\end{figure}
