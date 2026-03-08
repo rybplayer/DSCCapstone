@@ -182,15 +182,11 @@ implies that Equality requires at least $n$ bits of communication. \\
 
 
 \vspace{0.3em}
-In this section, we define a simpler version of the problem from our motivation.
-
-Consider a large graph $G$, known by both players. Inside $G$, each agent
-“owns” part of the graph. We call these subgraphs $G_1$ and , $G_2$. Neither
-player knows the other players subgraph.
+In this section, we define a simpler version of the problem from our motivation. Consider a large graph $G$, known by both players. Inside $G$, each agent “owns” some vertices of the graph, and all edges connected to these vertices. We call these subgraphs $G_1$ and $G_2$. Neither player knows the other player's subgraph.
 
 Given a starting vertex $v$ and a target vertex $w$, how much information do
-the player need to share about their subgraphs to determine whether there is a
-path from $v$ to $w$, which can only use vertices and edges in the players
+the players need to share to determine whether there is a
+path from $v$ to $w$, which can only use vertices and edges in the players'
 subgraphs?
 
 \end{block}
@@ -231,8 +227,7 @@ subgraphs?
 \caption{Gadget for proving equality Embedding}
 \end{figure}
 
-Consider Figure 5 as one part of a whole graph. All players own the start and
-end vertices. Let $x_i$ be the $i$th bit of Alice's input, and $y_i$ be the
+Consider Figure 5 as one part of a whole graph. All players own the start and end vertices. Alice owns $x_i=1$ if this is true, else $x_i=0$. Similarly for Bob and $y$. Let $x_i$ be the $i$th bit of Alice's input, and $y_i$ be the
 $i$th bit of Bob's input. Then:
 
 \begin{enumerate}
@@ -247,9 +242,7 @@ $y_i$.
 
 \end{columns}
 
-
-
-\begin{block}{Embedding Equality into Traversal Equality Gadget Chain}
+\begin{block}{Embedding Equality into Traversal: Equality Gadget Chain}
 \vspace{0.3em}
 
 \begin{figure}[H]
@@ -279,7 +272,7 @@ We can string a set of these graphs along in a chain, one for every index $i$,
 so that traversing from one end to the other is only possible if $x_i = y_i$
 for every index, which means that it is only possible if $x=y$.
 
-Using this, we can embed Equality into the Traversal problem. Solving this case
+Using this, we can embed Equality into the Traversal Problem. Solving the Traversal Problem 
 efficiently would mean checking if $x=y$ efficiently, so any algorithm that
 solves the Traversal problem will also solve Equality.
 

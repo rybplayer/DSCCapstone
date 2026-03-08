@@ -109,35 +109,47 @@
 
 \begin{block}{Disjoint Gadget and Embedding}
 
-	\begin{center}
-	\begin{figure}
-	\begin{tikzpicture}[scale=2]
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=2, transform shape, every node/.style={circle, fill=black, inner sep=1.5pt}]
 
-		\node[circle, label=above left:{1}, fill=black, inner sep=1.5pt] (1) at (3,0) {};
-		\node[circle, label=above left:{2}, fill=black, inner sep=1.5pt] (2) at (4,0) {};
-		\node[circle, label=above left:{3}, fill=black, inner sep=1.5pt] (3) at (5,0) {};
-		\node[circle, label=above left:{4}, fill=black, inner sep=1.5pt] (4) at (6,0) {};
-		\node[circle, label=above left:{5}, fill=black, inner sep=1.5pt] (5) at (7,0) {};
+\node (L) at (-3,0) {};
+\node (T1) at (-1,2) {};
+\node (T2) at (1,2) {};
+\node (M1) at (-1,0) {};
+\node (M2) at (1,0) {};
+\node (B1) at (-1,-2) {};
+\node (B2) at (1,-2) {};
+\node (R) at (3,0) {};
 
-		\node[circle, label=above left:{$v$}, fill=black, inner sep=1.5pt] (v) at (5,2) {};
-		\node[circle, label=above left:{$w$}, fill=black, inner sep=1.5pt] (w) at (5,-2) {};
+\draw (L) -- (T1);
+\draw (T1) -- (T2);
+\draw (T2) -- (R);
 
-		\node[draw] at (1,1) () {Alice};
-		\node[draw] at (1,-1) () {Bob};
+\draw (L) -- (B1);
+\draw (B1) -- (B2);
+\draw (B2) -- (R);
 
-		% Bobs nodes
-		\draw (v) -- (1);
-		\draw (v) -- (2);
+\draw (L) -- (M1);
+\draw (M1) -- (M2);
+\draw (M2) -- (R);
 
-		\draw (w) -- (2);
-		\draw (w) -- (4);
-		\draw (w) -- (5);
+\node[draw=none, fill=none, above=2pt] at (T1) {\scriptsize $x_i = 1$};
+\node[draw=none, fill=none, above=2pt] at (T2) {\scriptsize $y_i = 0$};
 
-	\end{tikzpicture}
-	\caption{Disjointness Gadget. Here, Alice has $\{1,2\}$, and Bob has
-	$\{2,4,5\}$. There is a path from $v$ to $w$ through 2.}
-	\end{figure}
-	\end{center}
+\node[draw=none, fill=none, above=2pt] at (M1) {\scriptsize $x_i = 0$};
+\node[draw=none, fill=none, above=2pt] at (M2) {\scriptsize $y_i = 0$};
+
+\node[draw=none, fill=none, below=2pt] at (B1) {\scriptsize $x_i = 0$};
+\node[draw=none, fill=none, below=2pt] at (B2) {\scriptsize $y_i = 1$};
+
+\node[draw=none, fill=none, left=2pt] at (L) {\scriptsize $L$};
+\node[draw=none, fill=none, right=2pt] at (R) {\scriptsize $R$};
+
+\end{tikzpicture}
+\caption{Disjoitness gadget. A path $L$ to $R$ only exists if either $x_i = 0$ or $y_i = 0$.}
+\label{fig:disjoint_gadget}
+\end{figure}
 
 
 	This gadget shows that Set Disjointness can also be embedded into
@@ -147,10 +159,10 @@
 
 \end{block}
 
-\begin{block}{Multi-Party}
-	In addition, we have found that these results generalize to
-	three or more players as well. Specifically, we show that in this case
-	the problem is still maximally hard in both the Deterministic and
-	Random case.
+\begin{block}{Other Variants and Multi-Party Graph Traversal}
+	We also show that some other variants of the two-player Traversal Problem with additional restrictions remain maximally hard in terms of communication complexity.
+    
+    In addition, these results generalize to
+	three or more players as well. Specifically, we show that the traversal problem is still maximally hard in both the deterministic and random case for $k \geq 2$ players.
 \end{block}
 
