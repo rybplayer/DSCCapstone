@@ -20,52 +20,52 @@ We consider a communication complexity model in which players each own subsets o
 
 \subsection{Volcanic ash shutdown and airline re-routing (Europe, 2010)}
 
-\textbf{Case study.} The April--May 2010 Eyjafjallaj\"okull eruption triggered large-scale European airspace closures, disrupting on the order of $10^5$ flights and $10^7$ passenger journeys. This forced airlines and air-navigation authorities to continuously re-plan feasible routes as airspace sectors opened and closed. \cite{eurocontrol2010ash}
+\textbf{Case study.} The April--May 2010 Eyjafjallaj\"okull eruption triggered large-scale European airspace closures, disrupting on the order of $10^5$ flights and $10^7$ passenger journeys. This forced airlines and air-navigation authorities to continuously re-plan feasible routes as airspace sectors opened and closed. \parencite{eurocontrol2010ash}
 
 \textbf{Model.} Let each air-navigation service provider or airspace-sector authority be a player owning vertices/edges corresponding to waypoints and sectors. Feasible shortest paths must lie entirely within currently open subsets.
 
 \subsection{Airport-wide power failure as localized vertex removal (Atlanta ATL, 2017)}
-\textbf{Case study.} In December 2017, Hartsfield--Jackson Atlanta International Airport suffered a major power outage that caused widespread cancellations and passenger stranding. Airlines re-routed passengers through alternative hubs as systems were gradually restored. \cite{cntraveler2017atl}
+\textbf{Case study.} In December 2017, Hartsfield--Jackson Atlanta International Airport suffered a major power outage that caused widespread cancellations and passenger stranding. Airlines re-routed passengers through alternative hubs as systems were gradually restored. \parencite{cntraveler2017atl}
 
 \textbf{Model.} Airport operators own terminal, gate, and people-mover vertices, while airlines own flight-leg vertices. Shortest-path computation becomes layered (physical movement plus flight network) with partial vertex restoration over time.
 
 \subsection{Urban transit shutdown and phased restoration (NYC Hurricane Sandy, 2012)}
-\textbf{Case study.} Hurricane Sandy caused major disruptions to New York City's subway, commuter rail, and road tunnels, followed by staged service restoration over weeks and months. \cite{nyu2012sandytransport,dot2013sandy}
+\textbf{Case study.} Hurricane Sandy caused major disruptions to New York City's subway, commuter rail, and road tunnels, followed by staged service restoration over weeks and months. \parencite{nyu2012sandytransport,dot2013sandy}
 
 \textbf{Model.} Different transit agencies act as players owning disjoint subsets of stations, tunnels, and tracks. Shortest paths are constrained to open infrastructure and evolve as vertices are gradually reintroduced.
 
 \subsection{Highway bridge collapse and rapid detour routing (I-95 Philadelphia, 2023)}
-\textbf{Case study.} A tanker fire on June 11, 2023 caused the collapse of an I-95 overpass in Philadelphia, forcing large-scale detours until phased reopening. \cite{axios2023i95,kodur2024i95}
+\textbf{Case study.} A tanker fire on June 11, 2023 caused the collapse of an I-95 overpass in Philadelphia, forcing large-scale detours until phased reopening. \parencite{axios2023i95,kodur2024i95}
 
 \textbf{Model.} State DOTs, city streets, and toll operators are distinct players owning roadway vertices and edges. The event motivates shortest-path computation after the removal of a critical cut vertex or edge. Perhaps we can make the graph weighted but only players know the weights, simulating traffic.
 
 \subsection{Global shipping chokepoint blockage (Suez Canal, 2021)}
-\textbf{Case study.} The grounding of the Ever Given in March 2021 blocked the Suez Canal for six days, forcing carriers to either wait or reroute around the Cape of Good Hope. \cite{pemp2021suez,tran2025suez}
+\textbf{Case study.} The grounding of the Ever Given in March 2021 blocked the Suez Canal for six days, forcing carriers to either wait or reroute around the Cape of Good Hope. \parencite{pemp2021suez,tran2025suez}
 
 \textbf{Model.} Shipping lines and canal authorities own port calls and chokepoint edges. Shortest paths become time-dependent and depend on proprietary schedule and capacity information.
 
 \subsection{Port access loss and cargo diversion (Baltimore Key Bridge collapse, 2024)}
-\textbf{Case study.} The collapse of the Francis Scott Key Bridge blocked access to the Port of Baltimore, requiring cargo diversion to alternative ports until the channel was reopened in phases. \cite{ap2024baltimore,utk2024divert}
+\textbf{Case study.} The collapse of the Francis Scott Key Bridge blocked access to the Port of Baltimore, requiring cargo diversion to alternative ports until the channel was reopened in phases. \parencite{ap2024baltimore,utk2024divert}
 
 \textbf{Model.} Port authorities, terminal operators, and carriers own different layers of a sea--port--land graph. This motivates multi-layer shortest-path problems under partial information and staged recovery.
 
 \subsection{Electric power grid load shedding (Texas ERCOT, 2021)}
-\textbf{Case study.} Extreme cold in February 2021 caused generation failures and load shedding across Texas, with cascading risks during restoration. \cite{nerc2021cold,busby2021texas}
+\textbf{Case study.} Extreme cold in February 2021 caused generation failures and load shedding across Texas, with cascading risks during restoration. \parencite{nerc2021cold,busby2021texas}
 
 \textbf{Model.} Utilities and grid operators own substations, lines, and generators. The analogue of shortest paths is determining feasible low-cost delivery paths from supply to demand under connectivity constraints.
 
 \subsection{Fuel pipeline cyber disruption (Colonial Pipeline, 2021)}
-\textbf{Case study.} A ransomware attack in May 2021 shut down the Colonial Pipeline, disrupting fuel logistics across the U.S. East Coast. \cite{unece2023colonial,reedernhall2021colonial}
+\textbf{Case study.} A ransomware attack in May 2021 shut down the Colonial Pipeline, disrupting fuel logistics across the U.S. East Coast. \parencite{unece2023colonial,reedernhall2021colonial}
 
 \textbf{Model.} Pipeline operators and distributors own depots and transfer vertices. The case highlights adversarial vertex failures and asymmetric information about availability.
 
 \subsection{Backbone withdrawal and global reachability failure (Meta, 2021)}
-\textbf{Case study.} A configuration error in October 2021 withdrew Meta's backbone routes, making major services unreachable until recovery. \cite{meta2021outage,cloudflare2021fb}
+\textbf{Case study.} A configuration error in October 2021 withdrew Meta's backbone routes, making major services unreachable until recovery. \parencite{meta2021outage,cloudflare2021fb}
 
 \textbf{Model.} Autonomous systems are players owning routing vertices and edges. Shortest-path feasibility corresponds to reachability under route withdrawals with limited policy disclosure.
 
 \subsection{Managed DNS attack and service unavailability (Dyn, 2016)}
-\textbf{Case study.} A large-scale DDoS attack on Dyn in October 2016 disrupted access to many major websites due to DNS resolution failures. \cite{wired2016dyn}
+\textbf{Case study.} A large-scale DDoS attack on Dyn in October 2016 disrupted access to many major websites due to DNS resolution failures. \parencite{wired2016dyn}
 
 \textbf{Model.} Infrastructure providers own critical dependency vertices. Shortest-path analogues arise in service-composition graphs constrained to available components.
 

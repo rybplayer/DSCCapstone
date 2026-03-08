@@ -29,7 +29,7 @@ The deterministic communication complexity of two party equality, denoted $D(\EQ
 \begin{proof}
 We can represent the universe of all possible $n$ bit inputs to the two parties using a $2^n \times 2^n$ boolean matrix $M$ indexed by $a$ and $b$. Then, let $M_{a,b} = 1$ if $a = b$ and $M_{a,b} = 0$ otherwise.
 
-Therefore, $M$ is the identity matrix. It is a well-known fact that the deterministic communication complexity of a problem is at least the $\log_2 \rank$ of its boolean matrix [\cite{RaoYehudayoffBook}]. Therefore, since equality's matrix $M$ is the $2^n \times 2^n$ identity matrix with rank $2^n$, we have $D(\EQ) = \Omega(\log_2 2^n) = \Omega(n)$.
+Therefore, $M$ is the identity matrix. It is a well-known fact that the deterministic communication complexity of a problem is at least the $\log_2 \rank$ of its boolean matrix \parencite{RaoYehudayoffBook}. Therefore, since equality's matrix $M$ is the $2^n \times 2^n$ identity matrix with rank $2^n$, we have $D(\EQ) = \Omega(\log_2 2^n) = \Omega(n)$.
 \end{proof}
 \begin{figure}[H]
 \centering
@@ -47,7 +47,7 @@ b \backslash a & 00 & 01 & 10 & 11 \\
 \caption{Communication matrix for the equality function on two-bit inputs. The entry at column $a$ and row $b$ is $1$ when $a=b$ and $0$ otherwise.}
 \end{figure}
     
-As we will soon see, problems like equality are surprisingly useful for proving communication lower bounds for other, more complicated problems.
+As we will soon see, problems like equality are surprisingly useful for proving communication lower bounds for other, more complicated problems. That is, we say problem $A$ is \textit{at least as hard} as problem $B$ if the communication complexity of $A$ is at least the communication complexity of $B$.
 
 \subsection{The Graph Traversal Problem}
 
@@ -60,7 +60,7 @@ Formally, the graph traversal problem ($\TRAV$) is defined as follows:
 \begin{definition}
 Let $G = (V,E)$ be an unweighted, undirected graph, where $V$ is the set of all nodes and $E$ is the set of edges. Each player $i$ owns a vertex subset $V_i \subseteq V$ of the graph, as well as all edges $E_i = \{e = (u,v) \in E \mid \{u, v\} \cap V_i \neq \emptyset\}$ connected to these vertices. Thus each player can be said owns a subgraph $G_i = (V_i, E_i)$ of $G$. Note that multiple players can own the same vertices and edges, and some vertices and edges may have no owner whatsoever.
 
-Therefore, player inputs are solely determined by the vertices they own. Let the graph $G$ have $|V| = n$ vertices. Then each player's subgraph can be represented by a $n$-bit string $x$ and $y$, where $1$ at index $j$ indicates the player owns vertex $j$, and $0$ means the player does not own $j$. Given a fixed $G$, start vertex $v$, and end vertex $w$, we can define two player $\TRAV_2$ as follows:
+Therefore, player inputs are solely determined by the vertices they own. Let the graph $G$ have $|V| = n$ vertices. Then each player's subgraph can be represented by $n$-bit strings $x$ and $y$, where $1$ at index $j$ indicates the player owns vertex $j$, and $0$ means the player does not own $j$. We may use $x,y$ and $G_1, G_2$ interchangeably, as they encode the same information. Given a fixed $G$, start vertex $v$, and end vertex $w$, we can an instance of two player $\TRAV_2$ as follows:
 \begin{align}
     \TRAV_2(x,y) &: \{0,1\}^n \times \{0,1\}^n \to \{0,1\} \\
     \TRAV_2(x,y) &= \begin{cases}

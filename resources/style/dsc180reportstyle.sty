@@ -270,13 +270,6 @@
 %\usepackage{pdflscape}
 
 % citation
-\makeatletter
-\@ifpackageloaded{biblatex}{}{%
-\usepackage{natbib}
-\setcitestyle{aysep={}}
-\setlength{\bibsep}{-.1pt} % Reduce space between bibliographies
-}
-\makeatother
 \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ } % AER style nobreak
 \providecommand{\bibname}{References}
 \renewcommand{\bibname}{References}
@@ -288,6 +281,7 @@
     \addcontentsline{toc}{section}{\bibname}
     \setstretch{1.1}
     \Urlmuskip=0mu plus 1mu\relax % make bibliography tighter
+    \printbibliography[heading=none]
 }
 
 

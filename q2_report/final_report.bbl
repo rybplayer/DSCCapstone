@@ -1,9 +1,437 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  This bbl file is created by econ.bst ver.2.1
-%  The latest econ.bst is available at
-%  <http://shirotakeda.org/home/tex/econ-bst.html>
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
 
-\begin{thebibliography}{xxx}
 
-\end{thebibliography}
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{deec66cadd6f410aac1f78a555982100}{inproceedings}{}
+      \name{author}{19}{}{%
+        {{un=0,uniquepart=base,hash=1df84847385db1a51e5331b82356691e}{%
+           family={Antonakakis},
+           familyi={A\bibinitperiod},
+           given={Manos},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c6194f2b796fdb1bc33850475b92b3c3}{%
+           family={April},
+           familyi={A\bibinitperiod},
+           given={Tim},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8a5991f7d0edf5d3cbc0cc37cbef43a8}{%
+           family={Bailey},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=702b81309ce3f953f6772cbfb94507a8}{%
+           family={Bernhard},
+           familyi={B\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=59c83757800173e97cfcd3bffbb592fd}{%
+           family={Bursztein},
+           familyi={B\bibinitperiod},
+           given={Elie},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a2be8417de4886cf72fd937d73544cd0}{%
+           family={Cochran},
+           familyi={C\bibinitperiod},
+           given={Jaime},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=daebddaacc5baf61c90307ca461e704b}{%
+           family={Durumeric},
+           familyi={D\bibinitperiod},
+           given={Zakir},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=01bf76309dd8cca8f1ece1e3ae520a63}{%
+           family={Halderman},
+           familyi={H\bibinitperiod},
+           given={\{J.\bibnamedelimi Alex\}},
+           giveni={\\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=84e9ebd8ac72bf73b9a738f40f716d52}{%
+           family={Invernizzi},
+           familyi={I\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b9c39df4a2eab118f276bdc176407dd3}{%
+           family={Kallitsis},
+           familyi={K\bibinitperiod},
+           given={Michalis},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ac480063a097b769bae5aa33cd291d46}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Deepak},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b6c0533dccc1150fcdca98da34b29432}{%
+           family={Lever},
+           familyi={L\bibinitperiod},
+           given={Chaz},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=17da62c46fb782719aeec963f748451f}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Zane},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=47015e8b2cc5f99a70fecd43a06d22cf}{%
+           family={Mason},
+           familyi={M\bibinitperiod},
+           given={Joshua},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2c1824cfe502986a750100d7451269db}{%
+           family={Menscher},
+           familyi={M\bibinitperiod},
+           given={Damian},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2c86b26fd487ec62cb41e34e8e6002b2}{%
+           family={Seaman},
+           familyi={S\bibinitperiod},
+           given={Chad},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2072a46b5efbc2f75648474e650d0872}{%
+           family={Sullivan},
+           familyi={S\bibinitperiod},
+           given={Nick},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8efc1e9391408fddce1a18ed69739655}{%
+           family={Thomas},
+           familyi={T\bibinitperiod},
+           given={Kurt},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3625efaf108a2751cfdacddd7a073c3d}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Yi},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {English (US)}%
+      }
+      \list{publisher}{1}{%
+        {USENIX Association}%
+      }
+      \strng{namehash}{6d43186da6c35f11ff964e08f3d7c484}
+      \strng{fullhash}{0c6c0fffd1283e277933edcd7396b66c}
+      \strng{bibnamehash}{6d43186da6c35f11ff964e08f3d7c484}
+      \strng{authorbibnamehash}{6d43186da6c35f11ff964e08f3d7c484}
+      \strng{authornamehash}{6d43186da6c35f11ff964e08f3d7c484}
+      \strng{authorfullhash}{0c6c0fffd1283e277933edcd7396b66c}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The Mirai botnet, composed primarily of embedded and IoT devices, took the Internet by storm in late 2016 when it overwhelmed several high-profile targets with massive distributed denial-of-service (DDoS) attacks. In this paper, we provide a seven-month retrospective analysis of Mirai{’}s growth to a peak of 600k infections and a history of its DDoS victims. By combining a variety of measurement perspectives, we analyze how the botnet emerged, what classes of devices were affected, and how Mirai variants evolved and competed for vulnerable hosts. Our measurements serve as a lens into the fragile ecosystem of IoT devices. We argue that Mirai may represent a sea change in the evolutionary development of botnets — the simplicity through which devices were infected and its precipitous growth, demonstrate that novice malicious techniques can compromise enough low-end devices to threaten even some of the best-defended targets. To address this risk, we recommend technical and nontechnical interventions, as well as propose future research directions.}
+      \field{booktitle}{Proceedings of the 26th USENIX Security Symposium}
+      \field{series}{Proceedings of the 26th USENIX Security Symposium}
+      \field{title}{Understanding the mirai botnet}
+      \field{year}{2017}
+      \field{pages}{1093\bibrangedash 1110}
+      \range{pages}{18}
+    \endentry
+    \entry{cloudflare_facebook_outage_2021}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=2117221d9caf3d0d20ca50dd22b561da}{%
+           family={{Cloudflare Blog}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{2117221d9caf3d0d20ca50dd22b561da}
+      \strng{fullhash}{2117221d9caf3d0d20ca50dd22b561da}
+      \strng{bibnamehash}{2117221d9caf3d0d20ca50dd22b561da}
+      \strng{authorbibnamehash}{2117221d9caf3d0d20ca50dd22b561da}
+      \strng{authornamehash}{2117221d9caf3d0d20ca50dd22b561da}
+      \strng{authorfullhash}{2117221d9caf3d0d20ca50dd22b561da}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://blog.cloudflare.com/october-2021-facebook-outage/}}
+      \field{note}{Accessed: 2026-02-18}
+      \field{title}{Understanding how Facebook disappeared from the Internet}
+      \field{year}{2021}
+    \endentry
+    \entry{crs_colonial_pipeline_2021}{report}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9747118b73f37941f9d4432d9008be34}{%
+           family={{Congressional Research Service}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Congressional Research Service}%
+      }
+      \strng{namehash}{9747118b73f37941f9d4432d9008be34}
+      \strng{fullhash}{9747118b73f37941f9d4432d9008be34}
+      \strng{bibnamehash}{9747118b73f37941f9d4432d9008be34}
+      \strng{authorbibnamehash}{9747118b73f37941f9d4432d9008be34}
+      \strng{authornamehash}{9747118b73f37941f9d4432d9008be34}
+      \strng{authorfullhash}{9747118b73f37941f9d4432d9008be34}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{R46843}
+      \field{title}{Colonial Pipeline Cyberattack: Issues for Congress}
+      \field{type}{techreport}
+      \field{year}{2021}
+    \endentry
+    \entry{DONOVAN2017333}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=074f19c2ab25406f82633c2dfd8d2824}{%
+           family={Donovan},
+           familyi={D\bibinitperiod},
+           given={Brian},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6f2e7b1216098a84a23b6462d346c8c8}{%
+           family={Work},
+           familyi={W\bibinitperiod},
+           given={Daniel\bibnamedelima B.},
+           giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6c324bb7e211d7d319bb5b71670460ea}
+      \strng{fullhash}{6c324bb7e211d7d319bb5b71670460ea}
+      \strng{bibnamehash}{6c324bb7e211d7d319bb5b71670460ea}
+      \strng{authorbibnamehash}{6c324bb7e211d7d319bb5b71670460ea}
+      \strng{authornamehash}{6c324bb7e211d7d319bb5b71670460ea}
+      \strng{authorfullhash}{6c324bb7e211d7d319bb5b71670460ea}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This article proposes a method to quantitatively measure the resilience of transportation systems using GPS data from probe vehicles such as taxis. The granularity of the GPS data necessary for the method is relatively coarse; it only requires coordinates for the beginning and end of trips, the metered distance, and the total travel time. The method works by computing the historical distribution of pace (normalized travel times) between various regions of a city and measuring the pace deviations during an unusual event. Periods of time containing extreme deviations are identified as events. The method is applied to a dataset of nearly 700 million taxi trips in New York City, which is used to analyze the city transportation infrastructure resilience to Hurricane Sandy. The analysis indicates that Hurricane Sandy impacted traffic conditions for more than five days, and caused a peak delay of two minutes per mile. Practically, it identifies that the evacuation announcements coincided with only minor disruptions, but significant delays were encountered during the post-disaster response period. Since the implementation of this method is very efficient, it could potentially be used as an online monitoring tool, representing a first step toward quantifying city scale resilience with coarse GPS data.}
+      \field{issn}{0968-090X}
+      \field{journaltitle}{Transportation Research Part C: Emerging Technologies}
+      \field{title}{Empirically quantifying city-scale transportation system resilience to extreme events}
+      \field{volume}{79}
+      \field{year}{2017}
+      \field{pages}{333\bibrangedash 346}
+      \range{pages}{14}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.trc.2017.03.002
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0968090X17300670
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0968090X17300670
+      \endverb
+      \keyw{GPS,Taxi data,Urban resilience,Transportation data analytics}
+    \endentry
+    \entry{pbs_bridge_collapse_2024}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=22a1856a7e23f331fc0537ff9e2d568b}{%
+           family={{PBS NewsHour}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{22a1856a7e23f331fc0537ff9e2d568b}
+      \strng{fullhash}{22a1856a7e23f331fc0537ff9e2d568b}
+      \strng{bibnamehash}{22a1856a7e23f331fc0537ff9e2d568b}
+      \strng{authorbibnamehash}{22a1856a7e23f331fc0537ff9e2d568b}
+      \strng{authornamehash}{22a1856a7e23f331fc0537ff9e2d568b}
+      \strng{authorfullhash}{22a1856a7e23f331fc0537ff9e2d568b}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.pbs.org/newshour/nation/how-baltimores-key-bridge-collapse-will-affect-supply-chains-and-the-economy}}
+      \field{note}{Accessed: 2026-02-18}
+      \field{title}{How Baltimore's Key Bridge collapse will affect supply chains and the economy}
+      \field{year}{2024}
+    \endentry
+    \entry{penndot_i95_2026}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b73524fa88f6d8fd02ba675463d76404}{%
+           family={{Pennsylvania Department of Transportation}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{b73524fa88f6d8fd02ba675463d76404}
+      \strng{fullhash}{b73524fa88f6d8fd02ba675463d76404}
+      \strng{bibnamehash}{b73524fa88f6d8fd02ba675463d76404}
+      \strng{authorbibnamehash}{b73524fa88f6d8fd02ba675463d76404}
+      \strng{authornamehash}{b73524fa88f6d8fd02ba675463d76404}
+      \strng{authorfullhash}{b73524fa88f6d8fd02ba675463d76404}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.pa.gov/agencies/penndot/news-and-media/newsroom/district-6/2026/surveying-on-i-95-girard-point-bridge-improvement-project-in-phi}}
+      \field{note}{Accessed: 2026-02-18}
+      \field{title}{Surveying on I-95 Girard Point Bridge Improvement Project in Philadelphia}
+      \field{year}{2026}
+    \endentry
+    \entry{AVIATION}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=48b1660a7690a409158559d5787fe62d}{%
+           family={Prata},
+           familyi={P\bibinitperiod},
+           given={Fred},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=beb4ca7e3a976e19ebbddb88383ef28d}{%
+           family={Rose},
+           familyi={R\bibinitperiod},
+           given={William\bibnamedelima I},
+           giveni={W\bibinitperiod\bibinitdelim I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{f6ba538147c82331490e5393b7210ce6}
+      \strng{fullhash}{f6ba538147c82331490e5393b7210ce6}
+      \strng{bibnamehash}{f6ba538147c82331490e5393b7210ce6}
+      \strng{authorbibnamehash}{f6ba538147c82331490e5393b7210ce6}
+      \strng{authornamehash}{f6ba538147c82331490e5393b7210ce6}
+      \strng{authorfullhash}{f6ba538147c82331490e5393b7210ce6}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{01}
+      \field{title}{Volcanic ash hazards to aviation}
+      \field{year}{2015}
+    \endentry
+    \entry{RaoYehudayoffBook}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=293b486a7e956afeac45290b400514a3}{%
+           family={Rao},
+           familyi={R\bibinitperiod},
+           given={Anup},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8fea19bbf1f84f9f59e959335022dd6f}{%
+           family={Yehudayoff},
+           familyi={Y\bibinitperiod},
+           given={Amir},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{9f3e1b955c8a585300da1533e861f092}
+      \strng{fullhash}{9f3e1b955c8a585300da1533e861f092}
+      \strng{bibnamehash}{9f3e1b955c8a585300da1533e861f092}
+      \strng{authorbibnamehash}{9f3e1b955c8a585300da1533e861f092}
+      \strng{authornamehash}{9f3e1b955c8a585300da1533e861f092}
+      \strng{authorfullhash}{9f3e1b955c8a585300da1533e861f092}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Communication Complexity: and Applications}
+      \field{year}{2020}
+    \endentry
+    \entry{2023OCM...24506868W}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=c5edbd130bde37ebc26c5177e397dd8f}{%
+           family={{Wan}},
+           familyi={W\bibinitperiod},
+           given={Zheng},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=56a199169ee6380a671dafa40d23535d}{%
+           family={{Su}},
+           familyi={S\bibinitperiod},
+           given={Yingyu},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=237f43133a24c7751c7cc6fdc61ca38e}{%
+           family={{Li}},
+           familyi={L\bibinitperiod},
+           given={Zimu},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4f3bb1d3c7fa2a05241e353723deaf63}{%
+           family={{Zhang}},
+           familyi={Z\bibinitperiod},
+           given={Xin},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=08c1e9a58399d68669c800dc1ee6607b}{%
+           family={{Zhang}},
+           familyi={Z\bibinitperiod},
+           given={Qiang},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3626f7ebcd43dd59a17b6cfa5ff802a3}{%
+           family={{Chen}},
+           familyi={C\bibinitperiod},
+           given={Jihong},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9c69a0968326d9d2114cddd824279343}
+      \strng{fullhash}{29338dcbfbbb688531215c43f15bef5f}
+      \strng{bibnamehash}{9c69a0968326d9d2114cddd824279343}
+      \strng{authorbibnamehash}{9c69a0968326d9d2114cddd824279343}
+      \strng{authornamehash}{9c69a0968326d9d2114cddd824279343}
+      \strng{authorfullhash}{29338dcbfbbb688531215c43f15bef5f}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eid}{106868}
+      \field{journaltitle}{Ocean and Coastal Management}
+      \field{month}{11}
+      \field{title}{{Analysis of the impact of Suez Canal blockage on the global shipping network}}
+      \field{volume}{245}
+      \field{year}{2023}
+      \field{pages}{106868}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.ocecoaman.2023.106868
+      \endverb
+      \keyw{Suez Canal blockage,Transportation networks,Network topology metrics}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

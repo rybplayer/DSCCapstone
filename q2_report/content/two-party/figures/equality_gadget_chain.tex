@@ -1,13 +1,16 @@
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
+scale=2,
+transform shape,
 hex/.style={
 draw,
 regular polygon,
 regular polygon sides=6,
 minimum size=1.4cm,
 inner sep=0pt
-}
+},
+point/.style={circle, fill=black, inner sep=0.5pt}
 ]
 
 % Hexagons placed manually so edges touch
@@ -23,6 +26,9 @@ inner sep=0pt
 \node at (h3) {\scriptsize $i=3$};
 \node at (h4) {\scriptsize $\cdots$};
 \node at (h5) {\scriptsize $i=n$};
+
+\node[point, label=left:{\scriptsize $v$}] at (-0.7,0) {};
+\node[point, label=right:{\scriptsize $w$}] at (6.3,0) {};
 
 \end{tikzpicture}
 \caption{$n$ equality gadgets chained together.}

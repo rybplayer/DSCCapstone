@@ -1,39 +1,39 @@
-\subsection{Specialized two-party lower bounds}
+\subsection{Specialized Two-Party Bounds}
 
-% I think we might be able to save this if we have time, but otherwise cut. The motivation is very good, so I like the idea, but we will need to construct a concise enough statement that we could include it
-
-The previous proofs show that $\TRAV_2$ is maximally complicated in terms of deterministic communication complexity and randomized communication complexity. A natural follow up question is to ask if we can do better. That is, given some additional constraints, can we solve the problem with less communication asymptotically?
+The previous proofs show that $\TRAV_2$ is maximally complicated in terms of deterministic communication complexity and public randomized communication complexity. A natural follow up question is to ask if we can do better. That is, given some additional constraints, can we solve the problem with less communication asymptotically?
 
 \begin{definition}
-Define the $\CTRAV_2$ problem as a $\TRAV_2$ problem where $G_A$ and $G_B$ are guaranteed to be complete and connected.
+Define the $\CTRAV_2$ problem as a $\TRAV_2$ problem where $G_A$ and $G_B$ are guaranteed to be complete and connected subgraphs of $G$.
 \end{definition}
 
 \begin{claim}
-$D(\CTRAV_2) \geq D(\DISJ)$ and likewise for $R(\STRAV)$.
+$\CTRAV_2$ is at least as hard as $\DISJ$. Thus, $D(\CTRAV_2) = \Theta(n)$ and $R(\CTRAV_2) = \Theta(n)$.
 \end{claim}
 
 \begin{proof}
 If the start $v$ or end $w$ is in neither $G_A$ nor $G_B$ or both in one of $G_A$ or $G_B$, the problem can be resolved in $O(1)$ communication. So suppose $v \in G_A$ and $w \in G_B$.
 
-Since $G_A$ and $G_B$ are complete, then a valid path occurs if and only if $V(G_A) \cap V(G_B) \neq \emptyset$. Then, by a similar argument to Claim \ref{claim:disjoint-trav-bound}, this problem is at least as hard as $\DISJ$. Thus $D(\CTRAV_2) \geq D(\DISJ)$ and likewise for $R(\STRAV)$.
+Since $G_A$ and $G_B$ are complete, a valid path occurs if and only if $V(G_A) \cap V(G_B) \neq \emptyset$. Then, by a similar argument to Claim \ref{claim:disjoint-trav-bound}, this problem is at least as hard as $\DISJ$. More explicitly, let $x,y$ be inputs to $\DISJ$. We convert $x,y$ into subgraphs $G_A, G_B$ of a complete graph $G$ with $n$ vertices. This conversion is by including vertex $i$ in $G_A$ if $x_i = 1$, and not including it if $x_i = 0$. Do the same fot $G_B$ and $y$. 
+
+If $\CTRAV_2(G_A, G_B) = 1$, then $V(G_A) \cap V(G_B) \neq \emptyset$. So $x \cap y \neq \emptyset$ and $\DISJ(x,y) = 0$. Similarly, if $\CTRAV_2(G_A, G_B) = 0$, then $V(G_A) \cap V(G_B) = \emptyset$. Thus $x \cap y = \emptyset$ and $\DISJ(x,y) = 1$. We note that $|V(G_A)| = |V(G_B)| = |x| = |y| = \Theta(n)$. This completes the reduction.
 \end{proof}
 
-\input{content/two-party/figures/complete_vs_minimal.tex}
+% \input{content/two-party/figures/complete_vs_minimal.tex}
 
-This tells us that the local structure of $G_A$ and $G_B$ alone is not a significant source of communication difficulty. That is, even when $G_A$ and $G_B$ are complete graphs, we do not get obviously better lower bounds.
+Informally, this tells us that the local structure of $G_A$ and $G_B$ alone is not a significant source of communication difficulty. That is, even when $G_A$ and $G_B$ are complete graphs, we do not immediately get better bounds and the problem does not become significantly easier. Since $G_A$ and $G_B$ are complete, we can say that these subgraphs have the maximum number of edges. We now consider a sparser case:
 
 \begin{definition}
 Define $\STRAV_2$ as a $\TRAV_2$ problem where $E(G) = O(n)$, $E(G_A) = O(n)$, and $E(G_B) = O(n)$. In other words, the graph $G$ is sparse and $G_A$, $G_B$ are sparse too.
 \end{definition}
 
 \begin{claim}
-$D(\STRAV_2) \geq D(\DISJ)$, and likewise for $R(\STRAV)$.
+$\STRAV_2$ is at least as hard as $\DISJ$. Thus, $D(\STRAV_2) = \Theta(n)$ and $R(\STRAV_2) = \Theta(n)$.
 \end{claim}
 
 \begin{proof}
-Consider the case where $G_A$ and $G_B$ are connected. If the start $v$ or end $w$ is in neither $G_A$ nor $G_B$ or both in one of $G_A$ or $G_B$, the problem can be resolved in $O(1)$ communication. So suppose $v \in G_A$ and $w \in G_B$.
+We reuse the reduction from $\DISJ$ to $\TRAV_2$ in Claim \ref{claim:disjoint-trav-bound}. In that construction, $G$ is a chain of $n$ disjointness gadgets, so $|E(G)| = \Theta(n)$. Moreover, each player's subgraph consists of the gadget boundary vertices and one branch choice per gadget, which also gives $|E(G_A)| = \Theta(n)$ and $|E(G_B)| = \Theta(n)$.
 
-Then a valid path occurs if and only if $V(G_A) \cap V(G_B) \neq \emptyset$. Then, by a similar argument to Claim \ref{claim:disjoint-trav-bound}, this problem is at least as hard as $\DISJ$. Thus $D(\STRAV_2) \geq D(\DISJ)$ and likewise for $R(\STRAV)$.
+Hence every instance produced by that reduction already satisfies the sparsity constraints in the definition of $\STRAV_2$. The reduction still preserves correctness: $\DISJ(x,y)=1$ iff there is a $v$-$w$ path in $G_A \cup G_B$. Therefore $\STRAV_2$ is at least as hard as $\DISJ$.
 \end{proof}
 
-This tells us that weak edge sparsity of $G$, $G_A$, and $G_B$ does not add nor remove significant communication cost.
+Informally, this tells us that weak edge sparsity of $G$, $G_A$, and $G_B$ does not add nor remove significant communication cost. This may lead us to believe that the local structure of $G$, $G_A$, and $G_B$, namely, how sparse or dense the edges corresponding to the owned vertices are, do not have a significant impact on the deterministic and pubic randomized communication complexity of the $\TRAV_2$ problem.
