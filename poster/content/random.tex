@@ -103,7 +103,7 @@
 	and asks if the players have any elements in common. If so, the
 	protocol outputs 0, and 1 otherwise. Set Disjointness is usefull when
 	studying random algorithms since it has been shown that it requires
-	asymptotically \textbf{maximal \emph{random} communication}.
+	asymptotically \textbf{maximal \emph{randomized} communication}.
 
 \end{block}
 
@@ -151,11 +151,7 @@
 \label{fig:disjoint_gadget}
 \end{figure}
 
-
-	This gadget shows that Set Disjointness can also be embedded into
-	Traversal. We let Alice own edges between $v$ and $i$, if $i$ is in
-	$x$, and likewise for Bob. Therefore there is a path between $v$ and
-	$w$ iff $x \cap y \neq \emptyset$.
+Let Alice have vertices $L$, $R$, and $x_i = 1$ if this is true, else $x_i = 0$. Same for Bob with $y$. This gadget can be chained together to show that Set Disjointness can be embedded into Traversal. Therefore, \textbf{Traversal is also maximally hard for randomized communication.}
 
 \end{block}
 
