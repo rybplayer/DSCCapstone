@@ -1,19 +1,19 @@
 \subsection{Motivating Communication Complexity}
 \label{ex:motivating-problem}
 
-As networks and data grow in complexity and size, it will become increasingly difficult for individual machines to compute functions on such data. For example, suppose we wish to fly from San Diego to Santorini with the least budget. There is no single airline that has both flights out of San Diego and into Santorini. In other words, we will need to consult the flight database of various airlines to construct such a route. Does this mean that we have to search through every possible combination of flights and airlines? That is, do we need to ask every airline provider to communicate their entire schedule of flights to us? Are there techniques that we can employ to reduce the amount of flights we have to search through?
+As networks and data grow in complexity and size, it will become increasingly difficult for individual machines to compute functions on such data. For example, suppose we wish to fly from San Diego to Santorini. There is no single airline that has both flights out of San Diego or into Santorini. Therefore, we will need to consult the flight database of various airlines to construct such a route. Do we need to ask every airline provider to communicate their entire schedule of flights to us? Are there techniques that we can employ to reduce the amount of flights we have to search through?
 
-The amount of communication necessary to solve such problems is the primary objective of communication complexity. By studying communication complexity, we find lower and upper bounds on the minimum amount of communication necessary to solve such problems. In consequence, these bounds can inform on whether certain algorithms are optimal, or if it is possible to optimize them further. These bounds are increasingly relevant in a world full of distributed systems and data.
+Bounding the amount of communication necessary to solve such problems is the primary objective of communication complexity. By studying communication complexity, we find lower and upper bounds on the minimum amount of communication necessary to solve such problems. In practice, these bounds can inform us whether certain algorithms are optimal, or if it is possible to optimize them further.
 
 \subsection{Communication Complexity Basics}
 
-Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least 2 parties each with unbounded computing power. An example 2 party problem is typically stated as follows:
+Communication complexity studies the communication requirements to solve problems where inputs are distributed among at least two parties, each with unbounded computing power. The two-party problem is typically stated as follows:
 \begin{quote}
-    There are two players, Alice and Bob, who respectively have a $n$-bit string, $a$ and $b$, that may or may not be the same. The goal is to compute a function, $f(a, b)$, that depends on both $a$ and $b$.
+    There are two players, Alice and Bob, who respectively have a $n$-bit string, $a$ and $b$, that may or may not be the same. The goal is to compute a boolean function, $f(a, b)$, that depends on both $a$ and $b$. It suffices for one player to find the answer $f(a,b)$, since communicating this to the other player can always be done in constant communication.
 \end{quote}
 Under the two party model, it is always possible to compute $f(a,b)$ by sending all of $a$ to $b$, since we assume each party has unbounded computing power. This approach of sending the entire input from one party to another is what is called the \textit{trivial solution}. We say problems are \textit{maximally hard} or \textit{maximally complicated} when we cannot do asymptotically better than the \textit{trivial solution}. 
 
-We call such problems maximally hard because it has a deterministic communication complexity of $\Theta (n)$ bits. We call it \textit{deterministic} as we do not allow error. Thus in maximally hard problems, Alice cannot do asymptotically better than sending the $n$ bits of $a$ to Bob and the same for Bob. An example of a maximally hard problem is 2-player equality ($\EQ$):
+We call such problems maximally hard because they have a deterministic communication complexity of $\Theta (n)$ bits. We call it \textit{deterministic} as we do not allow error. Thus in maximally hard problems, Alice cannot do asymptotically better than sending the $n$ bits of $a$ to Bob, and likewise for Bob. An example of a maximally hard problem is 2-player equality ($\EQ$):
 
 \begin{claim} 
 Let $a, b \in \{0,1\}^n$. That is, $a$ and $b$ are $n$-bit strings. Define equality as 
@@ -27,7 +27,7 @@ The deterministic communication complexity of two party equality, denoted $D(\EQ
 \end{claim}
 
 \begin{proof}
-We can represent the universe of all possible $n$ bit inputs to the two parties using a $2^n \times 2^n$ boolean matrix $M$ indexed by $a$ and $b$. Then, let $M_{a,b} = 1$ if $a = b$ and $M_{a,b} = 0$ otherwise.
+We can represent all possible $n$ bit inputs to the two parties using a $2^n \times 2^n$ boolean matrix $M$, whose columns are indexed by $a$ and whose rows by $b$. Then, let $M_{b,a} = 1$ if $a = b$ and $M_{b,a} = 0$ otherwise.
 
 Therefore, $M$ is the identity matrix. It is a well-known fact that the deterministic communication complexity of a problem is at least the $\log_2 \rank$ of its boolean matrix \parencite{RaoYehudayoffBook}. Therefore, since equality's matrix $M$ is the $2^n \times 2^n$ identity matrix with rank $2^n$, we have $D(\EQ) = \Omega(\log_2 2^n) = \Omega(n)$.
 \end{proof}
@@ -47,20 +47,20 @@ b \backslash a & 00 & 01 & 10 & 11 \\
 \caption{Communication matrix for the equality function on two-bit inputs. The entry at column $a$ and row $b$ is $1$ when $a=b$ and $0$ otherwise.}
 \end{figure}
     
-As we will soon see, problems like equality are surprisingly useful for proving communication lower bounds for other, more complicated problems. That is, we say problem $A$ is \textit{at least as hard} as problem $B$ if the communication complexity of $A$ is at least the communication complexity of $B$.
+As we will soon see, problems like equality are surprisingly useful for proving communication lower bounds for other, more complicated problems. We can do this by \textit{embedding} equality into a more complex problem, such that an efficient solution to the more complicated problem can also efficiently solve equality. More generally, we say problem $A$ is \textit{at least as hard} as problem $B$ if we can embed $B$ in $A$. The communication complexity of $A$ is then at least the communication complexity of $B$.
 
 \subsection{The Graph Traversal Problem}
 
-In this report, we study the problem of finding a path in a graph which is jointly owned by various players. This is an abstract version of the motivating problem in \ref{ex:motivating-problem}. We choose to work in this abstract version so that that any bounds we prove will be applicable to a wide range of problems.
+In this report, we study the problem of finding a path in a graph whose vertices may be owned by various players. This is an abstract version of the motivating problem in \ref{ex:motivating-problem}, which we choose to work in so that that any bounds we prove will be applicable to a wide range of problems.
 
-Informally, the graph traversal problem presents a graph, where players can own vertices. There is a start and end vertex. The player wish to know whether there exists a path from the start to the end through only vertices and edges owned by some player. Though each player knows what the graph looks like, they do not know who owns vertices and edges besides their own.
+Informally, the graph traversal problem presents a graph, where players may own vertices. There is a start and end vertex. The players wish to know whether there exists a path from the start to the end through only vertices owned by some player. Each player knows what the graph looks like, and which vertices they own though not which vertices are owned by other players.
 
-Formally, the graph traversal problem $\TRAV_2$ is defined as follows:
+Formally, the graph traversal problem for two players, denoted $\TRAV_2$, is defined as follows:
 
 \begin{definition}
-Let $G = (V,E)$ be an unweighted, undirected graph, where $V$ is the set of all nodes and $E$ is the set of edges. Alice and Bob each own a vertex subset $V_i \subseteq V$ of the graph, as well as all edges $E_i = \{(u,v) \in E \mid \{u, v\} \cap V_i \neq \emptyset\}$ connected to these vertices, for $i \in \{A,B\}$ for Alice and Bob respectively. Thus each player can be said owns a subgraph $G_i = (V_i, E_i)$ of $G$. Note that multiple players can own the same vertices and edges, and some vertices and edges may have no owner whatsoever.
+Let $G = (V,E)$ be an unweighted, undirected graph, where $V$ is the set of all nodes and $E$ is the set of edges. Alice and Bob respectively own a vertex subset $V_A, V_B \subseteq V$ of the graph, as well as all edges $E_A = \{(u,v) \in E \mid \{u, v\} \cap V_A \neq \emptyset\}$ and similarly for $E_B$. These are all edges connected to some vertex in $V_A$ or $V_B$, respectively. Thus each player respectively owns a subgraphs $G_A = (V_A, E_A)$, $G_B = (V_B, E_B)$ of $G$. Note that multiple players can own the same vertices and edges, and some vertices and edges may have no owner whatsoever.
 
-Therefore, player inputs are solely determined by the vertices they own. Let the graph $G$ have $|V| = n$ vertices. Then each player's subgraph can be represented by $n$-bit strings $x$ and $y$, where $1$ at index $j$ indicates the player owns vertex $j$, and $0$ means the player does not own $j$. We may use $x,y$ and $G_A, G_B$ interchangeably, as they encode the same information. Given a fixed $G$, start vertex $v$, and end vertex $w$, an instance of $\TRAV_2$ is defined as follows:
+Let the graph $G$ have $|V| = n$ vertices. Then each player's subgraph can be represented by $n$-bit strings $x$ and $y$, where $1$ at index $j$ indicates the player owns vertex $j$, and $0$ means the player does not own $j$. This definition of $x$ and $y$ mean that we can use $x$ and $y$ interchangeably with $G_A$ and $G_B$ respectively. Now, given a fixed $G$, start vertex $v$, and end vertex $w$, an instance of $\TRAV_2$ is defined as follows:
 \begin{align}
     \TRAV_2(x,y) &: \{0,1\}^n \times \{0,1\}^n \to \{0,1\} \\
     \TRAV_2(x,y) &= \begin{cases}
@@ -69,7 +69,7 @@ Therefore, player inputs are solely determined by the vertices they own. Let the
     \end{cases}
 \end{align}
 \end{definition}
-The above definition generalizes to $\TRAV_k$, the traversal problem with $k$ players, as seen in Definition \ref{def:multi-party-trav}. The following figures illustrate what $\TRAV_2$ may look like.
+The following figures illustrate what $\TRAV_2$ may look like.
 
 \input{content/two-party/figures/valid_path.tex}
 \input{content/two-party/figures/no_path.tex}
