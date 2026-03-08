@@ -1,17 +1,17 @@
 \subsection{Deterministic Two-party Bounds}
 
-We begin by considering the case with only two players and thus two subgraphs ($k=2$). Let these players be named Alice and Bob, with subgraphs $G_A$ and $G_B$ respectively. Denote this problem by $\TRAV_2$, i.e.\ the traversal problem for 2 players, where $|V(G)| = n$ and $|E(G)| = O(n^2)$. We claim that $\TRAV_2$ is at least as hard as two player equality:
+We claim that $\TRAV_2$ is at least as hard as two player equality:
 
 \begin{claim}
 \label{claim:equality-trav-bound}
 Recall that equality $\EQ$ has inputs $x,y \in \{0,1\}^n$, and $\EQ(x,y) = 1$ iff $x = y$. Then $D(\TRAV_2) \geq D(\EQ)$, and more generally $\TRAV_2$ is at least as as hard as $\EQ$.
 \end{claim}
 
-\begin{proof}
-The high-level idea of this proof is to construct an equality gadget that lets us embed $\EQ$ into $\TRAV_2$. That is, given $x$ and $y$ as inputs of $\EQ$, we can convert these into subgraphs $G_1$ and $G_2$ inputs of $\TRAV$. We convert this in such a way that $\TRAV(G_1, G_2) = 1$ if and only if $\EQ(x,y) = 1$. Then $\TRAV$ cannot use less communication than the optimal $\EQ$ protocol, else we get a contradiction.
+The high-level idea of the following proof is to construct an equality gadget that lets us embed $\EQ$ into $\TRAV_2$. That is, given $x$ and $y$ as inputs of $\EQ$, we can convert these into subgraphs $G_1$ and $G_2$ inputs of $\TRAV$. We convert this in such a way that $\TRAV(G_1, G_2) = 1$ if and only if $\EQ(x,y) = 1$. Then $\TRAV$ cannot use less communication than the optimal $\EQ$ protocol, else we get a contradiction.
 
+\begin{proof}
 \textbf{Equality gadget.}
-We construct a gadget that enforces equality at a single bit position $i$ of $x$ and $y$. The gadget is shown in Figure~\ref{fig:equality_gadget}, and consists of two parallel branches:
+We construct a gadget that enforces equality at a single bit position at index $i$ of $x$ and $y$, for $i \in [n]$. The gadget is shown in Figure~\ref{fig:equality_gadget}, and consists of two parallel branches:
 
 \begin{enumerate}
     \item The top branch corresponds to the assignment $x_i = y_i = 1$, 
@@ -20,30 +20,30 @@ We construct a gadget that enforces equality at a single bit position $i$ of $x$
  
 \input{content/two-party/figures/equality_gadget.tex}
 
-Add $L$ and $R$ into $G_A$ and $G_B$. Then, add $x_i = 1$ if this is true to $G_A$, else add $x_i = 0$. Do the same for Bob. Then a path from $L$ to $R$ exists if and only if Alice and Bob have vertices on the same branch, which holds exactly when $x_i = y_i$.
+Add $L_i$ and $R_i$ into $G_A$ and $G_B$. Then, add ownership of $x_i = 1$ to $G_A$ if $x_i = 1$ is true, else add $x_i = 0$. Do the same for Bob and $y_i$. Then a path from $L_i$ to $R_i$ exists if and only if Alice and Bob have vertices on the same branch, which holds exactly when $x_i = y_i$.
 
-\textbf{Reduction to our graph problem.}
-Construct a graph of $n$ equality gadgets in a chain, as in Figure \ref{fig:equality-gadget-chain}. Construct subgraph $G_A$ as follows: Include all vertices at the start and end of each equality gadget (i.e. all the $L$ and $R$ above). Also, for every $i \in [n]$, give the vertex labelled $x_i = 1$ if this is true to $G_A$, else $x_i = 0$. Repeat for $G_B$.
+\textbf{Embedding $\EQ$ into $\TRAV_2$.}
+Construct a graph of $n$ equality gadgets in a chain, as in Figure \ref{fig:equality-gadget-chain}. We do this by setting $R_{l} = L_{l+1}$ for $l \in [n-1]$. Construct subgraph $G_A$ as follows: Include all vertices $L_i$ and $R_i$ for $i \in [n]$. Also, for every $i \in [n]$, give $G_A$ ownership of the vertex labelled $x_i = 1$ if this is true, else $x_i = 0$. Repeat for $G_B$ and $y$.
 
-In the resulting graph, set the leftmost vertex as the start vertex $v$, and the rightmost vertex as the end vertex $w$. Then there exists a path from $v$ to $w$ if and only if all gadgets are traversable, which occurs if and only if $x_i = y_i$ for all $i$, and therefore if and only if $x = y$.
+In the resulting graph, set $v = L_1$ as the start vertex $v$, and $w = R_n$ as the end vertex. Then there exists a path from $v$ to $w$ if and only if all gadgets are traversable, which occurs if and only if $x_i = y_i$ for all $i \in [n]$, and therefore if and only if $x = y$.
 
 \input{content/two-party/figures/equality_gadget_chain.tex}
 
 We conclude by noting that the resulting graph $G$ has $\Theta(n)$ vertices and $\Theta(n)$ edges. As $|x| = |y| = \Theta(n)$, this completes the reduction and $\TRAV_2$ is at least as hard as $\EQ$.
 \end{proof}
 
-The trivial protocol where Alice sends all of $G_A$ to Bob has communication complexity $\Theta(n)$. This gives $D(\TRAV_2) = O(n)$. Together with Claim \ref{claim:equality-trav-bound}, this gives $D(\TRAV_2) = \Theta(n)$. Thus $\TRAV_2$ is deterministically maximally hard.
+The trivial protocol where Alice sends all of $G_A$ to Bob has communication complexity $\Theta(n)$. Therefore, $D(\TRAV_2) = O(n)$. Together with Claim \ref{claim:equality-trav-bound}, this gives $D(\TRAV_2) = \Theta(n)$. Thus $\TRAV_2$ is deterministically maximally hard.
 
 \subsection{Randomized Two-Party Bounds}
 
-Above, we note that the problem is \textit{deterministically maximally hard}. However, allowing for some error may allow us to produce a randomized algorithm which much better cost. 
+Above, we note that the problem is \textit{deterministically maximally hard}. In many cases, allowing for some error may allow us to produce a randomized algorithm with lower communication complexity.
 
-Consider the \textit{public coin randomness} model. In this model, both parties have access to the same random bit-string in addition to the problem description and input. This random bit string can be as long as we want. We also allow our output to error, that is, be incorrect, some bounded constant percent of the time, and strictly less than half the time. It can be shown that using the public coin randomness model, equality---which is Deterministically maximally hard---can be reduced to being $O(1)$. We denote this by $R(\EQ) = O(1)$.
+Consider the \textit{public coin randomness} model. In this model, both parties have access to the same random bit-string in addition to the problem description and input. This random bit string can be as long as we want. We also allow our output to error, that is, be incorrect, some bounded constant percent of the time, and strictly less than half the time. It can be shown that using the public coin randomness model, equality---which is Deterministically maximally hard---can be reduced to being $O(1)$. We can denote the randomized communication complexity of equality by $R(\EQ) = O(1)$.
 
 Unfortunately, for $\TRAV_2$ we find that such a bound is unattainable. To prove this, we introduce the disjointness problem $\DISJ$, which has public coin randomized communication complexity $R(\DISJ) = \Theta(n)$. As we show, $\DISJ$ can be embedded into $\TRAV_2$.
 
-\begin{claim}
-\label{claim:disjoint-trav-bound}
+\begin{definition}
+\label{def:disj-two-party}
 Define the disjointness problem as follows: Let $x,y \in \{0,1\}^n$ be $n$-bit strings representing subsets of $[n]$. Then, for all $i \in [n]$, if $x_i = 1$, we say $i$ is in Alice's subset $S_A \subseteq [n]$, and if $x_i = 0$ it is not. Similarly for $y$ and Bob. Then 
 \begin{align}
     \DISJ(x,y) &: \{0,1\}^n \times \{0,1\}^n \to \{0,1\} \\
@@ -52,23 +52,28 @@ Define the disjointness problem as follows: Let $x,y \in \{0,1\}^n$ be $n$-bit s
         0 & S_A \cap S_B \neq \emptyset.
     \end{cases}
 \end{align}
-It is well-known that $D(\DISJ) = \Theta(n)$ and $R(\DISJ) = \Theta(n)$ \parencite{RaoYehudayoffBook}. We claim $R(\TRAV_2) \geq R(\DISJ)$, and more generally $\TRAV_2$ is at least as hard as $\DISJ$.
+It is well-known that $D(\DISJ) = \Theta(n)$ and $R(\DISJ) = \Theta(n)$ \parencite{RaoYehudayoffBook}. 
+\end{definition}
+
+\begin{claim}
+\label{claim:disjoint-trav-bound}
+We claim $R(\TRAV_2) \geq R(\DISJ)$, and more generally $\TRAV_2$ is at least as hard as $\DISJ$.
 \end{claim}
 
 \begin{proof}
 \textbf{Disjointness gadget.}
-We construct a gadget that enforces disjointness at a single entry $i \in [n]$. The gadget is shown in Figure \ref{fig:disjoint_gadget}. There, let $x_i$ and $y_i$ be indicator functions whether $i \in S_A$ and $i \in S_B$ respectively. Then:
+We construct a gadget that enforces disjointness at a single entry $i \in [n]$. The gadget is shown in Figure \ref{fig:disjoint_gadget}. There, let $x_i$ and $y_i$ be indicator functions that equal 1, respectively, when $i \in S_A$ and $i \in S_B$, else equal 0. Then:
 \begin{enumerate}
     \item The top branch corresponds to when $i \in S_A$ but $i \notin S_B$.
     \item The middle branch corresponds to when $i \notin S_A$ and $i \notin S_B$.
     \item The bottom branch corresponds to when $i \in S_B$ but $i \notin S_A$.
 \end{enumerate}
-Give $L$ and $R$ to $G_A$ and $G_B$. Then give all vertices labelled $x_i = 1$ to $G_A$ if this is true, else give all vertices labelled $x_i = 0$. Do the same with $y$ and $G_B$. In other words, there is no path $L$ to $R$ if $i \in X \cap Y$, but there is a path in all other cases.
+Give $L_i$ and $R_i$ to both $G_A$ and $G_B$. Then give ownership of vertices labelled $x_i = 1$ to $G_A$ if this is true, else give all vertices labelled $x_i = 0$. Do the same with $y$ and $G_B$. Therefore, there is no path $L_i$ to $R_i$ if $i \in X \cap Y$, but there is a path in all other cases.
 
 \input{content/two-party/figures/disjoint_gadget}
 
-\textbf{Reduction to our graph problem.}
-We construct a graph $G$ by chaining one copy of this gadget for each index $i \in [n]$ between a global start vertex $v$ and end vertex $w$. Construct $G_A$ by giving all vertices at the start and end of every disjointness gadget (i.e.  all $L$ and $R$), and vertices labelled $x_i = 1$ if it is true, else $x_i = 0$. Do similar for $G_B$.
+\textbf{Embedding $\DISJ$ into $\TRAV_2$.}
+We construct a graph $G$ by chaining $n$ copies of the disjointness gadget. More precisely, set $R_l = L_{l+1}$ for $l \in [n-1]$. Then, set $v = L_1$ as the start vertex and $w = R_n$ as the end vertex. Construct $G_A$ by giving ownership of all vertices $L_i$, $R_i$ and vertices labelled $x_i = 1$ if it is true, else $x_i = 0$, for $i \in [n]$. Do similar for $G_B$.
 
 In the resulting graph, there exists a path from $v$ to $w$ if and only if all disjointness gadgets are traversable, which occurs if and only if $X \cap Y = \emptyset$.
 
