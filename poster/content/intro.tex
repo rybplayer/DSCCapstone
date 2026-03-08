@@ -145,6 +145,50 @@ In this model, there are two players, traditionally called \textbf{Alice} and \t
 Neither of them knows the inputs of the other person, so they must talk back
 and forth until they know enough to compute some function $f(x,y)$.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.5]
+
+% ---------- Alice ----------
+\draw (0,0) circle (0.5);            
+\draw (0,-0.5) -- (0,-2);             
+\draw (0,-1) -- (-0.8,-1.5);          
+\draw (0,-1) -- (0.8,-1.5);          
+\draw (0,-2) -- (-0.6,-3);           
+\draw (0,-2) -- (0.6,-3);             
+\node at (0,-3.6) {Alice: $x$};
+
+
+% ---------- Bob ----------
+\draw (12,0) circle (0.5);              
+\draw (12,-0.5) -- (12,-2);              
+\draw (12,-1) -- (11.2,-1.5);            
+\draw (12,-1) -- (12.8,-1.5);            
+\draw (12,-2) -- (11.4,-3);              
+\draw (12,-2) -- (12.6,-3);              
+\node at (12,-3.6) {Bob: $y$};
+
+% ---------- Speech bubble from Alice ----------
+\draw[rounded corners=10pt] 
+(2,0.5) rectangle (8,2);
+
+\node at (5,1.2) {\small ``The first bit of $x$ is a $1$.''};
+\draw (1,0.5) -- (2,1);
+\draw (1,0.5) -- (2,1.5);
+
+
+
+% ---------- Speech bubble from Bob ----------
+\draw[rounded corners=10pt] 
+(3.5,-2) rectangle (9.5,-0.5);
+\node at (6.5,-1.3) {\small ``The second bit of $y$ is a $0$.''};
+\draw (9.5,-1) -- (11,-0.5); 
+\draw (9.5,-1.5) -- (11,-0.5);  
+
+
+\end{tikzpicture}
+\caption{Alice and Bob communicating parts of their input.}
+\end{figure}
 
 In the worst case, Alice just sends all $n$ bits. This is called
 \textbf{maximally hard}, as after sending her entire input, Bob can simply
