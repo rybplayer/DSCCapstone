@@ -82,20 +82,20 @@ implies that Equality requires at least $n$ bits of communication. \\
 \end{scope}
 
 % Axis labels
-\node at (2,0.5) {Bob: y};
-\node[rotate=90] at (-0.8,-2) {Alice: x};
+\node at (1.65,0.5) {Bob: y};
+\node[rotate=90] at (-0.6,-1.6) {Alice: x};
 
 % Legend dot
-\fill[blue!80] (4,0) circle (0.08);
-\node[anchor=west] at (4.1,0) {\small $f(x,y)=1$};
+\fill[blue!80] (3.6,0) circle (0.08);
+\node[anchor=west] at (3.7,0) {\small $f(x,y)=1$};
 
 % Legend empty
-\fill[gray!25] (4,-0.3) circle (0.08);
-\node[anchor=west] at  (4.1,-0.3) {\small $f(x,y)=0$};
+\fill[gray!25] (3.6,-0.3) circle (0.08);
+\node[anchor=west] at  (3.7,-0.3) {\small $f(x,y)=0$};
 
 \end{tikzpicture}
 \end{center}
-\caption{Communication matrix for Equality}
+\caption{Communication matrix for Equality.}
 \end{figure}
 
 \end{columns}
@@ -195,7 +195,7 @@ subgraphs?
 \begin{block}{ The Equality Gadget}
 
 \begin{figure}[H]
-\begin{tikzpicture}[scale=3, every node/.style={circle, fill=black, inner sep=1.5pt}]
+\begin{tikzpicture}[scale=3, every node/.style={circle, fill=black, inner sep=2pt}]
 
 \node (L) at (-2,0) {};
 \node (T1) at (-0.8,1.5) {};
@@ -223,19 +223,18 @@ subgraphs?
 \node[draw=none, fill=none, below=6pt] at (B2) {$y_i = 0$};
 
 \end{tikzpicture}
-\label{fig:equality_gadget}
 \caption{Gadget for proving equality Embedding}
+\label{fig:equality_gadget}
 \end{figure}
 
-Consider Figure 5 as one part of a whole graph. All players own the start and end vertices. Alice owns $x_i=1$ if this is true, else $x_i=0$. Similarly for Bob and $y$. Let $x_i$ be the $i$th bit of Alice's input, and $y_i$ be the
-$i$th bit of Bob's input. Then:
+Let $x_i$ be the $i$th bit of Alice's input, and $y_i$ be the $i$th bit of Bob's input. Consider Figure \ref{fig:equality_gadget} as one part of a whole graph. All players own the start and end vertices. Alice owns $x_i=1$ if this is true, else $x_i=0$. Similarly for Bob and $y$. Then:
 
 \begin{enumerate}
     \item \ The top branch corresponds to $x_i = y_i = 1$, 
     \item \ The bottom branch corresponds to $x_i = y_i = 0$. 
 \end{enumerate}
 
-And thus, traversal is only possible if Alice's $x_i$ is equal to Bob's
+Thus, traversal is only possible if Alice's $x_i$ is equal to Bob's
 $y_i$.
 
 \end{block}
@@ -254,7 +253,8 @@ regular polygon,
 regular polygon sides=6,
 minimum size=5cm,
 inner sep=0pt
-}
+},
+point/.style={circle, fill=black, inner sep=2pt}
 ]
 
 \node[hex] (h1) at (0,0)  {$i=1$};
@@ -262,6 +262,9 @@ inner sep=0pt
 \node[hex] (h3) at (10,0) {$i=3$};
 \node[hex] (h4) at (15,0) {$\cdots$};
 \node[hex] (h5) at (20,0) {$i=n$};
+
+\node[point, label=left:{$Start$}] at (-2.5,0) {};
+\node[point, label=right:{$End$}] at (22.5,0) {};
 
 
 \end{tikzpicture}
@@ -274,7 +277,7 @@ for every index, which means that it is only possible if $x=y$.
 
 Using this, we can embed Equality into the Traversal Problem. Solving the Traversal Problem 
 efficiently would mean checking if $x=y$ efficiently, so any algorithm that
-solves the Traversal problem will also solve Equality.
+solves the Traversal problem can also solve Equality.
 
 From this we can conclude that \textbf{\textsc{Traversal} is also
 deterministically maximally hard.}

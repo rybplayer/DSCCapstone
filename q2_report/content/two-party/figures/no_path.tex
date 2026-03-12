@@ -20,12 +20,12 @@
   \node[point] (b3) at (1.4,0.2) {};
   \draw[dotted] (b1) -- (b2) -- (b3);
   \draw[dotted] (a2) -- (b1);
-  \draw[dotted] (b3) -- (c1);
 
   \node[point] (c1) at (2.6,0.5) {};
   \node[point] (c2) at (3.8,0.6) {};
   \node[point] (c3) at (3.4,-0.3) {};
   \draw[dotted] (c1) -- (c2) -- (c3);
+  \draw[dotted] (b3) -- (c1);
 \end{tikzpicture}
 \caption{Example graph where $\TRAV(x,y) = 0$.}
 \label{fig:traversal-no-path}

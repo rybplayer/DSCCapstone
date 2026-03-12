@@ -1,0 +1,37 @@
+\usepackage[base]{babel}
+\usepackage{nicefrac}
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\PassOptionsToPackage{pdfpagelabels=false}{hyperref}
+\usepackage{dsc180reportstyle}
+\usepackage{tabularx}
+\usepackage{cleveref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{fontspec}
+\IfFontExistsTF{Fira Code}{\setmonofont[Scale=0.9]{Fira Code}}{\setmonofont{Menlo}}
+\usepackage[basic, small, disableredefinitions]{complexity}
+\usetikzlibrary{shapes.geometric}
+\newcommand{\term}{\emph}
+\usepackage[width=0.8\textwidth]{caption}
+\captionsetup{
+    labelfont={bf},
+    textfont={it}
+}
+\newtheorem{claim}{Claim}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newclass{\EQ}{EQ}
+\newclass{\DISJ}{DISJ}
+\newclass{\TRAV}{TRAV}
+\newclass{\CTRAV}{CTRAV}
+\newclass{\STRAV}{STRAV}
+\newclass{\ITRAV}{I\text{-}TRAV}
+\newclass{\BHS}{BHS}
+\newcommand{\rank}{\operatorname{rank}}
+\tikzset{
+  point/.style={
+    circle,
+    fill,
+    inner sep=1pt
+  }
+}

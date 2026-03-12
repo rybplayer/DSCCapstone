@@ -72,7 +72,7 @@
 			\draw[red, very thick] (4.9,-1.3) -- (5.3,-1.9);
 
 		\end{tikzpicture}
-		\caption{Graph with ignored Edges}
+		\caption{Graph with ignored edges.}
 	\end{figure}
 
 
@@ -80,8 +80,8 @@
 	There is no asymptotically better way to solve this problem than for
 	Alice to send her entire input to Bob. However, we might also consider
 	adding randomness and allowing error. For instance, if there is a
-	path, it is unlikely that it will use any randomly selected edge,
-	so we might consider randomly ignoring some.
+	path, it is unlikely that it will use a particular edge,
+	we can try randomly ignoring some edges.
 
 \end{block}
 
@@ -101,7 +101,7 @@
 
 	Set Disjointness gives each player some number of elements from a set,
 	and asks if the players have any elements in common. If so, the
-	protocol outputs 0, and 1 otherwise. Set Disjointness is usefull when
+	protocol outputs 0, and 1 otherwise. Set Disjointness is useful when
 	studying random algorithms since it has been shown that it requires
 	asymptotically \textbf{maximal \emph{randomized} communication}.
 
@@ -134,24 +134,24 @@
 \draw (M1) -- (M2);
 \draw (M2) -- (R);
 
-\node[draw=none, fill=none, above=2pt] at (T1) {\scriptsize $x_i = 1$};
-\node[draw=none, fill=none, above=2pt] at (T2) {\scriptsize $y_i = 0$};
+\node[draw=none, fill=none, above=1pt] at (T1) {\scriptsize $x_i = 1$};
+\node[draw=none, fill=none, above=1pt] at (T2) {\scriptsize $y_i = 0$};
 
-\node[draw=none, fill=none, above=2pt] at (M1) {\scriptsize $x_i = 0$};
-\node[draw=none, fill=none, above=2pt] at (M2) {\scriptsize $y_i = 0$};
+\node[draw=none, fill=none, above=1pt] at (M1) {\scriptsize $x_i = 0$};
+\node[draw=none, fill=none, above=1pt] at (M2) {\scriptsize $y_i = 0$};
 
-\node[draw=none, fill=none, below=2pt] at (B1) {\scriptsize $x_i = 0$};
-\node[draw=none, fill=none, below=2pt] at (B2) {\scriptsize $y_i = 1$};
+\node[draw=none, fill=none, below=1pt] at (B1) {\scriptsize $x_i = 0$};
+\node[draw=none, fill=none, below=1pt] at (B2) {\scriptsize $y_i = 1$};
 
-\node[draw=none, fill=none, left=2pt] at (L) {\scriptsize $L$};
-\node[draw=none, fill=none, right=2pt] at (R) {\scriptsize $R$};
+\node[draw=none, fill=none, left=2pt] at (L) {\scriptsize $Start$};
+\node[draw=none, fill=none, right=2pt] at (R) {\scriptsize $End$};
 
 \end{tikzpicture}
-\caption{Disjoitness gadget. A path $L$ to $R$ only exists if either $x_i = 0$ or $y_i = 0$.}
+\caption{Disjointness gadget. A path $Start$ to $End$ only exists if either $x_i = 0$ or $y_i = 0$.}
 \label{fig:disjoint_gadget}
 \end{figure}
 
-Let Alice have vertices $L$, $R$, and $x_i = 1$ if this is true, else $x_i = 0$. Same for Bob with $y$. This gadget can be chained together to show that Set Disjointness can be embedded into Traversal. Therefore, \textbf{Traversal is also maximally hard for randomized communication.}
+Let Alice have vertices $Start$, $End$, and $x_i = 1$ if this is true, else $x_i = 0$. Same for Bob with $y$. This gadget can be chained together to show that Set Disjointness can be embedded into Traversal. Therefore, \textbf{Traversal is also maximally hard for randomized communication.}
 
 \end{block}
 
